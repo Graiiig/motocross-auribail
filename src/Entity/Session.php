@@ -30,7 +30,7 @@ class Session
     private $date;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="sessions")
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="sessions", cascade={"persist"})
      */
     private $user;
 
