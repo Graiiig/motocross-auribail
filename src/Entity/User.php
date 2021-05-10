@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -58,6 +60,21 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $licence;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $address;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Session::class, mappedBy="user")
+     */
+    private $sessions;
+
+    public function __construct()
+    {
+        $this->sessions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -196,6 +213,45 @@ class User implements UserInterface
     public function setLicence(?string $licence): self
     {
         $this->licence = $licence;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Session[]
+     */
+    public function getSessions(): Collection
+    {
+        return $this->sessions;
+    }
+
+    public function addSession(Session $session): self
+    {
+        if (!$this->sessions->contains($session)) {
+            $this->sessions[] = $session;
+            $session->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSession(Session $session): self
+    {
+        if ($this->sessions->removeElement($session)) {
+            $session->removeUser($this);
+        }
 
         return $this;
     }
