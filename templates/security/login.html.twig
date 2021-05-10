@@ -15,20 +15,20 @@
     {% endif %}
 
 <div class="container ">
-    <div class"col-4 justify-content-center">
-  <div class="row justify-content-center col-4">
-    <h1 class="h3 my-3 font-weight-normal">Connectez-vous</h1>
-    </div>
-    <div class="row col-4">
-    <label for="inputEmail">E-mail</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required="required" autofocus="autofocus">
-    <label for="inputPassword">Mot de Passe</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required="required">
+  <div class="row justify-content-center text-center col-12">
+    <div class="col-sm-3 col-xl-4 col-md-4 " style="height : 100px">
+      <h1 class="h3 my-3 font-weight-normal">Connectez-vous</h1>
 
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">    
-    <button class="btn btn-lg btn-warning mt-3 justify-content-center" type="submit">Connexion</button>
-    </form>
-  </div>
+      
+        <label for="inputEmail">E-mail</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required="required" autofocus="autofocus">
+        <label for="inputPassword">Mot de Passe</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required="required">
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <button class="btn btn-lg btn-warning mt-3 justify-content-center" type="submit">Connexion</button>
+      </form>
+    </div>
   </div>
 </div>
 
