@@ -7,9 +7,17 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 class UserFixtures extends Fixture
 {
     
+     private $passwordEncoder;
+
+     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+     {
+         $this->passwordEncoder = $passwordEncoder;
+     }
     
     public function load(ObjectManager $manager)
     {
@@ -29,28 +37,28 @@ class UserFixtures extends Fixture
              ->setDate(new \DateTime('2021-12-05') );
         $manager->persist($session2);
 
-        for ($i=0; $i < 40 ; $i++) { 
-            $user = new User();
-            $user->setLastName($faker->lastName)
-                 ->setFirstName($faker->firstName)
-                 ->setEmail($faker->email)
-                 ->setPhoneNumber($faker->phoneNumber)
-                 ->setAddress("2 rue du coquinou")
-                 ->setPassword('123') 
-                 ->setRoles(['ROLE_MEMBER'])
-                 ->setBirthdate( new \DateTime())
-                 ->setLicence($faker->randomNumber($nbDigits = NULL, $strict = false));
+        // for ($i=0; $i < 40 ; $i++) { 
+        //     $user = new User();
+        //     $user->setLastName($faker->lastName)
+        //          ->setFirstName($faker->firstName)
+        //          ->setEmail($faker->email)
+        //          ->setPhoneNumber($faker->phoneNumber)
+        //          ->setAddress("2 rue du coquinou")
+        //          ->setPassword('123') 
+        //          ->setRoles(['ROLE_MEMBER'])
+        //          ->setBirthdate( new \DateTime())
+        //          ->setLicence($faker->randomNumber($nbDigits = NULL, $strict = false));
 
-                if ($i<13) {
-                    $user->addSession($session);
-                }
-                else if ($i>=13 && $i < 30) {
-                    $user->addSession($session2);
+        //         if ($i<13) {
+        //             $user->addSession($session);
+        //         }
+        //         else if ($i>=13 && $i < 30) {
+        //             $user->addSession($session2);
 
-                }
+        //         }
                 
-            $manager->persist($user);
-        }
+        //     $manager->persist($user);
+        // }
         for ($i=0; $i < 40 ; $i++) { 
             $user = new User();
             $user->setLastName($faker->lastName)
@@ -58,18 +66,21 @@ class UserFixtures extends Fixture
                  ->setEmail($faker->email)
                  ->setPhoneNumber($faker->phoneNumber)
                  ->setAddress("2 rue du coquinou")
-                 ->setPassword('123') 
+                 ->setPassword($this->passwordEncoder->encodePassword(
+                                 $user,
+                                 '123'
+                             ))
                  ->setRoles(['ROLE_NON_MEMBER'])
                  ->setBirthdate( new \DateTime())
-                 ->setLicence($faker->randomNumber($nbDigits = NULL, $strict = false));
+                 ->setLicense($faker->randomNumber($nbDigits = NULL, $strict = false));
 
-                 if ($i<13) {
-                    $user->addSession($session);
-                }
-                else if ($i>=13 && $i < 30) {
-                    $user->addSession($session2);
+                //  if ($i<13) {
+                //     $user->addSession($session);
+                // }
+                // else if ($i>=13 && $i < 30) {
+                //     $user->addSession($session2);
 
-                }
+                // }
             $manager->persist($user);
         }
 
