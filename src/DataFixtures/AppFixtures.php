@@ -31,6 +31,21 @@ class AppFixtures extends Fixture
             # code...
             $manager->persist($user);
         }
+        for ($i=0; $i < 40 ; $i++) { 
+            $user = new User();
+            $user->setLastName($faker->lastName)
+                 ->setFirstName($faker->firstName)
+                 ->setEmail($faker->email)
+                 ->setPhoneNumber($faker->phoneNumber)
+                 ->setAddress("2 rue du coquinou")
+                 ->setPassword('123') 
+                 ->setRoles(['ROLE_NON_MEMBER'])
+                 ->setBirthdate( new \DateTime())
+                 ->setLicence($faker->randomNumber($nbDigits = NULL, $strict = false));
+
+            # code...
+            $manager->persist($user);
+        }
 
 
         $manager->flush();
