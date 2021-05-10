@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -47,39 +45,29 @@ class User implements UserInterface
     private $firstName;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $birthdate;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $phoneNumber;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private $licence;
+    private $license;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $address;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Session::class, mappedBy="user")
-     */
-    private $sessions;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $profilePicture;
-
-    public function __construct()
-    {
-        $this->sessions = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -132,7 +120,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return $this->password;
     }
 
     public function setPassword(string $password): self
@@ -191,7 +179,7 @@ class User implements UserInterface
         return $this->birthdate;
     }
 
-    public function setBirthdate(\DateTimeInterface $birthdate): self
+    public function setBirthdate(?\DateTimeInterface $birthdate): self
     {
         $this->birthdate = $birthdate;
 
@@ -203,21 +191,21 @@ class User implements UserInterface
         return $this->phoneNumber;
     }
 
-    public function setPhoneNumber(?string $phoneNumber): self
+    public function setPhoneNumber(string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
 
-    public function getLicence(): ?string
+    public function getLicense(): ?string
     {
-        return $this->licence;
+        return $this->license;
     }
 
-    public function setLicence(?string $licence): self
+    public function setLicense(?string $license): self
     {
-        $this->licence = $licence;
+        $this->license = $license;
 
         return $this;
     }
@@ -227,36 +215,9 @@ class User implements UserInterface
         return $this->address;
     }
 
-    public function setAddress(?string $address): self
+    public function setAddress(string $address): self
     {
         $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Session[]
-     */
-    public function getSessions(): Collection
-    {
-        return $this->sessions;
-    }
-
-    public function addSession(Session $session): self
-    {
-        if (!$this->sessions->contains($session)) {
-            $this->sessions[] = $session;
-            $session->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSession(Session $session): self
-    {
-        if ($this->sessions->removeElement($session)) {
-            $session->removeUser($this);
-        }
 
         return $this;
     }
