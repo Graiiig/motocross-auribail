@@ -1,20 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DefaultController!{% endblock %}
+{% block title %}Bienvenue ! {% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container mt-5">
+        <div class="row justify-content-center opacity-3">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <div class="col-lg-5 col-md-12 text-dark text-center">
+            <h1 class="display-3">Bienvenue !</h1>
+            <h3 class="h3">Notre passion, la Motocross</h3>
+            <h3 class="h3">Notre passion, le pain pita</h3>
+        </div>
+            <div class="card text-center mx-5">
+                <div class="card-header">
+                    <!--Il faut récupérer les dates des entrainements depuis la bdd pour les mettre dans les data-attribut-->
+                    Inscription pour l'entrainement du <span data-date="{{session.date | date('Y-m-d')}}"
+                        class="date-1 date">{{session.date | date('d/m/Y')}}</span> :
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{session.title}}</h5>
+                    <p class="card-text">Place(s) adultes restantes : {{adults}}</p>
+                    <p class="card-text">Place(s) enfants restantes : {{children}}</p>
+                    <a href="#" class="btn btn-primary">S'inscrire</a>
+                </div>
+                <div class="card-footer text-muted">
+                    <span>Dans </span> <span class="date-1-diff"></span><span> jours</span>
+                </div>
+            </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Applications/MAMP/htdocs/motocross-auribail/src/Controller/DefaultController.php'|file_link(0) }}">src/Controller/DefaultController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Applications/MAMP/htdocs/motocross-auribail/templates/default/index.html.twig'|file_link(0) }}">templates/default/index.html.twig</a></code></li>
-    </ul>
-</div>
+        </div>
+    </div>
+
+    <footer>
+
+        <div class="container-fluid mt-5 mb-2">
+            <div class="row justify-content-center justify-content-lg-start">
+                <a href="https://fr-fr.facebook.com/auribail.motosport" target="_blank" class="col-2 col-lg-1 mt-5">
+                    <span class="material-icons-outlined facebook-outlined grow">facebook</span>
+                </a>
+
+                <a href="https://www.waze.com/ul?ll=43.3414306641%2C1.3549046516&amp;navigate=yes&amp;zoom=17"
+                    target="_blank" class="col-2 col-lg-1 mt-5">
+                    <img src="img/waze.svg"  class="gps-svg grow waze" alt="Waze">
+                </a>
+
+                <a href="https://maps.google.com/maps/search/?api=1&amp;query=43.3414306641,1.3549046516"
+                    target="_blank" class="col-2 col-lg-1 mt-5">
+                    <img src="img/google_map_square.svg" class="gps-svg grow google-map"  alt="Google map">
+                </a>
+
+            </div>
+        </div>
+
+
+    </footer>
+    
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="scripts.js"></script>
 {% endblock %}
