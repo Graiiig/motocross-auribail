@@ -71,6 +71,11 @@ class User implements UserInterface
      */
     private $sessions;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $profilePicture;
+
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
@@ -252,6 +257,18 @@ class User implements UserInterface
         if ($this->sessions->removeElement($session)) {
             $session->removeUser($this);
         }
+
+        return $this;
+    }
+
+    public function getProfilePicture(): ?string
+    {
+        return $this->profilePicture;
+    }
+
+    public function setProfilePicture(?string $profilePicture): self
+    {
+        $this->profilePicture = $profilePicture;
 
         return $this;
     }
