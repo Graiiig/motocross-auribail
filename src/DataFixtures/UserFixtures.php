@@ -37,28 +37,31 @@ class UserFixtures extends Fixture
              ->setDate(new \DateTime('2021-12-05') );
         $manager->persist($session2);
 
-        // for ($i=0; $i < 40 ; $i++) { 
-        //     $user = new User();
-        //     $user->setLastName($faker->lastName)
-        //          ->setFirstName($faker->firstName)
-        //          ->setEmail($faker->email)
-        //          ->setPhoneNumber($faker->phoneNumber)
-        //          ->setAddress("2 rue du coquinou")
-        //          ->setPassword('123') 
-        //          ->setRoles(['ROLE_MEMBER'])
-        //          ->setBirthdate( new \DateTime())
-        //          ->setLicence($faker->randomNumber($nbDigits = NULL, $strict = false));
+        for ($i=0; $i < 40 ; $i++) { 
+            $user = new User();
+            $user->setLastName($faker->lastName)
+                 ->setFirstName($faker->firstName)
+                 ->setEmail($faker->email)
+                 ->setPhoneNumber($faker->phoneNumber)
+                 ->setAddress("2 rue du coquinou")
+                 ->setPassword($this->passwordEncoder->encodePassword(
+                    $user,
+                    '123'
+                ))
+                 ->setRoles(['ROLE_MEMBER'])
+                 ->setBirthdate( new \DateTime())
+                 ->setLicense($faker->randomNumber($nbDigits = NULL, $strict = false));
 
-        //         if ($i<13) {
-        //             $user->addSession($session);
-        //         }
-        //         else if ($i>=13 && $i < 30) {
-        //             $user->addSession($session2);
+                if ($i<13) {
+                    $user->addSession($session);
+                }
+                else if ($i>=13 && $i < 30) {
+                    $user->addSession($session2);
 
-        //         }
+                }
                 
-        //     $manager->persist($user);
-        // }
+            $manager->persist($user);
+        }
         for ($i=0; $i < 40 ; $i++) { 
             $user = new User();
             $user->setLastName($faker->lastName)
@@ -74,13 +77,13 @@ class UserFixtures extends Fixture
                  ->setBirthdate( new \DateTime())
                  ->setLicense($faker->randomNumber($nbDigits = NULL, $strict = false));
 
-                //  if ($i<13) {
-                //     $user->addSession($session);
-                // }
-                // else if ($i>=13 && $i < 30) {
-                //     $user->addSession($session2);
+                 if ($i<13) {
+                    $user->addSession($session);
+                }
+                else if ($i>=13 && $i < 30) {
+                    $user->addSession($session2);
 
-                // }
+                }
             $manager->persist($user);
         }
 
