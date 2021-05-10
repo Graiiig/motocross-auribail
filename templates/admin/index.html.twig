@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <table class="table table-striped">
+        <h1>Liste des utilisateurs (Limité à 5)</h1>
+        <thead>
+            <tr>
+                <th scope="col">Prénom</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Date de naissance</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col">Licence</th>
+                <th scope="col">Adresse</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.birthdate | date('d/m/y') }}</td>
+                <td>{{ user.phoneNumber }}</td>
+                <td>{{ user.license }}</td>
+                <td>{{ user.address }}</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <table class="table table-striped">
+        <h1>Liste des sessions (Limité à 5)</h1>
+        <thead>
+            <tr>
+                <th scope="col">Titre</th>
+                <th scope="col">Date</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for session in sessions %}
+            <tr>
+                <td>{{ session.title }}</td>
+                <td>{{ session.date | date('d/m/y') }}</td>
+                <td><a href="{{ path('admin_session', {'id' : session.id}) }}">Afficher</a></td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}
