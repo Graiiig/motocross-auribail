@@ -21,7 +21,13 @@
                     <h5 class="card-title">{{session.title}}</h5>
                     <p class="card-text">Place(s) adultes restantes : {{adults}}</p>
                     <p class="card-text">Place(s) enfants restantes : {{children}}</p>
-                    <a href="#" class="btn btn-primary">S'inscrire</a>
+
+                    {% if usersInSession < 75 %}
+                        <a href="#" class="btn btn-primary">S'inscrire</a>
+                    {% else %}
+                        <a class="btn btn-primary">Plus de place de disponibles, voir les prochaines courses</a>
+                    {% endif %}
+
                 </div>
                 <div class="card-footer text-muted">
                     <span>Dans </span> <span class="date-1-diff"></span><span> jours</span>

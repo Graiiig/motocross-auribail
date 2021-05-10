@@ -15,33 +15,34 @@ class DefaultController extends AbstractController
      */
     public function index(): Response
     {
-        // $em = $this->getDoctrine()->getManager();
-        // $sessionRepo = $em->getRepository(Session::class);
         $session = $this->getDoctrine()
             ->getRepository(Session::class)
             ->findNext();
-        dump(count($session->getUser()));
+        
+        // *** Le nombre d'utilisateurs dans une session *** //
+        $usersInSession = count($session->getUser());
 
+        // *** Calcul des âges pour déterminer les places restantes dans chaque
+        // *** catégorie
         $adults = 0;
         $children = 0;
         foreach ($session->getUser() as $key => $user) {
             $today = new \DateTime(); 
             $interval = $today->diff($user->getBirthdate());
-            // dump (intval($interval->format('%Y')));
             if (intval($interval->format('%Y')) < 16) {
                 $children++;
             }
             else {
                 $adults++;
             }
-
-
-            // dump($user);
         }
+        $children = 15 - $children;
+        $adults = 75 - $adults;
         return $this->render('default/index.html.twig', [
             "session"=>$session,
             "adults"=> $adults,
-            "children"=>$children
+            "children"=>$children,
+            "usersInSession" => $usersInSession
         ]);
     }
 }
