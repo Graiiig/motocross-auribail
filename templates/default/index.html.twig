@@ -14,13 +14,13 @@
             <div class="card text-center mx-5">
                 <div class="card-header">
                     <!--Il faut récupérer les dates des entrainements depuis la bdd pour les mettre dans les data-attribut-->
-                    Inscription pour l'entrainement du <span data-date="2021-06-06"
-                        class="date-1 date">06/06/2021</span> :
+                    Inscription pour l'entrainement du <span data-date="{{session.date | date('Y-m-d')}}"
+                        class="date-1 date">{{session.date | date('d/m/Y')}}</span> :
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">La coupe du Débarquement</h5>
-                    <p class="card-text">Place(s) adultes restantes : 35</p>
-                    <p class="card-text">Place(s) enfants restantes : 12</p>
+                    <h5 class="card-title">{{session.title}}</h5>
+                    <p class="card-text">Place(s) adultes restantes : {{adults}}</p>
+                    <p class="card-text">Place(s) enfants restantes : {{children}}</p>
                     <a href="#" class="btn btn-primary">S'inscrire</a>
                 </div>
                 <div class="card-footer text-muted">
@@ -54,4 +54,8 @@
 
 
     </footer>
+    
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="scripts.js"></script>
 {% endblock %}

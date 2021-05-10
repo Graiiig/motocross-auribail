@@ -24,7 +24,6 @@
         href="https://cdn.jsdelivr.net/combine/npm/bootswatch@4.6.0/dist/superhero/bootstrap.min.css,npm/bootswatch@4.6.0/dist/superhero/bootstrap.min.css">
 
     </script>
-    <script type="text/javascript" src="scripts.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Orelega+One&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -35,9 +34,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Patua+One&display=swap" rel="stylesheet">
 
-    {% block javascripts %}
-    {#{{ encore_entry_script_tags('app') }}#}
-    {% endblock %}
 </head>
 
 <body>
@@ -47,4 +43,7 @@
     {% endblock %}
 </body>
 
+    {% block javascripts %}
+    {#{{ encore_entry_script_tags('app') }}#}
+    {% endblock %}
 </html>

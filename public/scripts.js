@@ -1,6 +1,8 @@
   // Script pour faire la différence des dates//
   let dates = document.querySelectorAll('.date');
 
+  console.log('toto')
+
   var i;
   for (i = 0; i < dates.length; i++) {
 
