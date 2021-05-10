@@ -1,19 +1,10 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> ef4a27a8e07b819d224d9e91efcf1c61b1ce6426
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
-<<<<<<< HEAD
-/var/
-/vendor/
-=======
 /src/preload.php
->>>>>>> ef4a27a8e07b819d224d9e91efcf1c61b1ce6426
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
@@ -21,8 +12,6 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
-<<<<<<< HEAD
-=======
 
 
 # Cache and logs (Symfony2)
@@ -78,4 +67,4 @@
 # Embedded web-server pid file
 /.web-server-pid
 .env
->>>>>>> ef4a27a8e07b819d224d9e91efcf1c61b1ce6426
+.env
