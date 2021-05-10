@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Session;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @method Session|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +48,22 @@ class SessionRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+    public function findNext(): ?Session
+    {
+    $currentDate = new \DateTime();   
+    // dd($currentDate);     
+
+        $session = $this->createQueryBuilder('s')
+            ->andWhere('s.date > :date')
+            ->setParameter('date', $currentDate)
+            ->getQuery()
+            ->setMaxResults(1)
+            ->getResult()
+        ;
+
+        // dd($session);
+        return $session[0];
+    }
+    
 }
