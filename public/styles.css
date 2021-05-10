@@ -1,0 +1,99 @@
+ /*css pour les bureaux*/
+
+ @media screen and (min-width : 991px) {
+    footer{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .facebook-outlined {
+        font-size: 4vw!important;
+    }
+
+    .gps-svg {
+        width: 4vw;
+    }
+}
+
+/*css pour mobiles*/
+
+@media screen and (max-width : 991px) {
+
+    .facebook-outlined {
+        font-size: 8vh!important;
+    }
+    
+    .gps-svg {
+        width: 8vh;
+    }
+    
+}
+
+
+
+
+
+body {
+    background-image: url("img/pexels-daniel-217872.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+
+}
+
+
+
+.patua {
+    font-family: 'Patua One', cursive;
+
+}
+
+#navId li {
+    border-bottom: 2px solid rgb(88, 224, 150, 0);
+}
+
+#navId li:hover {
+    border-bottom: 2px solid rgb(88, 224, 150)
+}
+
+.grow {
+    transition: all .2s ease-in-out;
+}
+
+.grow:hover {
+    transform: scale(1.1);
+
+}
+
+footer .grow:hover {
+    -moz-box-shadow: 0 0 50px rgb(22, 236, 22);
+    -webkit-box-shadow: 0 0 50px rgb(22, 236, 22);
+    box-shadow: 0px 0px 50px rgb(22, 236, 22);
+}
+
+.nav-icons {
+    font-size: 2.5vw;
+}
+
+.green-two-tone {
+    filter: invert(90%) sepia(69%) saturate(1848%) hue-rotate(27deg) brightness(105%) contrast(98%);
+}
+
+.orange-two-tone {
+    filter: invert(45%) sepia(39%) saturate(6701%) hue-rotate(360deg) brightness(100%) contrast(108%);
+}
+
+.facebook-outlined {
+    color: rgb(25, 25, 155);
+    background-color: azure;
+    border-radius: 100%;
+}
+
+
+.gps-svg img {
+    border-radius: 23%;
+    filter: brightness(1.1);
+
+}

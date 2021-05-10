@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+{# <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <!-- Nom du site -->
     <a class="navbar-brand" href="#">Motocross-Auribail</a>
     <!-- Bouton responsive -->
@@ -20,4 +20,45 @@
             </li>
         </ul>
     </div>
-</nav>
+</nav> #}
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        
+        <a href="#tab1Id" class="navbar-brand text-white"> <img class="img-fluid" src="img/logo.png" alt=""
+            width="45vw"> <span class="ml-2 patua h3">Auribail MX PARK</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="nav h4 col-lg-12 col-sm-12 patua" id="navId">
+                
+        
+                <li class="nav-item offset-md-4 offset-xl-5 col-sm-12 col-md-auto grow">
+                    <a href="{{ path('home') }}" class="nav-link text-white"><span
+                            class="material-icons-two-tone align-middle nav-icons orange-two-tone">home</span> <span
+                            class="align-middle">Accueil</span> </a>
+                </li>
+                <li class="nav-item grow col-sm-12 col-md-auto">
+                    <a href="{{ path('app_login') }}" class="nav-link text-white"><span
+                            class="material-icons-two-tone align-middle nav-icons green-two-tone">sports_motorsports</span>
+
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <span class="align-middle">{{ app.user.lastname ~ " " ~ app.user.firstname }}</span>  
+
+
+                        {% else %}
+                        <span class="align-middle">Mon Compte</span>
+                            
+                        {% endif %}
+                        
+                         </a>
+                </li>
+                <li class="nav-item grow col-1">
+                         <a class="nav-link text-white" href="{{ path('app_logout') }}"><span class="material-icons align-middle">logout</span></a>
+                </li>
+        
+            </ul> 
+          
+        </div>
+      </nav>
