@@ -49,7 +49,7 @@ class UserFixtures extends Fixture
                     '123'
                 ))
                  ->setRoles(['ROLE_MEMBER'])
-                 ->setBirthdate( new \DateTime('202'.$i.'-06-06'))
+                 ->setBirthdate( new \DateTime('200'.$i.'-06-06'))
                  ->setLicense($faker->randomNumber($nbDigits = NULL, $strict = false));
 
                 if ($i<13) {
@@ -74,7 +74,7 @@ class UserFixtures extends Fixture
                                  '123'
                              ))
                  ->setRoles(['ROLE_NON_MEMBER'])
-                 ->setBirthdate( new \DateTime('202'.$i.'-06-06'))
+                 ->setBirthdate( new \DateTime('200'.$i.'-06-06'))
                  ->setLicense($faker->randomNumber($nbDigits = NULL, $strict = false));
 
                  if ($i<13) {
