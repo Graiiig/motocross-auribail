@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container mt-5">
-    <h1>Id de la session : {{ id }}</h1>
+    <h1>Entraînement n°{{ session.id }} : {{session.title}} le {{session.date | format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") }}</h1>
     <table class="table table-striped table-dark">
         <h1>Liste des utilisateurs :</h1>
         <thead>
