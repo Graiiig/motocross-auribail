@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vous êtes inscrit !{% endblock %}
+
+{% block body %}
+
+
+<div class="example-wrapper">
+    <h1>Hello {{ app.user.firstName }}! ✅</h1>
+
+    <h2>Vous êtes bien inscrit à {{session.title}}</h2>
+
+    
+</div>
+
+{% endblock %}
