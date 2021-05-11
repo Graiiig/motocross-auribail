@@ -4,13 +4,24 @@
 
 {% block body %}
 
+<div class="container-fluid">
+	<div class="row justify-content-center mt-5">
+		<div class="col-md-8 col-sm-3">
+			<div class="jumbotron text-center open shadow-lg p-3 rounded">
+				
+				<h5>
+					Merci {{app.user.firstName}} vous êtes bien inscrit à {{session.title}}
+				</h5>
+				<p>
+					<a class="btn btn-warning btn-large mt-2" href="{{ path('home') }}">Retour à l'acceuil</a>
+				</p>
 
-<div class="example-wrapper">
-    <h1>Hello {{ app.user.firstName }}! ✅</h1>
-
-    <h2>Vous êtes bien inscrit à {{session.title}}</h2>
-
-    
+                {# TODO : ajouter icone partage sur les réseaux sociaux et sur le calendrier #}
+                
+			</div>
+		</div>
+	</div>
+</div>
 </div>
 
 {% endblock %}
