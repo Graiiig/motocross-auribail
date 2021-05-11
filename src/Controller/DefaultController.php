@@ -17,7 +17,7 @@ class DefaultController extends AbstractController
     {
         $session = $this->getDoctrine()
             ->getRepository(Session::class)
-            ->findNext();
+            ->findNext(); // *** fonction crée dans le repo *** //
         
         // *** Le nombre d'utilisateurs dans une session *** //
         $usersInSession = count($session->getUser());
@@ -36,7 +36,7 @@ class DefaultController extends AbstractController
                 $adults--;
             }
         }
-        
+
         return $this->render('default/index.html.twig', [
             "session"=>$session,
             "adults"=> $adults,
