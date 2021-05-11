@@ -89,6 +89,25 @@ class UserFixtures extends Fixture
 
 
 
+
+        $user = new User();
+        $user->setLastName('Pita')
+             ->setFirstName('Patrick')
+             ->setEmail('pat@pita.fr')
+             ->setPhoneNumber('$$$$$$$')
+             ->setAddress("2 rue des escrocs")
+             ->setPassword($this->passwordEncoder->encodePassword(
+                $user,
+                '123'
+            ))
+             ->setRoles(['ROLE_ADMIN'])
+             ->setBirthdate( new \DateTime('2009-06-06'))
+             ->setLicense('$$$$$$');
+            
+            
+        $manager->persist($user);
+
+
         $manager->flush();
     }
 }
