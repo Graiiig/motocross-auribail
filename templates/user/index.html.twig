@@ -5,7 +5,12 @@
 
 {% block body %}
 
-	<div class="container">
+	<div class="container mt-5">
+	<div class="row">
+	{% if sessions|length == 0 %}
+					<p class="text-center offset-5 col-5">Vous n'avez participé à aucun entraînement, inscrivez-vous à la prochaine session </p>
+	{% endif %}
+	</div>
 		<div class="row justify-content-center">
 			<div class="card text-center mx-5">
 				<div class="card-header">
@@ -30,12 +35,10 @@
 			<div class="col-5">
 
 				{% if sessions|length == 0 %}
-					<p>Vous n'avez participé à aucun entraînement, inscrivez-vous à la prochaine session</p>
-
+					
 					<div class="card text-center mx-5">
 						<div
 							class="card-header">
-							<!--Il faut récupérer les dates des entrainements depuis la bdd pour les mettre dans les data-attribut-->
 							Inscription pour l'entrainement du
 							<span data-date="{{nextSession.session.date | date('Y-m-d')}}" class="date-1 date">{{nextSession.session.date | date('d/m/Y')}}</span>
 							:
@@ -89,7 +92,9 @@
 							<li class="list-group-item">
 								{{session.title | lower}}
 								le
-								{{session.date | date ('d/m/Y')}}</li>
+								{{session.date | date ('d/m/Y')}} <a href="{{ path('user_leave_session', {'session' : session.id} )}}"><span class="material-icons-outlined align-middle">
+delete
+</span></a></li>
 						</ul>
 					{% endif %}
 
