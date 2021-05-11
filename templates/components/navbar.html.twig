@@ -1,65 +1,54 @@
-{# <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!-- Nom du site -->
-    <a class="navbar-brand" href="#">Motocross-Auribail</a>
-    <!-- Bouton responsive -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <!-- Navigation -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Accueil</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Entraînements</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Connexion</a>
-            </li>
-        </ul>
-    </div>
-</nav> #}
-
 <nav class="navbar navbar-expand-lg navbar-light">
 
-  <a href="#tab1Id" class="navbar-brand text-white">
-    <img class="img-fluid" src="img/logo.png" alt="" width="85vw">
-    <span class="ml-2 open h2">Auribail MX PARK</span></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+	<a href="{{ path('home') }}" class="navbar-brand text-white">
+		<img class="img-fluid" src="{{asset('img/logo.png')}}" alt="" width="45vw">
+		<span class="ml-2 patua h3">Auribail MX PARK</span>
+	</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
 
-  <div class="collapse navbar-collapse text-right" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto flex-nowrap"  id="navId">
+	<div class="collapse navbar-collapse text-right" id="navbarSupportedContent">
+		<ul class="navbar-nav ml-auto flex-nowrap" id="navId">
 
-      <li class="nav-item  col-sm-12 col-md-auto grow">
-        <a href="{{ path('home') }}" class="nav-link text-white">
-          <span class="material-icons-two-tone align-middle nav-icons orange-two-tone">home</span>
-          <span class="align-middle open h5">Accueil</span>
-        </a>
-      </li>
-      <li class="nav-item grow col-sm-12 col-md-auto">
-        <a href="{{ path('app_login') }}" class="nav-link text-white">
-          <span class="material-icons-two-tone align-middle nav-icons green-two-tone">sports_motorsports</span>
+			<li class="nav-item  col-sm-12 col-md-auto grow">
+				<a href="{{ path('home') }}" class="nav-link text-white">
+					<span class="material-icons-two-tone align-middle nav-icons orange-two-tone">home</span>
+					<span class="align-middle open h5">Accueil</span>
+				</a>
+			</li>
+			<li class="nav-item grow col-sm-12 col-md-auto">
+				<a href="{{ path('app_login') }}" class="nav-link text-white">
+					<span class="material-icons-two-tone align-middle nav-icons green-two-tone">sports_motorsports</span>
 
-          {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <span class="align-middle open h5">{{ app.user.lastname ~ " " ~ app.user.firstname }}</span>
+					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+						<span class="align-middle open h5">{{ app.user.lastname ~ " " ~ app.user.firstname }}</span>
 
-          {% else %}
-            <span class="align-middle open h5">Connexion</span>
+					{% else %}
+						<span class="align-middle open h5">Se connecter</span>
 
-          {% endif %}
+					{% endif %}
 
-        </a>
-      </li>
-      <li class="nav-item grow col-sm-12 col-md-auto grow">
-        <a class="nav-link text-white" href="{{ path('app_logout') }}">
-          <span class="material-icons align-middle">logout</span></a>
-      </li>
+				</a>
+			</li>
+			<!-- Check if a user is admin in to display appropriate features -->
+			{% if is_granted('ROLE_ADMIN') %}
+				<li class="nav-item  col-sm-12 col-md-auto grow">
+					<a href="{{ path('admin') }}" class="nav-link text-white">
+						<span class="material-icons-outlined align-middle nav-icons">
+							shield
+						</span>
+						<span class="align-middle open h5">Admin</span>
+					</a>
+				</li>
+			{% endif %}
+			<li class="nav-item grow col-sm-12 col-md-auto grow">
+				<a class="nav-link text-white" href="{{ path('app_logout') }}">
+					<span class="material-icons align-middle">logout</span>
+				</a>
+			</li>
 
-    </ul>
+		</ul>
 
-  </div>
+	</div>
 </nav>
