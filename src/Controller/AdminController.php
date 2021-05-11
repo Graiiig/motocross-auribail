@@ -6,7 +6,9 @@ use App\Entity\Session;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Repository\SessionRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -50,5 +52,20 @@ class AdminController extends AbstractController
             'session' => $session,
             'users' => $users
         ]);
+    }
+
+    public function edit(Request $request, User $user, EntityManagerInterface $em){
+
+        $form = $this->createForm(AdminFormType::class, $user);
+
+        $form->handleRequest($request); 
+
+        if($form->isSubmitted() && $form->isValid()){
+            $em->persist($user);
+            $em->flush(); 
+            return $this->redirectToRoute('admin_edit');
+        }
+
+        return $this->render('admin/index.html.twig', ['users' => $user]);
     }
 }
