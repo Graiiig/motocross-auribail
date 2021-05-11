@@ -29,7 +29,11 @@
             {# TODO : Ajouter "mot de passe oublié" #}
 			<div class="col-5">
 
+				{% if sessions|length == 0 %}
+					<p>Vous n'avez participé à aucun entrîanement</p>
 
+					
+				{% endif %}
                     {% for session in sessions %}
 
 
