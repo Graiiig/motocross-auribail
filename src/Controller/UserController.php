@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Session;
 use App\Repository\SessionRepository;
 use App\Service\SessionService;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,5 +29,20 @@ class UserController extends AbstractController
         else {
             return $this->redirectToRoute('app_login');
         }
+    }
+
+    /**
+     * @Route("quitter-session/{session}", name="user_leave_session")
+     */
+    public function leaveSession (Session $session)
+    {
+        // dd($session);
+        $currentUser = $this->getUser();
+        $currentUser->removeSession($session);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($currentUser);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('home');
     }
 }
