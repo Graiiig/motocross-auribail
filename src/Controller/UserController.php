@@ -13,8 +13,15 @@ class UserController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+        if ($this->getUser()){
+
+            $user = $this->getUser();
+            $sessions = $user->getSessions();
+            
+            return $this->render('user/index.html.twig', compact('sessions'));
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 }

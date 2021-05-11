@@ -1,20 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Mon compte MC Auribail
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="card text-center mx-5">
+				<div class="card-header">
+					Mes informations personnelles :
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/motocross-auribail/src/Controller/UserController.php'|file_link(0) }}">src/Controller/UserController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/motocross-auribail/templates/user/index.html.twig'|file_link(0) }}">templates/user/index.html.twig</a></code></li>
-    </ul>
-</div>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">{{app.user.lastName ~ " " ~ app.user.firstName}}</h5>
+					<p class="card-text">{{ app.user.email }}</p>
+					<p class="card-text">{{ app.user.birthDate | date ('d/m/Y') }}</p>
+
+				</div>
+				<div class="card-footer text-muted">
+					{% if is_granted('ROLE_MEMBER') %}
+						Adhérent du club
+					{% elseif is_granted('ROLE_NON_MEMBER')%}
+						Non adhérent du club
+					{% endif %}
+				</div>
+			</div>
+            {# TODO : Ajouter "mot de passe oublié" #}
+			<div class="col-5">
+
+
+                    {% for session in sessions %}
+
+
+                        {% set difference = date("now").diff(date(session.date)) %}
+
+                        {% if difference.invert == 1 %}
+                        <ul class="list-group">
+                            <li class="list-group-item active">Les courses auxquelles j'ai participé : </li>
+                            <li class="list-group-item">
+                                {{session.title | lower}}
+                                le
+                                {{session.date | date ('d/m/Y')}}</li>
+                        </ul>
+                        {% else %}
+                        <ul class="list-group mt-5">
+                            <li class="list-group-item active">Mes prochaines courses : </li>
+                            <li class="list-group-item">
+                                {{session.title | lower}}
+                                le
+                                {{session.date | date ('d/m/Y')}}</li>
+                        </ul>
+                        {% endif %}
+
+                    {% endfor %}
+                
+			</div>
+		</div>
+	</div>
+
 {% endblock %}

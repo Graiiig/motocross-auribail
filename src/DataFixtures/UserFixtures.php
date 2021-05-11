@@ -28,8 +28,8 @@ class UserFixtures extends Fixture
 
 
         $session = new Session();
-        $session->setTitle('La coupe du débarquement')
-             ->setDate(new \DateTime('2021-06-06') );
+        $session->setTitle('La coupe du travail')
+             ->setDate(new \DateTime('2021-05-02') );
         $manager->persist($session);
 
         $session2 = new Session();
@@ -52,10 +52,10 @@ class UserFixtures extends Fixture
                  ->setBirthdate( new \DateTime('200'.$i.'-06-06'))
                  ->setLicense($faker->randomNumber($nbDigits = NULL, $strict = false));
 
-                if ($i<13) {
+                if ($i<20) {
                     $user->addSession($session);
                 }
-                else if ($i>=13 && $i < 30) {
+                else if ($i>=20 && $i < 30) {
                     $user->addSession($session2);
 
                 }
@@ -77,10 +77,10 @@ class UserFixtures extends Fixture
                  ->setBirthdate( new \DateTime('200'.$i.'-06-06'))
                  ->setLicense($faker->randomNumber($nbDigits = NULL, $strict = false));
 
-                 if ($i<13) {
+                 if ($i<20) {
                     $user->addSession($session);
                 }
-                else if ($i>=13 && $i < 30) {
+                else if ($i>=20 && $i < 30) {
                     $user->addSession($session2);
 
                 }
