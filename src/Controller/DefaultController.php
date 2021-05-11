@@ -17,27 +17,26 @@ class DefaultController extends AbstractController
     {
         $session = $this->getDoctrine()
             ->getRepository(Session::class)
-            ->findNext();
+            ->findNext(); // *** fonction crée dans le repo *** //
         
         // *** Le nombre d'utilisateurs dans une session *** //
         $usersInSession = count($session->getUser());
 
         // *** Calcul des âges pour déterminer les places restantes dans chaque
         // *** catégorie
-        $adults = 0;
-        $children = 0;
+        $adults = 75;
+        $children = 15;
         foreach ($session->getUser() as $key => $user) {
             $today = new \DateTime(); 
             $interval = $today->diff($user->getBirthdate());
             if (intval($interval->format('%Y')) < 16) {
-                $children++;
+                $children--;
             }
             else {
-                $adults++;
+                $adults--;
             }
         }
-        $children = 15 - $children;
-        $adults = 75 - $adults;
+
         return $this->render('default/index.html.twig', [
             "session"=>$session,
             "adults"=> $adults,
