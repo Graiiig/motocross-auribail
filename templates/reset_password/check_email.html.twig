@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Email envoyé !{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="jumbotron bg-dark">
+    {# <h1 class="display-4">!</h1> #}
+    <p class="lead">Si cet email est dans notre base de donnée, vous recevrez dans quelques instants un email contenant un lien afin de modifier votre mot de passe.</p>
+    {# <hr class="my-4"> #}
+    <p  class="lead">Si vous ne recevez pas de mail, pensez à vérifier vos spams ou <a href="{{ path('app_forgot_password_request') }}">essayez de nouveau</a>.</p>
+    </div>
+    
+</div>
+{% endblock %}

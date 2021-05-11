@@ -8,7 +8,9 @@
 	<div class="container mt-5">
 	<div class="row">
 	{% if sessions|length == 0 %}
-					<p class="text-center offset-5 col-5">Vous n'avez participé à aucun entraînement, inscrivez-vous à la prochaine session </p>
+					<p class="text-center offset-6 col-4">Vous n'avez participé à aucun entraînement, vous pouvez vous inscrire à la prochaine session <span class="material-icons-outlined align-middle">
+arrow_downward
+</span> </p>
 	{% endif %}
 	</div>
 		<div class="row justify-content-center">
@@ -21,6 +23,7 @@
 					<h5 class="card-title">{{app.user.lastName ~ " " ~ app.user.firstName}}</h5>
 					<p class="card-text">{{ app.user.email }}</p>
 					<p class="card-text">{{ app.user.birthDate | date ('d/m/Y') }}</p>
+					<p class="card-text"><a href="{{path('app_forgot_password_request')}}"> Modifier mon mot de passe</a></p>
 
 				</div>
 				<div class="card-footer text-muted">
@@ -92,9 +95,9 @@
 							<li class="list-group-item">
 								{{session.title | lower}}
 								le
-								{{session.date | date ('d/m/Y')}} <a href="{{ path('user_leave_session', {'session' : session.id} )}}"><span class="material-icons-outlined align-middle">
-delete
-</span></a></li>
+								{{session.date | date ('d/m/Y')}} <a class="float-right" href="{{ path('user_leave_session', {'session' : session.id} )}}"><span class="material-icons-outlined align-middle">
+								delete
+								</span></a></li>
 						</ul>
 					{% endif %}
 

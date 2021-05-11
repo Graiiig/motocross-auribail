@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon mot de passe{% endblock %}
+
+{% block body %}
+    <h1>Modifier mon mot de passe</h1>
+
+    {{ form_start(resetForm) }}
+        {{ form_row(resetForm.plainPassword) }}
+        <div class="col text-center">
+        <button class="btn btn-primary">Recevoir mon email de vérification</button>
+        </div>
+    {{ form_end(resetForm) }}
+{% endblock %}
