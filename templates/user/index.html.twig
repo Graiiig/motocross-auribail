@@ -26,41 +26,80 @@
 					{% endif %}
 				</div>
 			</div>
-            {# TODO : Ajouter "mot de passe oublié" #}
+			{# TODO : Ajouter "mot de passe oublié" #}
 			<div class="col-5">
 
 				{% if sessions|length == 0 %}
-					<p>Vous n'avez participé à aucun entrîanement</p>
+					<p>Vous n'avez participé à aucun entraînement, inscrivez-vous à la prochaine session</p>
 
-					
+					<div class="card text-center mx-5">
+						<div
+							class="card-header">
+							<!--Il faut récupérer les dates des entrainements depuis la bdd pour les mettre dans les data-attribut-->
+							Inscription pour l'entrainement du
+							<span data-date="{{nextSession.session.date | date('Y-m-d')}}" class="date-1 date">{{nextSession.session.date | date('d/m/Y')}}</span>
+							:
+						</div>
+						<div class="card-body">
+							<h5 class="card-title">{{nextSession.session.title}}</h5>
+							<p class="card-text">Place(s) adultes restantes :
+								{{nextSession.adults}}</p>
+							<p class="card-text">Place(s) enfants restantes :
+								{{nextSession.children}}</p>
+
+							{% if nextSession.usersInSession < 75 %}
+								{% if app.user %}
+									<a href="{{path('session', {'id':nextSession.session.id})}}" class="btn btn-primary">S'inscrire</a>
+								{% else %}
+									<a href="{{path('app_login')}}" class="btn btn-primary">S'inscrire</a>
+								{% endif %}
+							{% else %}
+								<a class="btn btn-primary">Plus de place de disponibles, voir les prochaines courses</a>
+							{% endif %}
+
+						</div>
+						<div class="card-footer text-muted">
+							<span>Dans
+							</span>
+							<span class="date-1-diff"></span>
+							<span>
+								jours</span>
+						</div>
+					</div>
+
 				{% endif %}
-                    {% for session in sessions %}
+				{% for session in sessions %}
 
 
-                        {% set difference = date("now").diff(date(session.date)) %}
+					{% set difference = date("now").diff(date(session.date)) %}
 
-                        {% if difference.invert == 1 %}
-                        <ul class="list-group">
-                            <li class="list-group-item active">Les courses auxquelles j'ai participé : </li>
-                            <li class="list-group-item">
-                                {{session.title | lower}}
-                                le
-                                {{session.date | date ('d/m/Y')}}</li>
-                        </ul>
-                        {% else %}
-                        <ul class="list-group mt-5">
-                            <li class="list-group-item active">Mes prochaines courses : </li>
-                            <li class="list-group-item">
-                                {{session.title | lower}}
-                                le
-                                {{session.date | date ('d/m/Y')}}</li>
-                        </ul>
-                        {% endif %}
+					{% if difference.invert == 1 %}
+						<ul class="list-group">
+							<li class="list-group-item active">Les courses auxquelles j'ai participé :
+							</li>
+							<li class="list-group-item">
+								{{session.title | lower}}
+								le
+								{{session.date | date ('d/m/Y')}}</li>
+						</ul>
+					{% else %}
+						<ul class="list-group mt-5">
+							<li class="list-group-item active">Mes prochaines courses :
+							</li>
+							<li class="list-group-item">
+								{{session.title | lower}}
+								le
+								{{session.date | date ('d/m/Y')}}</li>
+						</ul>
+					{% endif %}
 
-                    {% endfor %}
-                
+				{% endfor %}
+
 			</div>
 		</div>
 	</div>
 
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="scripts.js"></script>
 {% endblock %}
