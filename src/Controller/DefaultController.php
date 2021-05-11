@@ -29,7 +29,7 @@ class DefaultController extends AbstractController
         foreach ($session->getUser() as $key => $user) {
             $today = new \DateTime(); 
             $interval = $today->diff($user->getBirthdate());
-            dump($interval);
+            // dump($interval);
             if (intval($interval->format('%Y')) < 16) {
                 $children--;
             }
