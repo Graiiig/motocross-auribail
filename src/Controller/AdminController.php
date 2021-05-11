@@ -24,6 +24,7 @@ class AdminController extends AbstractController
     public function index(): Response
     {
 
+        
         $users = $this->userRepo->findBy([], null, 5);
 
         $sessions = $this->sessionRepo->findBy([], null, 5);
