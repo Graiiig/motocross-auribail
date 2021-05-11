@@ -43,7 +43,10 @@ body {
 
 }
 
+.open {
 
+    font-family: 'Open Sans', sans-serif;
+}
 
 .patua {
     font-family: 'Patua One', cursive;

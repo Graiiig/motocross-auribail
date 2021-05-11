@@ -25,8 +25,8 @@
 <nav class="navbar navbar-expand-lg navbar-light">
 
   <a href="#tab1Id" class="navbar-brand text-white">
-    <img class="img-fluid" src="img/logo.png" alt="" width="45vw">
-    <span class="ml-2 patua h3">Auribail MX PARK</span></a>
+    <img class="img-fluid" src="img/logo.png" alt="" width="85vw">
+    <span class="ml-2 open h2">Auribail MX PARK</span></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -37,7 +37,7 @@
       <li class="nav-item  col-sm-12 col-md-auto grow">
         <a href="{{ path('home') }}" class="nav-link text-white">
           <span class="material-icons-two-tone align-middle nav-icons orange-two-tone">home</span>
-          <span class="align-middle">Accueil</span>
+          <span class="align-middle open h5">Accueil</span>
         </a>
       </li>
       <li class="nav-item grow col-sm-12 col-md-auto">
@@ -45,10 +45,10 @@
           <span class="material-icons-two-tone align-middle nav-icons green-two-tone">sports_motorsports</span>
 
           {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <span class="align-middle">{{ app.user.lastname ~ " " ~ app.user.firstname }}</span>
+            <span class="align-middle open h5">{{ app.user.lastname ~ " " ~ app.user.firstname }}</span>
 
           {% else %}
-            <span class="align-middle">Mon Compte</span>
+            <span class="align-middle open h5">Mon Compte</span>
 
           {% endif %}
 
