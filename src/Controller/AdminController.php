@@ -47,7 +47,7 @@ class AdminController extends AbstractController
         $users = $session->getUser();
 
         return $this->render('admin/session.html.twig', [
-            'id' => $id,
+            'session' => $session,
             'users' => $users
         ]);
     }
