@@ -6,6 +6,8 @@ use App\Entity\Session;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Repository\SessionRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +26,7 @@ class AdminController extends AbstractController
     public function index(): Response
     {
 
-        
+
         $users = $this->userRepo->findBy([], null, 5);
 
         $sessions = $this->sessionRepo->findBy([], null, 5);
@@ -50,5 +52,20 @@ class AdminController extends AbstractController
             'session' => $session,
             'users' => $users
         ]);
+    }
+
+    /**
+     * @Route("/admin/user/{id}/delete", name="admin_user_delete", methods="DELETE")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function delete($id, ManagerRegistry $managerRegistry)
+    {
+        // Remove the user 
+        $user = $this->userRepo->findOneBy(['id' => $id]);
+        $em = $managerRegistry->getManager();
+        $em->remove($user);
+        $em->flush();
+        // Redirect to admin panel
+        return $this->redirectToRoute('admin');
     }
 }
