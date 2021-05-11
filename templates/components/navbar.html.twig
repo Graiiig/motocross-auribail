@@ -31,6 +31,14 @@
 
         </a>
       </li>
+      <!-- Check if a user is admin in to display appropriate features -->
+      {% if is_granted('ROLE_ADMIN') %}
+      <li class="nav-item  col-sm-12 col-md-auto grow">
+        <a href="{{ path('admin') }}" class="nav-link text-white">
+          <span class="align-middle">Admin</span>
+        </a>
+      </li>
+      {% endif %}
       <li class="nav-item grow col-sm-12 col-md-auto grow">
         <a class="nav-link text-white" href="{{ path('app_logout') }}">
           <span class="material-icons align-middle">logout</span></a>
