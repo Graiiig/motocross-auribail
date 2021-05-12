@@ -14,7 +14,7 @@
                 <th scope="col">Téléphone</th>
                 <th scope="col">Licence</th>
                 <th scope="col">Adresse</th>
-                <th scope="col">Editer</th>
+                <th scope="col">Modifier</th>
                 <th scope="col">Supprimer</th>
             </tr>
         </thead>
@@ -32,7 +32,7 @@
                         <button class="material-icons-outlined btn bg-transparent">edit</button>
                     </form>
                 </td>
-                <td  width='25px'>
+                <td width='25px'>
                     <form action="{{ path('admin_user_delete', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                         <button class="material-icons-outlined btn bg-transparent">delete_forever</button>
                     </form>
@@ -49,8 +49,8 @@
                 <th scope="col">Titre</th>
                 <th scope="col">Date</th>
                 <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th scope="col">Modifier</th>
+                <th scope="col">Supprimer</th>
             </tr>
         </thead>
         <tbody>
@@ -59,14 +59,14 @@
                 <td>{{ session.title }}</td>
                 <td>{{ session.date | date('d/m/y') }}</td>
                 <td><a href="{{ path('admin_session', {'id' : session.id}) }}">Afficher</a></td>
-                <td><a href="{{ path('admin_session_edit', {'id' : session.id}) }}">Modifier</a></td>
-                <td>
-                    <form method="post" action="{{ path('admin_session_delete', {'id': session.id}) }}"
-                        onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button class="close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                <td  width='15px'>
+                    <form action="{{ path('admin_user_edit', {'id': session.id}) }}">
+                        <button class="material-icons-outlined btn bg-transparent">edit</button>
+                    </form>
+                </td>
+                <td width='25px'>
+                    <form action="{{ path('admin_user_delete', {'id': session.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                        <button class="material-icons-outlined btn bg-transparent">delete_forever</button>
                     </form>
                 </td>
             </tr>

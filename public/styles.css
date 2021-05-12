@@ -61,9 +61,9 @@ body {
 }
 
 footer .grow:hover {
-  -moz-box-shadow: 0 0 50px rgb(22, 236, 22);
-  -webkit-box-shadow: 0 0 50px rgb(22, 236, 22);
-  box-shadow: 0px 0px 50px rgb(22, 236, 22);
+  -moz-box-shadow: 0 0 20px rgb(22, 236, 22);
+  -webkit-box-shadow: 0 0 20px rgb(22, 236, 22);
+  box-shadow: 0px 0px 20px rgb(22, 236, 22);
 }
 
 .nav-icons {
@@ -84,9 +84,17 @@ footer .grow:hover {
   color: rgb(25, 25, 155);
   background-color: azure;
   border-radius: 100%;
+
 }
 
 .gps-svg img {
   border-radius: 23%;
   filter: brightness(1.1);
+}
+
+.footer-dark {
+
+  background : black; 
+  background-size: cover;
+  background-repeat: no-repeat;
 }
