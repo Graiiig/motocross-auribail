@@ -65,5 +65,22 @@ class SessionRepository extends ServiceEntityRepository
         // dd($session);
         return $session[0];
     }
+
+    
+    public function findNextAll(): ?array
+    {
+    $currentDate = new \DateTime();   
+    // dd($currentDate);     
+
+        $session = $this->createQueryBuilder('s')
+            ->andWhere('s.date > :date')
+            ->setParameter('date', $currentDate)
+            ->getQuery()
+            ->getResult()
+        ;
+
+        // dd($session);
+        return $session;
+    }
     
 }

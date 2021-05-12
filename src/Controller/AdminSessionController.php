@@ -3,38 +3,37 @@
 namespace App\Controller;
 
 use App\Entity\Session;
-use App\Entity\User;
-use App\Form\SessionType;
-use App\Repository\UserRepository;
+use App\Form\SessionFormType;
 use App\Repository\SessionRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminSessionController extends AbstractController
 {
-    public function __construct(UserRepository $userRepo, SessionRepository $sessionRepo)
+    public function __construct(SessionRepository $sessionRepo)
     {
-        $this->userRepo = $userRepo;
         $this->sessionRepo = $sessionRepo;
     }
 
     /**
      * 
      * @Route("/admin/session/new", name="admin_session_new")
+     * @Route("/admin/session/{id}/edit", name="admin_session_edit")
      * 
      * @IsGranted("ROLE_ADMIN")
      */
-    public function new(Request $request, ManagerRegistry $managerRegistry)
+    public function new(Session $session = null, Request $request, ManagerRegistry $managerRegistry)
     {
-        // Build a new Session object
-        $session = new Session();
+        // Build a new Session object if unknown
+        if (!$session) {
+            $session = new Session();
+        }
+
         // Create the SessionType form
-        $form = $this->createForm(SessionType::class, $session);
+        $form = $this->createForm(SessionFormType::class, $session);
         // Process the form data
         $form->handleRequest($request);
         // If the form is submitted and valid
@@ -48,9 +47,24 @@ class AdminSessionController extends AbstractController
             // Redirect to the admin panel
             return $this->redirectToRoute('admin');
         }
-        // Render the form
+        // Render the forma
         return $this->render('admin/__new.html.twig', [
             "sessionForm" => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/admin/session/{id}/delete", name="admin_session_delete", methods="DELETE")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function delete($id, ManagerRegistry $managerRegistry)
+    {
+        // Remove the session
+        $session = $this->sessionRepo->findOneBy(['id' => $id]);
+        $em = $managerRegistry->getManager();
+        $em->remove($session);
+        $em->flush();
+        // Redirect to admin panel
+        return $this->redirectToRoute('admin');
     }
 }

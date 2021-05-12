@@ -2,13 +2,17 @@
 // src/Service/SessionService.php
 namespace App\Service;
 
+use App\Entity\Session;
 use App\Repository\SessionRepository;
 
 class SessionService
 {
-    public function getNextSessionInfo(SessionRepository $sessionRepository): array
+    public function getNextSessionInfo($session, SessionRepository $sessionRepository): array
     {
-        $session = $sessionRepository->findNext(); // *** fonction crée dans le repo *** //
+        if ($session == null){
+
+            $session = $sessionRepository->findNext(); // *** fonction crée dans le repo *** //
+        }
         
         // *** Le nombre d'utilisateurs dans une session *** //
         $usersInSession = count($session->getUser());

@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Les prochains entraînements
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+	{% for session in nextSessionsInfo %}
+
+		<div class="card text-center mx-5">
+			<div class="card-header">
+				Inscription pour l'entrainement du
+				<span data-date="{{session.session.date | date('Y-m-d')}}" class="date-1 date">{{session.session.date | date('d/m/Y')}}</span>
+				:
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">{{session.session.title}}</h5>
+				<p class="card-text">Place(s) adultes restantes :
+					{{session.adults}}</p>
+				<p class="card-text">Place(s) enfants restantes :
+					{{session.children}}</p>
+
+				{% if session.usersInSession < 75 %}
+					{% if app.user %}
+						<a href="{{path('session', {'id':session.session.id})}}" class="btn btn-primary">S'inscrire</a>
+					{% else %}
+						<a href="{{path('app_login')}}" class="btn btn-primary">S'inscrire</a>
+					{% endif %}
+				{% else %}
+					<a class="btn btn-primary">Plus de place de disponibles, voir les prochaines courses</a>
+				{% endif %}
+
+			</div>
+			<div class="card-footer text-muted">
+				<a href="{{path('session_all')}}" class="">Voir les prochains entraînements</a>
+			</div>
+		</div>
+
+	{% endfor %}
+        </div>
+    </div>
+{% endblock %}

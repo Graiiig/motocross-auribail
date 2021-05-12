@@ -26,9 +26,12 @@
         <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required="required">
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <a class="text-white" href="{{path('app_forgot_password_request')}}"> Mot de passe oublié ?</a>
+        </br>
         <button class="btn btn-lg btn-warning mt-3 justify-content-center" type="submit">Connexion</button>
         <br>
-        <a href="{{path('app_register')}}" class="btn btn-lg btn-warning mt-3 justify-content-center">Accès visiteur</a>
+        <br>
+        <a href="{{path('app_register')}}" class="btn btn-lg btn-info mt-3 justify-content-center">Accès visiteur</a>
       </form>
     </div>
   </div>

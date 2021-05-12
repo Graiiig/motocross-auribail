@@ -24,7 +24,7 @@ class UserController extends AbstractController
             $user = $this->getUser();
             $sessions = $user->getSessions();
 
-            $nextSession = $sessionService->getNextSessionInfo($sessionRepository);
+            $nextSession = $sessionService->getNextSessionInfo(null,$sessionRepository);
 
             $form = $this->createForm(UserFormType::class, $user);
 
