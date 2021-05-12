@@ -1,8 +1,6 @@
   // Script pour faire la différence des dates//
   let dates = document.querySelectorAll('.date');
 
-  console.log('toto')
-
   var i;
   for (i = 0; i < dates.length; i++) {
 
@@ -15,3 +13,15 @@
       let nbClass = i + 1;
       document.querySelector('.date-' + nbClass + '-diff').innerHTML = diffDays;
   }
+
+
+  // *** Script pour afficher le form dans la page mon compte
+
+  if ($('.edit-my-info')){
+    $('.edit-my-info').on('click', function(){
+      $('form#form-edit-my-info').css('display','block');
+      $('.clean-form').css('display','none');
+
+    })
+  }
+  

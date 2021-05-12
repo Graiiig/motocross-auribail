@@ -14,17 +14,17 @@
             <div class="card text-center mx-5">
                 <div class="card-header">
                     <!--Il faut récupérer les dates des entrainements depuis la bdd pour les mettre dans les data-attribut-->
-                    Inscription pour l'entrainement du <span data-date="{{session.date | date('Y-m-d')}}"
-                        class="date-1 date">{{session.date | date('d/m/Y')}}</span> :
+                    Inscription pour l'entrainement du <span data-date="{{nextSession.session.date | date('Y-m-d')}}"
+                        class="date-1 date">{{nextSession.session.date | date('d/m/Y')}}</span> :
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{session.title}}</h5>
-                    <p class="card-text">Place(s) adultes restantes : {{adults}}</p>
-                    <p class="card-text">Place(s) enfants restantes : {{children}}</p>
+                    <h5 class="card-title">{{nextSession.session.title}}</h5>
+                    <p class="card-text">Place(s) adultes restantes : {{nextSession.adults}}</p>
+                    <p class="card-text">Place(s) enfants restantes : {{nextSession.children}}</p>
 
-                    {% if usersInSession < 75 %}
+                    {% if nextSession.usersInSession < 75 %}
                         {% if app.user %}
-                        <a href="{{path('session', {'id':session.id})}}" class="btn btn-primary">S'inscrire</a>
+                        <a href="{{path('session', {'id':nextSession.session.id})}}" class="btn btn-primary">S'inscrire</a>
                         {% else %}
                         <a href="{{path('app_login')}}" class="btn btn-primary">S'inscrire</a>
                          {% endif %}
