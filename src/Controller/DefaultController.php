@@ -17,7 +17,7 @@ class DefaultController extends AbstractController
      */
     public function index(SessionRepository $sessionRepository, SessionService $sessionService): Response
     {
-        $nextSession = $sessionService->getNextSessionInfo($sessionRepository);
+        $nextSession = $sessionService->getNextSessionInfo(null,$sessionRepository);
 
         return $this->render('default/index.html.twig', compact('nextSession'));
     }
