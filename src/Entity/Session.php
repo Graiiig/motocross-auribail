@@ -92,4 +92,6 @@ class Session
 
         return $this;
     }
+
+   
 }

@@ -27,6 +27,12 @@
                 <td>{{ user.license }}</td>
                 <td>{{ user.address }}</td>
                 <td>
+                    <form method="post" action="{{ path('admin_user_edit', {'id': user.id}) }}">
+                        <input type="hidden" name="_method" value="EDIT">
+                        <button class="edit">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </form>
                     <form method="post" action="{{ path('admin_user_delete', {'id': user.id}) }}"
                         onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                         <input type="hidden" name="_method" value="DELETE">

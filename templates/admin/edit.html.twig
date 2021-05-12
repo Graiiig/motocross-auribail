@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{%block body %}
+<div class="container">
+  <div class="row justify-content-center col-12">
+    <div class='justify-content-center row col-5 bg-secondary'>
+    {{form_start(users)}}
+      {{form_row(users.firstName)}}
+      {{form_row(users.lastName)}}
+      {{form_row(users.birthdate)}}
+      {{form_row(users.email)}}
+      {{form_row(users.address)}}
+      {{form_row(users.license)}}
+      {{form_row(users.phoneNumber)}}
+      {{form_row(users.roles)}}
+        {# {{ form_widget(users.save, { 'label': 'Enregister' }) }} #}
+    
+     
+      <button type="submit" class="btn btn-warning justify-content-center">Enregistrer</button>
+      
+    {{form_end(users)}}
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Session;
 use App\Entity\User;
+use App\Form\AdminFormType;
 use App\Repository\UserRepository;
 use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -55,10 +56,14 @@ class AdminController extends AbstractController
             'users' => $users
         ]);
     }
+    /**
+     * @Route("/admin/user/{id}/edit", name="admin_user_edit", methods="POST")
+     * @IsGranted("ROLE_ADMIN")
+     */
 
     public function edit(Request $request, User $user, EntityManagerInterface $em)
     {
-
+         
         $form = $this->createForm(AdminFormType::class, $user);
 
         $form->handleRequest($request);
@@ -66,10 +71,10 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($user);
             $em->flush();
-            return $this->redirectToRoute('admin_edit');
+            
         }
 
-        return $this->render('admin/index.html.twig', ['users' => $user]);
+        return $this->render('admin/edit.html.twig', ['users' => $form->createView()]);
     }
     /**
      * @Route("/admin/user/{id}/delete", name="admin_user_delete", methods="DELETE")
