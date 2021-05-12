@@ -78,7 +78,7 @@ class AdminController extends AbstractController
         return $this->render('admin/edit.html.twig', ['users' => $form->createView()]);
     }
     /**
-     * @Route("/admin/user/{id}/delete", name="admin_user_delete", methods="DELETE")
+     * @Route("/admin/user/{id}/delete", name="admin_user_delete")
      * @IsGranted("ROLE_ADMIN")
      */
     public function delete($id, ManagerRegistry $managerRegistry)

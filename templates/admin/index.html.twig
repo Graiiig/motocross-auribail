@@ -14,7 +14,8 @@
                 <th scope="col">Téléphone</th>
                 <th scope="col">Licence</th>
                 <th scope="col">Adresse</th>
-                <th scope="col"></th>
+                <th scope="col">Editer</th>
+                <th scope="col">Supprimer</th>
             </tr>
         </thead>
         <tbody>
@@ -26,19 +27,14 @@
                 <td>{{ user.phoneNumber }}</td>
                 <td>{{ user.license }}</td>
                 <td>{{ user.address }}</td>
-                <td>
-                    <form method="post" action="{{ path('admin_user_edit', {'id': user.id}) }}">
-                        <input type="hidden" name="_method" value="EDIT">
-                        <button class="edit">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                <td  width='15px'>
+                    <form action="{{ path('admin_user_edit', {'id': user.id}) }}">
+                        <button class="material-icons-outlined btn bg-transparent">edit</button>
                     </form>
-                    <form method="post" action="{{ path('admin_user_delete', {'id': user.id}) }}"
-                        onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button class="close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                </td>
+                <td  width='25px'>
+                    <form action="{{ path('admin_user_delete', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                        <button class="material-icons-outlined btn bg-transparent">delete_forever</button>
                     </form>
                 </td>
             </tr>
