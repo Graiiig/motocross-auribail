@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,51 +14,52 @@ class UserFormType extends AbstractType
     {
         $builder
             ->add('email', null, [
-                'label'   => false,
+                'label'   => 'Addresse email',
                 'attr'=> [
                     'placeholder'=>'Addresse email'
                 ]
             ])
             ->add('lastName', null, [
-                'label'   => false,
+                'label'   => 'Nom',
                 'attr'=> [
                     'placeholder'=>'Nom'
                 ]
             ])
             ->add('firstName', null, [
-                'label'   => false,
+                'label'   => 'Prénom',
                 'attr'=> [
                     'placeholder'=>'Prénom'
                 ]
             ])
             ->add('address', null, [
-                'label'   => false,
+                'label'   => 'Adresse',
                 'attr'=> [
                     'placeholder'=>'Adresse'
                 ]
             ])
             ->add('phoneNumber', null, [
-                'label'   => false,
+                'label'   => 'N° de téléphone',
                 'attr'=> [
                     'placeholder'=>'N° de téléphone'
                 ]
             ])
             ->add('license', null, [
-                'label'   => false,
+                'label'   => 'N° de licence',
                 'attr'=> [
                     'placeholder'=>'N° de licence'
                 ]
             ])
-            ->add('birthdate', null, [
-                'label'   => 'Date d\'anniversaire',
+            ->add('birthdate', DateType::class, [
+                'label'   => 'Date de naissance',
                 'years' => range(1950, date('Y')-6),
+                'widget'=>'single_text',
                 'attr'=> [
-                    'placeholder'=>'Date d\'anniversaire'
+                    'placeholder'=>'Date de naissance'
                 ]
             ])
             // TODO : Chemin vers un avatar de base
             ->add('profilePicture', null, [
-                'label'   => false, 
+                'label'   => 'Téléchargez une image de profil', 
                 'attr'=> [
                     'placeholder'=>'Téléchargez une image de profil'
                 ]

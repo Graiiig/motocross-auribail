@@ -21,7 +21,13 @@
     $('.edit-my-info').on('click', function(){
       $('form#form-edit-my-info').css('display','block');
       $('.clean-form').css('display','none');
-
     })
+    $('.form-group').addClass('col-12 col-lg-3')
   }
+
+  if($('.form-edit-user-info')){
+    $('.form-group').addClass('col-12 col-lg-3')
+  }
+
   
+
