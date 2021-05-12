@@ -47,6 +47,7 @@
                 <th scope="col">Titre</th>
                 <th scope="col">Date</th>
                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -55,6 +56,7 @@
                 <td>{{ session.title }}</td>
                 <td>{{ session.date | date('d/m/y') }}</td>
                 <td><a href="{{ path('admin_session', {'id' : session.id}) }}">Afficher</a></td>
+                <td><a href="{{ path('admin_session_edit', {'id' : session.id}) }}">Modifier</a></td>
             </tr>
             {% endfor %}
 
