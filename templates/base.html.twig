@@ -46,7 +46,8 @@
     {% include "components/footer.html.twig" %}
 </body>
 
-    {% block javascripts %}
-    {#{{ encore_entry_script_tags('app') }}#}
+    {% block javascripts %} 
+    {# TODO :scripts a supp dans toutes les vues #}
+        <script type="text/javascript" src="{{asset('scripts.js')}}"></script>
     {% endblock %}
 </html>

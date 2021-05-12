@@ -25,10 +25,9 @@
     $('.form-group').addClass('col-12 col-lg-3')
   }
 
-  if($('legend')){
-    $('legend').replaceWith("<label>Date de naissance</label>")
+  if($('.form-edit-user-info')){
+    $('.form-group').addClass('col-12 col-lg-3')
   }
-
 
   
 

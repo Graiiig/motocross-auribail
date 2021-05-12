@@ -15,29 +15,64 @@ class AdminFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
+            ->add('email', null, [
+                'label'   => 'Adresse Email',
+                'attr'=> [
+                    'placeholder'=>'Adresse Email'
+                ]
+            ])
             
             ->add('roles', ChoiceType::class, array(
-                
+                'label'=>false,
                 'choices' => 
                 array
                 (
-                    'admin' => 'ROLE_ADMIN',
-                    'membre' => 'ROLE_MEMBER', 
-                    'non membre' => 'ROLE_NON_MEMBER'
+                    'Administrateur' => 'ROLE_ADMIN',
+                    'Membre' => 'ROLE_MEMBER', 
+                    'Non membre' => 'ROLE_NON_MEMBER'
                     )
                 ,
                 'multiple' => true,
                 'required' => true,
                 'expanded'=>true
                 ))
-            ->add('lastName')
-            ->add('firstName')
+            ->add('lastName', null, [
+                'label'   => 'Nom',
+                'attr'=> [
+                    'placeholder'=>'Nom'
+                ]
+            ])
+            ->add('firstName', null, [
+                'label'   => 'Prénom',
+                'attr'=> [
+                    'placeholder'=>'Prénom'
+                ]
+            ])
             ->add('birthdate', null, [
+                
+                'label'   => 'Date de naissance',
+                'attr'=> [
+                    'placeholder'=>'Date de naissance'],
+                'widget'=>'single_text',
                 'years' => range(1950, date('Y')-6) ])
-            ->add('phoneNumber')
-            ->add('license')
-            ->add('address')
+            ->add('phoneNumber', null, [
+                'label'   => 'N° de téléphone',
+                'attr'=> [
+                    'placeholder'=>'N° de téléphone'
+                ]
+            ])
+            ->add('license', null, [
+                'label'   => 'N° de licence',
+                'attr'=> [
+                    'placeholder'=>'N° de licence'
+                ]
+            ])
+            ->add('address', null, [
+                'label'   => 'Adresse',
+                'attr'=> [
+                    'placeholder'=>'Adresse'
+                ]
+            ])
             
             
         ;

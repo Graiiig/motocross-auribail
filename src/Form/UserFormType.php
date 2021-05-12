@@ -50,11 +50,11 @@ class UserFormType extends AbstractType
                 ]
             ])
             ->add('birthdate', DateType::class, [
-                // 'label'   => 'Date d\'anniversaire',
+                'label'   => 'Date de naissance',
                 'years' => range(1950, date('Y')-6),
                 'widget'=>'single_text',
                 'attr'=> [
-                    'placeholder'=>'Date d\'anniversaire'
+                    'placeholder'=>'Date de naissance'
                 ]
             ])
             // TODO : Chemin vers un avatar de base

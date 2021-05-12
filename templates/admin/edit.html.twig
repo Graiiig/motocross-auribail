@@ -1,25 +1,42 @@
 {% extends 'base.html.twig' %}
 
 {%block body %}
-<div class="container">
-  <div class="row justify-content-center col-12 ">
-    <div class='justify-content-center row col-5 bg-secondary pt-3'>
-    {{form_start(users)}}
-      {{form_row(users.firstName)}}
-      {{form_row(users.lastName)}}
-      {{form_row(users.birthdate)}}
-      {{form_row(users.email)}}
-      {{form_row(users.address)}}
-      {{form_row(users.license)}}
-      {{form_row(users.phoneNumber)}}
-      {{form_row(users.roles)}}
-        {# {{ form_widget(users.save, { 'label': 'Enregister' }) }} #}
-    
-     
-      <button type="submit" class="btn btn-warning justify-content-center">Enregistrer</button>
-      
-    {{form_end(users)}}
-    </div>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+
+
+
+    <div class="card text-center col-11">
+				<div class="card-header">
+					Modification d'un utilisateur :
+
+				</div>
+				<div class="card-body row">
+					<div class="col-lg-12 col-12">
+            {{form_start(users, {'attr': {'class': 'd-flex justify-content-between flex-wrap form-edit-user-info'}})}}
+              {{form_row(users.firstName)}}
+              {{form_row(users.lastName)}}
+              {{form_row(users.birthdate)}}
+              {{form_row(users.email)}}
+              {{form_row(users.address)}}
+              {{form_row(users.license)}}
+              {{form_row(users.phoneNumber)}}
+              {{form_row(users.roles)}}
+                {# {{ form_widget(users.save, { 'label': 'Enregister' }) }} #}
+            
+            
+              <button type="submit" class="btn btn-outline-warning justify-content-center col-12 col-lg-3 offset-lg-5">Enregistrer</button>
+              
+            {{form_end(users)}}
+
+				  </div>
+          </div>
+				<div class="card-footer text-muted">
+
+				</div>
+			</div>
+
+
   </div>
 </div>
 {% endblock %}
