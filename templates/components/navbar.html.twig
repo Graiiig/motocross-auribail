@@ -42,12 +42,13 @@
 					</a>
 				</li>
 			{% endif %}
+			{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 			<li class="nav-item grow col-sm-12 col-md-auto grow">
 				<a class="nav-link text-white" href="{{ path('app_logout') }}">
 					<span class="material-icons align-middle">logout</span>
 				</a>
 			</li>
-
+			{% endif %}
 		</ul>
 
 	</div>
