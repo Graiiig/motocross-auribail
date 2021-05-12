@@ -3,16 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Session;
-use App\Entity\User;
-use App\Form\SessionType;
+use App\Form\SessionFormType;
 use App\Repository\UserRepository;
 use App\Repository\SessionRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminSessionController extends AbstractController
@@ -26,15 +23,19 @@ class AdminSessionController extends AbstractController
     /**
      * 
      * @Route("/admin/session/new", name="admin_session_new")
+     * @Route("/admin/session/{id}/edit", name="admin_session_edit")
      * 
      * @IsGranted("ROLE_ADMIN")
      */
-    public function new(Request $request, ManagerRegistry $managerRegistry)
+    public function new(Session $session = null, Request $request, ManagerRegistry $managerRegistry)
     {
-        // Build a new Session object
-        $session = new Session();
+        // Build a new Session object if unknown
+        if (!$session) {
+            $session = new Session();
+        }
+
         // Create the SessionType form
-        $form = $this->createForm(SessionType::class, $session);
+        $form = $this->createForm(SessionFormType::class, $session);
         // Process the form data
         $form->handleRequest($request);
         // If the form is submitted and valid
@@ -48,7 +49,7 @@ class AdminSessionController extends AbstractController
             // Redirect to the admin panel
             return $this->redirectToRoute('admin');
         }
-        // Render the form
+        // Render the forma
         return $this->render('admin/__new.html.twig', [
             "sessionForm" => $form->createView()
         ]);
