@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Session;
 use App\Form\SessionFormType;
-use App\Repository\UserRepository;
 use App\Repository\SessionRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,9 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminSessionController extends AbstractController
 {
-    public function __construct(UserRepository $userRepo, SessionRepository $sessionRepo)
+    public function __construct(SessionRepository $sessionRepo)
     {
-        $this->userRepo = $userRepo;
         $this->sessionRepo = $sessionRepo;
     }
 
@@ -53,5 +51,20 @@ class AdminSessionController extends AbstractController
         return $this->render('admin/__new.html.twig', [
             "sessionForm" => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/admin/session/{id}/delete", name="admin_session_delete", methods="DELETE")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function delete($id, ManagerRegistry $managerRegistry)
+    {
+        // Remove the session
+        $session = $this->sessionRepo->findOneBy(['id' => $id]);
+        $em = $managerRegistry->getManager();
+        $em->remove($session);
+        $em->flush();
+        // Redirect to admin panel
+        return $this->redirectToRoute('admin');
     }
 }
