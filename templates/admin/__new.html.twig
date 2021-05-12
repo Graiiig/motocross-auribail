@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+{% block body %}
+<div class="container w-25">
+    {{ form_start(sessionForm) }}
+    {{ form_errors(sessionForm) }}
+    {{ form_row(sessionForm.title, { 'label': 'Nom' }) }}
+    {{ form_row(sessionForm.date, { 'label': 'Date' }) }}
+    <button type="submit" class="btn btn-secondary">
+        Ajouter
+    </button>
+    {{ form_end(sessionForm) }}
+</div>
+
+{% endblock %}
