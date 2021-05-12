@@ -57,7 +57,7 @@ class AdminController extends AbstractController
         ]);
     }
     /**
-     * @Route("/admin/user/{id}/edit", name="admin_user_edit", methods="POST")
+     * @Route("/admin/user/{id}/edit", name="admin_user_edit")
      * @IsGranted("ROLE_ADMIN")
      */
 
@@ -71,6 +71,7 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($user);
             $em->flush();
+            return $this->redirectToRoute('admin'); 
             
         }
 

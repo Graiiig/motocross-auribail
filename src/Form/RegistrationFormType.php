@@ -23,7 +23,7 @@ class RegistrationFormType extends AbstractType
             ->add('email')
             ->add('phoneNumber')
             ->add('birthdate', null, [
-                'years' => range(1900, date('Y'))
+                'years' => range(1950, date('Y')-6)
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,

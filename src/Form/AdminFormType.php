@@ -34,7 +34,7 @@ class AdminFormType extends AbstractType
             ->add('lastName')
             ->add('firstName')
             ->add('birthdate', null, [
-                'years' => range(1900, date('Y')) ])
+                'years' => range(1950, date('Y')-6) ])
             ->add('phoneNumber')
             ->add('license')
             ->add('address')
