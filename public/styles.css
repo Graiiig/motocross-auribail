@@ -28,13 +28,7 @@
   }
 }
 
-body {
-  background-image: url("img/pexels-daniel-217872.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  font-family: "Lato", sans-serif;
-  font-weight: 300;
-}
+
 
 .open {
   font-family: "Open Sans", sans-serif;
@@ -61,9 +55,9 @@ body {
 }
 
 footer .grow:hover {
-  -moz-box-shadow: 0 0 20px rgb(22, 236, 22);
-  -webkit-box-shadow: 0 0 20px rgb(22, 236, 22);
-  box-shadow: 0px 0px 20px rgb(22, 236, 22);
+  /* -moz-text-shadow: 0 0 20px rgb(22, 236, 22);
+  -webkit-text-shadow: 0 0 20px rgb(22, 236, 22); */
+  text-shadow: 0px 0px 20px rgb(22, 236, 22);
 }
 
 .nav-icons {
@@ -98,3 +92,4 @@ footer .grow:hover {
   background-size: cover;
   background-repeat: no-repeat;
 }
+

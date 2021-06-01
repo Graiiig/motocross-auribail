@@ -29,5 +29,11 @@
     $('.form-group').addClass('col-12 col-lg-3')
   }
 
-  
+  // *** Script pour changer le background au refresh
+
+  var num = Math.floor( Math.random() * 10 );
+  document.body.style.background = "url('img/image-"+num+".jpg')" 
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundRepeat = "no-repeat"; 
+
 

@@ -10,7 +10,7 @@
     {% block stylesheets %}
     {#{{ encore_entry_link_tags('app') }}#}
     {% endblock %}
-    <link rel="stylesheet" href="{{asset('styles.css')}}">
+    
     <!-- Ajout du css / js de Bootstrap 4.6.0 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
@@ -22,12 +22,13 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
+ 
     </script>
 
         <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/combine/npm/bootswatch@4.6.0/dist/superhero/bootstrap.min.css,npm/bootswatch@4.6.0/dist/superhero/bootstrap.min.css">
-
-    </script>
+    
+    <link rel="stylesheet" href="{{asset('styles.css')}}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Orelega+One&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -44,6 +45,7 @@
     <!-- Fichier twig de la navbar -->
     {% include "components/navbar.html.twig" %}
     {% block body %}
+
     {% endblock %}
     <!-- Fichier twig du footer -->
     
@@ -51,6 +53,8 @@
 
     {% block javascripts %} 
     {# TODO :scripts a supp dans toutes les vues #}
-        <script type="text/javascript" src="{{asset('scripts.js')}}"></script>
+        <script type="text/javascript" src="{{asset('scripts.js')}}">
+        
+        </script>
     {% endblock %}
 </html>
