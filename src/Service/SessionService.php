@@ -30,6 +30,9 @@ class SessionService
         // *** catégorie
         $adults = 75;
         $children = 15;
+
+
+        // TODO metttre a jour le service, nombres de places restantes NOK
         foreach ($session->getUser() as $key => $user) {
             $today = new \DateTime(); 
             $interval = $today->diff($user->getBirthdate());
