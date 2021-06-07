@@ -3,15 +3,24 @@
 namespace App\Service;
 
 use App\Entity\Session;
+use App\Repository\PendingListRepository;
 use App\Repository\SessionRepository;
 
 class SessionService
 {
-    public function getNextSessionInfo($session, SessionRepository $sessionRepository): array
+    public function getNextSessionInfo($session, $user, SessionRepository $sessionRepository, PendingListRepository $pendingListRepository): array
     {
         if ($session == null){
 
             $session = $sessionRepository->findNext(); // *** fonction crée dans le repo *** //
+        }
+
+        $users = $pendingListRepository->findBy(['session'=>$session, 'user'=>$user]);
+        if($users){
+            $statusUserThisSession = "signed";
+        }
+        else {
+            $statusUserThisSession = "notsigned";
         }
         
         // *** Le nombre d'utilisateurs dans une session *** //
@@ -36,7 +45,8 @@ class SessionService
             "session"=>$session,
             "adults"=> $adults,
             "children"=>$children,
-            "usersInSession" => $usersInSession
+            "usersInSession" => $usersInSession,
+            "statusUserThisSession" => $statusUserThisSession
         );
         return $sessionInfo;
     }

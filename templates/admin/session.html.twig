@@ -21,17 +21,20 @@
             </tr>
         </thead>
         <tbody>
-            {% for user in users %}
+
+        <pre>
+        </pre>
+            {% for pendingList in pendingLists %}
             <tr>
                 <td>{{loop.index}}</td>
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.lastName }}</td>
-                <td>{{ user.birthdate | date('d/m/y') }}</td>
-                <td>{{ user.phoneNumber }}</td>
-                <td>{{ user.license }}</td>
-                <td>{{ user.address }}</td>
+                <td>{{ pendingList.user.firstName }}</td>
+                <td>{{ pendingList.user.lastName }}</td>
+                <td>{{ pendingList.user.birthdate | date('d/m/y') }}</td>
+                <td>{{ pendingList.user.phoneNumber }}</td>
+                <td>{{ pendingList.user.license }}</td>
+                <td>{{ pendingList.user.address }}</td>
                 <td>
-                    <form method="post" action="{{ path('admin_session_user_delete', {'id': session.id, 'idUser' : user.id}) }}"
+                    <form method="post" action="{{ path('admin_session_user_delete', {'pendinglist' : pendingList.id, 'sessionId' : session.id}) }}"
                         onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                         <input type="hidden" name="_method" value="DELETE">
                         <button class="close">

@@ -84,7 +84,7 @@ arrow_downward
 
 							{% if nextSession.usersInSession < 75 %}
 								{% if app.user %}
-									<a href="{{path('session', {'id':nextSession.session.id})}}" class="btn btn-primary">S'inscrire</a>
+									<a href="{{path('session', {'session':nextSession.session.id})}}" class="btn btn-primary">S'inscrire</a>
 								{% else %}
 									<a href="{{path('app_login')}}" class="btn btn-primary">S'inscrire</a>
 								{% endif %}

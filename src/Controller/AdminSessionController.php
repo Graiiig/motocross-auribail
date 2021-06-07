@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\PendingList;
 use App\Entity\Session;
 use App\Form\SessionFormType;
 use App\Repository\SessionRepository;
@@ -29,13 +30,15 @@ class AdminSessionController extends AbstractController
     {
         // Va chercher la session dans la base de donnée avec son id
         $session = $this->sessionRepo->findOneBy(['id' => $id]);
-        // Récupère les utilisateurs inscrit en session
-        $users = $session->getUser();
+        // Récupère la pending list de la session
+        $pendingLists = $session->getPendingLists();
         // Affiche la vue de session avec ses variables
+
+
         
         return $this->render('admin/session.html.twig', [
             'session' => $session,
-            'users' => $users
+            'pendingLists' => $pendingLists
         ]);
     }
 
@@ -97,25 +100,21 @@ class AdminSessionController extends AbstractController
     /**
      * Suppression d'un utilisateur dans une session
      * 
-     * @Route("/admin/session/{id}/user/{idUser}/delete", name="admin_session_user_delete", methods="DELETE")
+     * @Route("/delete-user/{pendinglist}/{sessionId}", name="admin_session_user_delete", methods="DELETE")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function deleteUser($id, $idUser, UserRepository $repo, ManagerRegistry $managerRegistry)
+    public function deleteUser($sessionId, PendingList $pendinglist, ManagerRegistry $managerRegistry)
     {
-        // Récupère une session avec son id
-        $session = $this->sessionRepo->findOneBy(['id' => $id]);
-        // Récupère un user avec son id
-        $user = $repo->findOneBy(['id' => $idUser]);
-        // Requête pour supprimer l'utilisateur dans la session
-        $req =  $session->removeUser($user);
-        // On instancie le ManagerRegistry
         $em = $managerRegistry->getManager();
+        // Supprime la session dans la base de donnée
+        $em->remove($pendinglist);
         // Persiste la requête et envoie en base de donnée
-        $em->persist($req);
+        
         $em->flush();
         // Redirige sur la session avec son id
+        // Redirige sur la session avec son id
         return $this->redirectToRoute('admin_session', [
-            'id' => $id
+            'id' => $sessionId
         ]);
     }
 }

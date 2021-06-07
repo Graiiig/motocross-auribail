@@ -78,9 +78,17 @@ class User implements UserInterface
      */
     private $sessions;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PendingList::class, mappedBy="user")
+     */
+    private $pendingLists;
+
+
+
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
+        $this->pendingLists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -274,5 +282,38 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|PendingList[]
+     */
+    public function getPendingLists(): Collection
+    {
+        return $this->pendingLists;
+    }
+
+    public function addPendingList(PendingList $pendingList): self
+    {
+        if (!$this->pendingLists->contains($pendingList)) {
+            $this->pendingLists[] = $pendingList;
+            $pendingList->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePendingList(PendingList $pendingList): self
+    {
+        if ($this->pendingLists->removeElement($pendingList)) {
+            // set the owning side to null (unless already changed)
+            if ($pendingList->getUser() === $this) {
+                $pendingList->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
 
 }
