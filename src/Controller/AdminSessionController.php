@@ -77,7 +77,7 @@ class AdminSessionController extends AbstractController
     /**
      * Suppression d'une Session
      * 
-     * @Route("/admin/session/{id}/delete", name="admin_session_delete", methods="DELETE")
+     * @Route("/admin/session/{id}/delete", name="admin_session_delete")
      * @IsGranted("ROLE_ADMIN")
      */
     public function deleteSession($id, ManagerRegistry $managerRegistry)
