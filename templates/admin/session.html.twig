@@ -10,6 +10,7 @@
         <h1>Liste des utilisateurs :</h1>
         <thead>
             <tr>
+                <th scope="col">n°</th>
                 <th scope="col">Prénom</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Date de naissance</th>
@@ -22,6 +23,7 @@
         <tbody>
             {% for user in users %}
             <tr>
+                <td>{{loop.index}}</td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.birthdate | date('d/m/y') }}</td>

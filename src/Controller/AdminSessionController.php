@@ -32,6 +32,7 @@ class AdminSessionController extends AbstractController
         // Récupère les utilisateurs inscrit en session
         $users = $session->getUser();
         // Affiche la vue de session avec ses variables
+        
         return $this->render('admin/session.html.twig', [
             'session' => $session,
             'users' => $users
