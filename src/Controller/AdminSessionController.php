@@ -43,7 +43,7 @@ class AdminSessionController extends AbstractController
      * Création et Edition d'une session
      * 
      * @Route("/admin/creation-session", name="admin_session_new")
-     * @Route("/admin/session/{id}/edit", name="admin_session_edit", requirements={"id":"\d+"})
+     * @Route("/admin/session/{id}/edit", name="admin_session_edit")
      * 
      * @IsGranted("ROLE_ADMIN")
      */
@@ -78,7 +78,7 @@ class AdminSessionController extends AbstractController
     /**
      * Suppression d'une Session
      * 
-     * @Route("/admin/session/{id}/delete", name="admin_session_delete", methods="DELETE")
+     * @Route("/admin/session/{id}/delete", name="admin_session_delete")
      * @IsGranted("ROLE_ADMIN")
      */
     public function deleteSession($id, ManagerRegistry $managerRegistry)
