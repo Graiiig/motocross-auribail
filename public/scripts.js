@@ -17,7 +17,7 @@
 
   // *** Script pour afficher le form dans la page mon compte
 
-  if ($('.edit-my-info')){
+  if (document.querySelector('.edit-my-info')){
     $('.edit-my-info').on('click', function(){
       $('form#form-edit-my-info').css('display','block');
       $('.clean-form').css('display','none');
@@ -25,14 +25,14 @@
     $('.form-group').addClass('col-12 col-lg-3')
   }
 
-  if($('.form-edit-user-info')){
+  if(document.querySelector('.form-edit-user-info')){
     $('.form-group').addClass('col-12 col-lg-3')
   }
 
   // *** Script pour changer le background au refresh
 
   var num = Math.floor( Math.random() * 10 );
-  document.body.style.background = "url('img/image-"+num+".jpg')" 
+  document.body.style.background = "url('http://localhost/motocross-auribail/public/img/image-"+num+".jpg')" 
   document.body.style.backgroundSize = "cover";
   document.body.style.backgroundRepeat = "no-repeat"; 
 
