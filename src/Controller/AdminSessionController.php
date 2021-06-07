@@ -42,7 +42,7 @@ class AdminSessionController extends AbstractController
      * Création et Edition d'une session
      * 
      * @Route("/admin/creation-session", name="admin_session_new")
-     * @Route("/admin/session/{id}/edit", name="admin_session_edit", requirements={"id":"\d+"})
+     * @Route("/admin/session/{id}/edit", name="admin_session_edit")
      * 
      * @IsGranted("ROLE_ADMIN")
      */
