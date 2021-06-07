@@ -59,6 +59,8 @@ class AdminSessionController extends AbstractController
         $form->handleRequest($request);
         // Si le formulaire est soumis et validé
         if ($form->isSubmitted() && $form->isValid()) {
+            // Add status
+            $session->setStatus(0);
             // Process the form data
             $em = $managerRegistry->getManager();
             // Dis au manager de persister
