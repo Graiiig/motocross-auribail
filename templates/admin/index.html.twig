@@ -60,12 +60,12 @@
                 <td>{{ session.date | date('d/m/y') }}</td>
                 <td><a href="{{ path('admin_session', {'id' : session.id}) }}">Afficher</a></td>
                 <td  width='15px'>
-                    <form action="{{ path('admin_user_edit', {'id': session.id}) }}">
+                    <form action="{{ path('admin_session_edit', {'id': session.id}) }}">
                         <button class="material-icons-outlined btn bg-transparent">edit</button>
                     </form>
                 </td>
                 <td width='25px'>
-                    <form action="{{ path('admin_user_delete', {'id': session.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                    <form action="{{ path('admin_session_delete', {'id': session.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                         <button class="material-icons-outlined btn bg-transparent">delete_forever</button>
                     </form>
                 </td>
