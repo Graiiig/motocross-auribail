@@ -59,8 +59,6 @@ class AdminSessionController extends AbstractController
         $form->handleRequest($request);
         // Si le formulaire est soumis et validé
         if ($form->isSubmitted() && $form->isValid()) {
-            // Add status
-            $session->setStatus(0);
             // Process the form data
             $em = $managerRegistry->getManager();
             // Dis au manager de persister
@@ -72,7 +70,8 @@ class AdminSessionController extends AbstractController
         }
         // Affichage du formulaire dans la vue et redirection
         return $this->render('admin/__new.html.twig', [
-            "sessionForm" => $form->createView()
+            "sessionForm" => $form->createView(),
+            "editMode" => $session->getId() !== null
         ]);
     }
 
