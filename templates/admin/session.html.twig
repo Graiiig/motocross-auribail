@@ -6,13 +6,17 @@
 <div class="container mt-5">
     <h1>Entraînement n°{{ session.id }} : {{session.title}} le
         {{session.date | format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") }}</h1>
+
+    {% for pendingList in pendingLists %}
+
     <table class="table table-striped table-dark">
-        <h1>Liste des utilisateurs :</h1>
+        <h1>Liste des {{names[loop.index0]}} ({{pendingList|length}} inscrits) :</h1>
         <thead>
             <tr>
                 <th scope="col">n°</th>
                 <th scope="col">Prénom</th>
                 <th scope="col">Nom</th>
+                <th scope="col">Rôle</th>
                 <th scope="col">Date de naissance</th>
                 <th scope="col">Téléphone</th>
                 <th scope="col">Licence</th>
@@ -24,17 +28,24 @@
 
         <pre>
         </pre>
-            {% for pendingList in pendingLists %}
+            {% for item in pendingList %}
             <tr>
                 <td>{{loop.index}}</td>
-                <td>{{ pendingList.user.firstName }}</td>
-                <td>{{ pendingList.user.lastName }}</td>
-                <td>{{ pendingList.user.birthdate | date('d/m/y') }}</td>
-                <td>{{ pendingList.user.phoneNumber }}</td>
-                <td>{{ pendingList.user.license }}</td>
-                <td>{{ pendingList.user.address }}</td>
+                <td>{{ item.user.firstName }}</td>
+                <td>{{ item.user.lastName }}</td>
+                {% if item.user.roles.0 == "ROLE_MEMBER" %}
+                    <td>Membre</td>
+                {% elseif item.user.roles.0 == "ROLE_NON_MEMBER" %}
+                    <td>Non membre</td>
+                {% else %}
+                    <td>Admin</td>
+                {% endif %}
+                <td>{{ item.user.birthdate | date('d/m/y') }}</td>
+                <td>{{ item.user.phoneNumber }}</td>
+                <td>{{ item.user.license }}</td>
+                <td>{{ item.user.address }}</td>
                 <td>
-                    <form method="post" action="{{ path('admin_session_user_delete', {'pendinglist' : pendingList.id, 'sessionId' : session.id}) }}"
+                    <form method="post" action="{{ path('admin_session_user_delete', {'pendinglist' : item.id, 'sessionId' : session.id}) }}"
                         onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                         <input type="hidden" name="_method" value="DELETE">
                         <button class="close">
@@ -47,6 +58,7 @@
 
         </tbody>
     </table>
+    {% endfor %}
 </div>
 
 {% endblock %}

@@ -21,7 +21,7 @@ class PendingListController extends AbstractController
     public function sessionRegistration(EntityManagerInterface $entityManager, Session $session, PendingListRepository $pendingListRepository): Response
     {   
 
-
+        
         $users = $pendingListRepository->findBy(['session'=>$session, 'user'=>$this->getUser()]);
         if($users){
             // TODO Ajouter flash ou noty
