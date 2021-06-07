@@ -36,4 +36,26 @@
   document.body.style.backgroundSize = "cover";
   document.body.style.backgroundRepeat = "no-repeat"; 
 
+  //** Script de recherche */
 
+
+  $(document).ready(function(){
+    $("#search").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#table tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+  
+  //** Noty notifcations */
+
+ 
+function notyTest(){ new Noty({
+  
+    text: 'Some notification text',
+    theme: 'mint',
+    type : 'warning', 
+    
+}).show();
+  }

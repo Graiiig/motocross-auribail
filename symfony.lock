@@ -118,6 +118,9 @@
     "monolog/monolog": {
         "version": "2.2.0"
     },
+    "needim/noty": {
+        "version": "v3.1.4"
+    },
     "nikic/php-parser": {
         "version": "v4.10.4"
     },
