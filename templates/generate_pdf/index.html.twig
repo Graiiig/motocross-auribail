@@ -3,5 +3,10 @@
 {% block title %}Hello GeneratePhpController!{% endblock %}
 
 {% block body %}
-PDF
+<pre>
+    
+    {% for user in session.user|sort((a, b) => a.roles <=> b.roles)|column('roles') %}
+        <p>{{user.email}}, {{user.lastName}}, {{user.firstName}}</p>
+    {% endfor %}
+</pre>
 {% endblock %}
