@@ -26,28 +26,17 @@ class SessionService
         // *** Le nombre d'utilisateurs dans une session *** //
         $usersInSession = count($session->getUser());
 
-        // *** Calcul des âges pour déterminer les places restantes dans chaque
-        // *** catégorie
-        $adults = 75;
-        $children = 15;
+        //On récupère la liste d'attente de la session
+        $pendingLists = $pendingListRepository->getPendingList($session);
 
+        //Calcul des places restantes
+        $adultsNb = 75 - count($pendingLists['adults']);
+        $kidsNb = 15 - count($pendingLists['kids']);
 
-        // TODO metttre a jour le service, nombres de places restantes NOK
-        foreach ($session->getUser() as $key => $user) {
-            $today = new \DateTime(); 
-            $interval = $today->diff($user->getBirthdate());
-            // dump($interval);
-            if (intval($interval->format('%Y')) < 16) {
-                $children--;
-            }
-            else {
-                $adults--;
-            }
-        }
         $sessionInfo = array(
             "session"=>$session,
-            "adults"=> $adults,
-            "children"=>$children,
+            "adults"=> $adultsNb,
+            "children"=>$kidsNb,
             "usersInSession" => $usersInSession,
             "statusUserThisSession" => $statusUserThisSession
         );
