@@ -55,7 +55,7 @@ class UserFixtures extends Fixture
                     '123'
                 ))
                  ->setRoles(['ROLE_MEMBER'])
-                 ->setBirthdate( new \DateTime('200'.$i.'-06-06'))
+                 ->setBirthdate( new \DateTime('2000-06-06'))
                  ->setLicense($faker->randomNumber($nbDigits = NULL, $strict = false));
 
                 if ($i<20) {
@@ -69,7 +69,7 @@ class UserFixtures extends Fixture
                     
                     
                 }
-                else if ($i>=20 && $i < 30) {
+                else if ($i>=20 && $i < 80) {
                     $pendingList = new PendingList();
 
                     //On set les infos nécessaires
@@ -106,7 +106,7 @@ class UserFixtures extends Fixture
                                 ->setDatetime(new \DateTime());
                     $manager->persist($pendingList);
                 }
-                else if ($i>=20 && $i < 30) {
+                else if ($i>=20 && $i < 80) {
                     $pendingList = new PendingList();
 
                     //On set les infos nécessaires
