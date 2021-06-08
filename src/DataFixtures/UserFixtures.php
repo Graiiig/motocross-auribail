@@ -43,7 +43,7 @@ class UserFixtures extends Fixture
 
         
 
-        for ($i=0; $i < 40 ; $i++) { 
+        for ($i=0; $i < 100 ; $i++) { 
             $user = new User();
             $user->setLastName($faker->lastName)
                  ->setFirstName($faker->firstName)
@@ -82,7 +82,7 @@ class UserFixtures extends Fixture
                 
             $manager->persist($user);
         }
-        for ($i=0; $i < 40 ; $i++) { 
+        for ($i=0; $i < 100 ; $i++) { 
             $user = new User();
             $user->setLastName($faker->lastName)
                  ->setFirstName($faker->firstName)
@@ -94,7 +94,7 @@ class UserFixtures extends Fixture
                                  '123'
                              ))
                  ->setRoles(['ROLE_NON_MEMBER'])
-                 ->setBirthdate( new \DateTime('200'.$i.'-06-06'))
+                 ->setBirthdate( new \DateTime('2000-06-06'))
                  ->setLicense($faker->randomNumber($nbDigits = NULL, $strict = false));
 
                  if ($i<20) {
