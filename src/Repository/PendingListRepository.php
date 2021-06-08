@@ -19,22 +19,17 @@ class PendingListRepository extends ServiceEntityRepository
         parent::__construct($registry, PendingList::class);
     }
 
-    // /**
-    //  * @return PendingList[] Returns an array of PendingList objects
-    //  */
-    
+    //fonction pour retrouver les membres en fonction de leur age, roles et session
     public function findMembers($sessionId, $role, $operator, $age)
     {
-
-
+        // On crée une requête dql
         $qb = $this->getEntityManager()->createQueryBuilder();
 
-        return 
+        return  
             $qb->select('pl')
             ->from('App\Entity\PendingList', 'pl')
             ->innerJoin('App\Entity\User', 'u', 'WITH', 'u.id = pl.user')
-            ->andWhere("DATE_DIFF(CURRENT_DATE(), u.birthdate) >= 50")
-            ->andWhere('u.roles = :role')
+            ->andWhere('u.roles LIKE :role')
             ->andWhere('pl.session = :sessionId')
             ->andWhere('TIMESTAMPDIFF(YEAR,u.birthdate,CURRENT_DATE()) '.$operator.' :age')
             ->setParameter('role', $role)
@@ -44,17 +39,19 @@ class PendingListRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+
+
     }
 
-    public function getPendingList($id)
+    // Fonction qui récupère une PL pour une session donnée
+    public function getPendingList($sessionId)
     {
-
         // *** Adultes *** //
         //recuperation des membres adultes dans la file d'attente
-        $adultsMembersInPending = $this->findMembers($id, '["ROLE_MEMBER"]', '>', 16);
-        
+        $adultsMembersInPending = $this->findMembers($sessionId, '["ROLE_MEMBER"]', '>', 16);
+       
         //recuperation des non membres adultes dans la file d'attente
-        $adultsNonMembersInPending = $this->findMembers($id, '["ROLE_NON_MEMBER"]', '>', 16);
+        $adultsNonMembersInPending = $this->findMembers($sessionId, '["ROLE_NON_MEMBER"]', '>', 16);
 
         // Concaténation des deux tableaux
         $adultsPendingList = array_merge($adultsMembersInPending, $adultsNonMembersInPending);
@@ -64,10 +61,10 @@ class PendingListRepository extends ServiceEntityRepository
 
         // *** Kids *** //
         //recuperation des membres enfants dans la file d'attente
-        $kidsMembersInPending = $this->findMembers($id, '["ROLE_MEMBER"]', '<=', 16);
+        $kidsMembersInPending = $this->findMembers($sessionId, '["ROLE_MEMBER"]', '<=', 16);
         
         //recuperation des non membres enfants dans la file d'attente
-        $kidsNonMembersInPending = $this->findMembers($id, '["ROLE_NON_MEMBER"]', '<=', 16);
+        $kidsNonMembersInPending = $this->findMembers($sessionId, '["ROLE_NON_MEMBER"]', '<=', 16);
 
         // Concaténation des deux tableaux
         $kidsPendingList = array_merge($kidsMembersInPending, $kidsNonMembersInPending);
@@ -76,22 +73,8 @@ class PendingListRepository extends ServiceEntityRepository
         $kidsPendingList = array_slice($kidsPendingList,0,15);
         
         //On crée la liste d'attente finale
-        $pendingLists = array('adults'=>$adultsPendingList, 'kids'=>$kidsPendingList);
-
-        return $pendingLists;
+        return array('adults'=>$adultsPendingList, 'kids'=>$kidsPendingList);
 
     }
     
-
-    /*
-    public function findOneBySomeField($value): ?PendingList
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
