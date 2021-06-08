@@ -4,138 +4,108 @@
 {% endblock %}
 
 {% block body %}
-	{# FIXME: A mettre dans styles.css à terme #}
-	<style>
-		form#form-edit-my-info{
-			display:none;
-		}
+{# FIXME: A mettre dans styles.css à terme #}
+<style>
+	form#form-edit-my-info {
+		display: none;
+	}
 
-		
 
-		.edit-my-info:hover{
-			cursor: pointer;
-		}
 
-		
-	</style>
-	<div class="container mt-5">
+	.edit-my-info:hover {
+		cursor: pointer;
+	}
+</style>
+<div class="container mt-5">
 	<div class="row">
-	{% if sessions|length == 0 %}
-					<p class="text-center offset-1 col-4">Vous n'avez participé à aucun entraînement, vous pouvez vous inscrire à la prochaine session <span class="material-icons-outlined align-middle">
-arrow_downward
-</span> </p>
-	{% endif %}
+		{% if sessions|length == 0 %}
+		<p class="text-center offset-1 col-4">Vous n'avez participé à aucun entraînement, vous pouvez vous inscrire à la
+			prochaine session <span class="material-icons-outlined align-middle">
+				arrow_downward
+			</span> </p>
+		{% endif %}
 	</div>
-		<div class="row justify-content-center">
-			<div class="card text-center mx-5 col-10">
-				<div class="card-header">
-					Mes informations personnelles :
+	<div class="row justify-content-center">
+		<div class="card text-center mx-5 col-10">
+			<div class="card-header">
+				Mes informations personnelles :
 
-				</div>
-				<div class="card-body row">
-					<div class="col-lg-6 col-12">
-					
+			</div>
+			<div class="card-body row">
+				<div class="col-lg-6 col-12">
+
 					<h5 class="card-title clean-form">{{app.user.lastName ~ " " ~ app.user.firstName}}</h5>
 					<p class="card-text clean-form">{{ app.user.email }}</p>
 					<p class="card-text clean-form">{{ app.user.phoneNumber }}</p>
 					<p class="card-text clean-form">{{ app.user.license }}</p>
 					<p class="card-text clean-form">{{ app.user.address }}</p>
 					<p class="card-text clean-form">{{ app.user.birthDate | date ('d/m/Y') }}</p>
-					</div>
-					<div class="col-6 col-lg-6 col-12 align-middle" style="height:min-content">
+				</div>
+				<div class="col-6 col-lg-6 col-12 align-middle" style="height:min-content">
 					<img class="clean-form" src="https://picsum.photos/150" alt="">
-					<p class="card-text clean-form mt-2"><a  class="edit-my-info"> Modifier mes informations</p>
-					<p class="card-text clean-form"><a href="{{path('app_forgot_password_request')}}"> Modifier mon mot de passe</a></p>
-
-					</div>
-					{{ form_start(form, {'attr': {'id': 'form-edit-my-info'}}) }}
-					{{ form_widget(form, {'attr': {'class': 'd-flex justify-content-between flex-wrap'}}) }}
-					<button type="submit" class="btn btn-outline-success">Valider</button> 
-					{{ form_end(form) }}
+					<p class="card-text clean-form mt-2"><a class="edit-my-info"> Modifier mes informations</p>
+					<p class="card-text clean-form"><a href="{{path('app_forgot_password_request')}}"> Modifier mon mot
+							de passe</a></p>
 
 				</div>
-				<div class="card-footer text-muted">
-					{% if is_granted('ROLE_MEMBER') %}
-						Adhérent du club - Vous avez un soucis ? Vous pouvez contacter l'administrateur ici : <a href="mailto:mc.auribail@gmail.com">mc.auribail@gmail.com</a>
-					{% elseif is_granted('ROLE_NON_MEMBER')%}
-						Non adhérent du club - Vous avez un soucis ? Vous pouvez contacter l'administrateur ici : <a href="mailto:mc.auribail@gmail.com">mc.auribail@gmail.com</a>
-					{% else %}
-						Administrateur
-					{% endif %}
-				</div>
+				{{ form_start(form, {'attr': {'id': 'form-edit-my-info'}}) }}
+				{{ form_widget(form, {'attr': {'class': 'd-flex justify-content-between flex-wrap'}}) }}
+				<button type="submit" class="btn btn-outline-success">Valider</button>
+				{{ form_end(form) }}
+
 			</div>
-			<div class="col-lg-5 col-12">
-
-				{# TODO Modifs concernant l'affichage #}
-				{% if sessions|length == 0 %}
-					
-					<div class="card text-center mx-5">
-						<div
-							class="card-header">
-							Inscription pour l'entrainement du
-							<span data-date="{{nextSession.session.date | date('Y-m-d')}}" class="date-1 date">{{nextSession.session.date | date('d/m/Y')}}</span>
-							:
-						</div>
-						<div class="card-body">
-							<h5 class="card-title">{{nextSession.session.title}}</h5>
-							<p class="card-text">Place(s) adultes restantes :
-								{{nextSession.adults}}</p>
-							<p class="card-text">Place(s) enfants restantes :
-								{{nextSession.children}}</p>
-
-							{% if nextSession.adults > 0 %}
-								{% if app.user and nextSession.statusUserThisSession != "signed" %}
-								<a href="{{path('session', {'session':nextSession.session.id})}}" class="btn btn-primary">S'inscrire</a>
-
-								{% elseif app.user and nextSession.statusUserThisSession == "signed" %}
-								<a class="btn btn-primary disabled">Déjà inscrit (position : {{ nextSession.position}})</a>
-								
-								{% else %}
-								<a href="{{path('app_login')}}" class="btn btn-primary">S'inscrire</a>
-								{% endif %}
-							{% else %}
-								<a class="btn btn-primary">Plus de place de disponibles, voir les prochaines courses</a>
-							{% endif %}
-
-						</div>
-						<div class="card-footer text-muted">
-						<a href="{{path('app_login')}}" class="">Voir les prochains entraînements</a>
-						</div>
-					</div>
-
+			<div class="card-footer text-muted">
+				{% if is_granted('ROLE_MEMBER') %}
+				Adhérent du club - Vous avez un soucis ? Vous pouvez contacter l'administrateur ici : <a
+					href="mailto:mc.auribail@gmail.com">mc.auribail@gmail.com</a>
+				{% elseif is_granted('ROLE_NON_MEMBER')%}
+				Non adhérent du club - Vous avez un soucis ? Vous pouvez contacter l'administrateur ici : <a
+					href="mailto:mc.auribail@gmail.com">mc.auribail@gmail.com</a>
+				{% else %}
+				Administrateur
 				{% endif %}
-				{% for session in sessions %}
-
-					{% set difference = date("now").diff(date(session.datetime)) %}
-
-					{% if difference.invert == 1 %}
-						<ul class="list-group">
-							<li class="list-group-item active">Les courses auxquelles j'ai participé :
-							</li>
-							<li class="list-group-item">
-								{{session.session.title | lower}}
-								le
-								{{session.session.date | date ('d/m/Y')}}</li>
-						</ul>
-					{% else %}
-					
-						<ul class="list-group mt-5">
-							<li class="list-group-item active">Mes prochaines courses :
-							</li>
-							<li class="list-group-item">
-								{{session.title | lower}}
-								le
-								{{session.date | date ('d/m/Y')}} <a class="float-right" href="{{ path('user_leave_session', {'session' : session.id} )}}"><span class="material-icons-outlined align-middle">
-								delete
-								</span></a></li>
-						</ul>
-					{% endif %}
-
-				{% endfor %}
-
 			</div>
 		</div>
+		<div class="col-lg-5 col-12">
 
+			{# TODO Modifs concernant l'affichage #}
+			{% if sessions|length == 0 %}
+			{% include "components/session.html.twig" %}
+			{% endif %}
+			{% for session in sessions %}
+
+			{% set difference = date("now").diff(date(session.datetime)) %}
+
+			{% if difference.invert == 1 %}
+			<ul class="list-group">
+				<li class="list-group-item active">Les courses auxquelles j'ai participé :
+				</li>
+				<li class="list-group-item">
+					{{session.session.title | lower}}
+					le
+					{{session.session.date | date ('d/m/Y')}}</li>
+			</ul>
+			{% else %}
+
+			<ul class="list-group mt-5">
+				<li class="list-group-item active">Mes prochaines courses :
+				</li>
+				<li class="list-group-item">
+					{{session.title | lower}}
+					le
+					{{session.date | date ('d/m/Y')}} <a class="float-right"
+						href="{{ path('user_leave_session', {'session' : session.id} )}}"><span
+							class="material-icons-outlined align-middle">
+							delete
+						</span></a></li>
+			</ul>
+			{% endif %}
+
+			{% endfor %}
+
+		</div>
 	</div>
+
+</div>
 
 {% endblock %}

@@ -6,9 +6,9 @@
     {{ form_row(sessionForm.title, { 'label': 'Nom' }) }}
     {{ form_row(sessionForm.date, { 'label': 'Date' }) }}
     {% if editMode %}
-    {{ form_row(sessionForm.status, { 'label': 'Fermeture de la session' }) }}
+    {{ form_row(sessionForm.status, { 'label': 'Etat de la session' }) }}
     {% else %}
-    {{ form_row(sessionForm.status, { 'attr':{'disabled':'disabled'} }  ) }}
+    {{ form_row(sessionForm.status, { 'attr':{'disabled':'disabled'}, 'label': 'Etat de la session' }  ) }}
     {% endif %}
     <button type="submit" class="btn btn-secondary">
     {% if editMode %}
