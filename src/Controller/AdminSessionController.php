@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\PendingList;
 use App\Entity\Session;
 use App\Form\SessionFormType;
+use App\Repository\PendingListRepository;
 use App\Repository\SessionRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,9 +18,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminSessionController extends AbstractController
 {
-    public function __construct(SessionRepository $sessionRepo)
+    protected $entityManager;
+
+    public function __construct(SessionRepository $sessionRepo, PendingListRepository $pendingListRepository, EntityManagerInterface $entityManager)
     {
         $this->sessionRepo = $sessionRepo;
+        $this->pendingListRepository = $pendingListRepository;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -27,15 +35,19 @@ class AdminSessionController extends AbstractController
      */
     public function show($id)
     {
+        //Fonction pour récupérer la pending list (voir PendingListRepository)
+        $pendingLists = $this->pendingListRepository->getPendingList($id);
+
+        // On crée un tableau pour récupérer les noms dans la vue twig après
+        $names = array(0 => 'adultes', 1 => 'enfants');
+
         // Va chercher la session dans la base de donnée avec son id
         $session = $this->sessionRepo->findOneBy(['id' => $id]);
-        // Récupère les utilisateurs inscrit en session
-        $users = $session->getUser();
-        // Affiche la vue de session avec ses variables
-        
+
         return $this->render('admin/session.html.twig', [
             'session' => $session,
-            'users' => $users
+            'pendingLists' => $pendingLists,
+            'names'=>$names
         ]);
     }
 
@@ -60,12 +72,11 @@ class AdminSessionController extends AbstractController
         $form->handleRequest($request);
         // Si le formulaire est soumis et validé
         if ($form->isSubmitted() && $form->isValid()) {
-            // Process the form data
-            $em = $managerRegistry->getManager();
+
             // Dis au manager de persister
-            $em->persist($session);
+            $this->entityManager->persist($session);
             // Envoie les données dans la base
-            $em->flush();
+            $this->entityManager->flush();
             // Redirige au panneau d'administration
             return $this->redirectToRoute('admin');
         }
@@ -81,15 +92,15 @@ class AdminSessionController extends AbstractController
      * @Route("/admin/session/{id}/delete", name="admin_session_delete")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function deleteSession($id, ManagerRegistry $managerRegistry)
+    public function deleteSession($id)
     {
         // Récupère la session avec son id
         $session = $this->sessionRepo->findOneBy(['id' => $id]);
         // Prend en charge les données
-        $em = $managerRegistry->getManager();
+        ;
         // Supprime la session dans la base de donnée
-        $em->remove($session);
-        $em->flush();
+        $this->entityManager->remove($session);
+        $this->entityManager->flush();
         // Redirige vers le panneau d'administration
         return $this->redirectToRoute('admin');
     }
@@ -97,25 +108,20 @@ class AdminSessionController extends AbstractController
     /**
      * Suppression d'un utilisateur dans une session
      * 
-     * @Route("/admin/session/{id}/user/{idUser}/delete", name="admin_session_user_delete", methods="DELETE")
+     * @Route("/delete-user/{pendinglist}/{sessionId}", name="admin_session_user_delete", methods="DELETE")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function deleteUser($id, $idUser, UserRepository $repo, ManagerRegistry $managerRegistry)
+    public function deleteUser($sessionId, PendingList $pendinglist, ManagerRegistry $managerRegistry)
     {
-        // Récupère une session avec son id
-        $session = $this->sessionRepo->findOneBy(['id' => $id]);
-        // Récupère un user avec son id
-        $user = $repo->findOneBy(['id' => $idUser]);
-        // Requête pour supprimer l'utilisateur dans la session
-        $req =  $session->removeUser($user);
-        // On instancie le ManagerRegistry
-        $em = $managerRegistry->getManager();
-        // Persiste la requête et envoie en base de donnée
-        $em->persist($req);
-        $em->flush();
+        
+        // Supprime la session dans la base de donnée
+        $this->entityManager->remove($pendinglist);
+        
+        $this->entityManager->flush();
+
         // Redirige sur la session avec son id
         return $this->redirectToRoute('admin_session', [
-            'id' => $id
+            'id' => $sessionId
         ]);
     }
 }

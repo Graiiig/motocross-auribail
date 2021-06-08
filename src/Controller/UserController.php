@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Session;
 use App\Form\UserFormType;
+use App\Repository\PendingListRepository;
 use App\Repository\SessionRepository;
 use App\Service\SessionService;
 use Doctrine\ORM\EntityManager;
@@ -17,14 +18,14 @@ class UserController extends AbstractController
     /**
      * @Route("/mon-compte", name="user_account")
      */
-    public function index(SessionService $sessionService, SessionRepository $sessionRepository, Request $request): Response
+    public function index(SessionService $sessionService, SessionRepository $sessionRepository, Request $request, PendingListRepository $pendingListRepository): Response
     {
         if ($this->getUser()){
 
             $user = $this->getUser();
             $sessions = $user->getSessions();
 
-            $nextSession = $sessionService->getNextSessionInfo(null,$sessionRepository);
+            $nextSession = $sessionService->getNextSessionInfo(null, $user,$sessionRepository, $pendingListRepository);
 
             $form = $this->createForm(UserFormType::class, $user);
 
