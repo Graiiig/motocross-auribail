@@ -52,6 +52,7 @@ class AdminController extends AbstractController
 
         // Pagination des résultats du test (tri de users)
         $pages = $paginator->paginate($users, $request->query->getInt('page', 1), 10); 
+       
         
         // On prend toutes les sessions de la base de données
         $sessions = $this->sessionRepo->findBy([], null, 5);

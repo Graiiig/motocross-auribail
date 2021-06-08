@@ -1,23 +1,29 @@
 {% extends "base.html.twig" %}
 {% block body %}
-<div class="container w-25">
-    {{ form_start(sessionForm) }}   
-    {{ form_errors(sessionForm) }}
-    {{ form_row(sessionForm.title, { 'label': 'Nom' }) }}
-    {{ form_row(sessionForm.date, { 'label': 'Date' }) }}
-    {% if editMode %}
-    {{ form_row(sessionForm.status, { 'label': 'Fermeture de la session' }) }}
-    {% else %}
-    {{ form_row(sessionForm.status, { 'attr':{'disabled':'disabled'} }  ) }}
-    {% endif %}
-    <button type="submit" class="btn btn-secondary">
-    {% if editMode %}
-        Modifier
-    {% else %}
-        Ajouter
-    {% endif %}
+<div class="container-fluid mx-px-0 mt-3">
+    <div  class='row mx-auto col-4 justify-content-center bg-secondary py-3'>
+        {{ form_start(sessionForm) }}   
+        {{ form_errors(sessionForm) }}
+        {{ form_widget(sessionForm.title, { 'attr': {'placeholder': 'Intitulé de la session', 'class' : 'my-2' }}) }}
+        {{ form_widget(sessionForm.date, { 'attr': {'placeholder': 'date("${d/m/Y}")', 'class' : 'my-2' }}) }}
+    <div class='row justify-content-center'>
+        {% if editMode %}
+        {{ form_widget(sessionForm.status, { 'attr': {'label' : 'Fermeture de la session', 'class' : 'my-2', 'class' : 'justify-content-center' }}) }}
+        {% else %}
+        {{ form_widget(sessionForm.status, { 'attr':{'disabled':'disabled', 'class' : 'my-2', 'class' : 'justify-content-center'}}  ) }}
+        {% endif %}
+    </div>
+    <div class='row justify-content-center'>
+    <button type="submit" class="btn btn-primary mt-3">
+        {% if editMode %}
+             Modifier
+        {% else %}
+             Ajouter
+        {% endif %}
     </button>
+    </div>
     {{ form_end(sessionForm) }}
+    </div>
 </div>
 
 {% endblock %}
