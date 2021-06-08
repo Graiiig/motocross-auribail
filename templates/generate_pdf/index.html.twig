@@ -11,63 +11,65 @@
   {{currentSession.date | format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY")}}</h3>
 
 <body>
-<div class="container">
+  <div class="container">
     <div class="row">
-    
-    
-  <table class="table w-50">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nom</th>
-        <th scope="col">Prénom</th>
-        <th scope="col">N° Licence</th>
-        <th scope="col">Signer ici</th>
-      </tr>
-    </thead>
-    <tbody>
 
-      {% for session in pendingList.adults|slice(0, 33) %}
-        
-          <tr>
-            <td>{{loop.index}}</td>
-            <td>{{session.user.email}}</td>
-            <td>{{session.user.lastName}}</td>
-            <td>{{session.user.firstName}}</td>
-            <td></td>
-          </tr>
-        
-      {% endfor %}
-    </tbody>
-  </table>
-    <table class="table w-50">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nom</th>
-        <th scope="col">Prénom</th>
-        <th scope="col">N° Licence</th>
-        <th scope="col">Signer ici</th>
-      </tr>
-    </thead>
-    <tbody>
+      <div class="table-responsive col-5">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nom</th>
+              <th scope="col">Prénom</th>
+              <th scope="col">N° Licence</th>
+              <th scope="col">Signer ici</th>
+            </tr>
+          </thead>
+          <tbody>
 
-      {% for session in pendingList.adults|slice(33, 75) %}
-        
-          <tr>
-            <td>{{loop.index}}</td>
-            <td>{{session.user.email}}</td>
-            <td>{{session.user.lastName}}</td>
-            <td>{{session.user.firstName}}</td>
-            <td></td>
-          </tr>
-        
-      {% endfor %}
-    </tbody>
-  </table>
+            {% for session in pendingList.adults | slice(0, 37) %}
 
+              <tr>
+                <td>{{loop.index}}</td>
+                <td>{{session.user.email}}</td>
+                <td>{{session.user.lastName}}</td>
+                <td>{{session.user.firstName}}</td>
+                <td></td>
+              </tr>
+
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="table-responsive col-5">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nom</th>
+              <th scope="col">Prénom</th>
+              <th scope="col">N° Licence</th>
+              <th scope="col">Signer ici</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for session in pendingList.adults | slice(37, 75) %}
+
+              <tr>
+                <td>{{loop.index}}</td>
+                <td>{{session.user.email}}</td>
+                <td>{{session.user.lastName}}</td>
+                <td>{{session.user.firstName}}</td>
+                <td></td>
+              </tr>
+
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-</div>
   <table class="table w-50">
     <thead>
       <tr>
@@ -81,16 +83,16 @@
     <tbody>
 
       {% for session in pendingList.kids %}
-        
-          <tr>
-            <td>{{loop.index}}</td>
-            <td>{{session.user.email}}</td>
-            <td>{{session.user.lastName}}</td>
-            <td>{{session.user.firstName}}</td>
-            <td></td>
-          </tr>
-        {% endfor %}
-      
+
+        <tr>
+          <td>{{loop.index}}</td>
+          <td>{{session.user.email}}</td>
+          <td>{{session.user.lastName}}</td>
+          <td>{{session.user.firstName}}</td>
+          <td></td>
+        </tr>
+      {% endfor %}
+
     </tbody>
   </table>
 
