@@ -20,41 +20,18 @@ class SessionRepository extends ServiceEntityRepository
         parent::__construct($registry, Session::class);
     }
 
-    // /**
+  
     //  * @return Session[] Returns an array of Session objects
     //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+   
 
-    /*
-    public function findOneBySomeField($value): ?Session
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
-    
+    //Fonction pour trouver la prochaine session
+    //On récupère la première session qui a une date supèrieure à la date actuelle
     public function findNext(): ?Session
     {
     $currentDate = new \DateTime();   
-    // dd($currentDate);     
-
-        $session = $this->createQueryBuilder('s')
+        
+    $session = $this->createQueryBuilder('s')
             ->andWhere('s.date > :date')
             ->setParameter('date', $currentDate)
             ->getQuery()
@@ -62,25 +39,21 @@ class SessionRepository extends ServiceEntityRepository
             ->getResult()
         ;
 
-        // dd($session);
         return $session[0];
     }
 
-    
+    // Fonction pour retrouver les prochaines sessions
+    // On récupère les sessions qui ont une date supérieure à celle d'aujourd'hui
     public function findNextAll(): ?array
     {
     $currentDate = new \DateTime();   
-    // dd($currentDate);     
 
-        $session = $this->createQueryBuilder('s')
+        return $this->createQueryBuilder('s')
             ->andWhere('s.date > :date')
             ->setParameter('date', $currentDate)
             ->getQuery()
             ->getResult()
         ;
-
-        // dd($session);
-        return $session;
     }
     
 }

@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\PendingList;
 use App\Entity\Session;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -37,6 +38,9 @@ class UserFixtures extends Fixture
              ->setDate(new \DateTime('2021-12-05') );
         $manager->persist($session2);
 
+
+        
+
         for ($i=0; $i < 40 ; $i++) { 
             $user = new User();
             $user->setLastName($faker->lastName)
@@ -53,10 +57,24 @@ class UserFixtures extends Fixture
                  ->setLicense($faker->randomNumber($nbDigits = NULL, $strict = false));
 
                 if ($i<20) {
-                    $user->addSession($session);
+                    $pendingList = new PendingList();
+
+                    //On set les infos nécessaires
+                    $pendingList->setUser($user)
+                                ->setSession($session)
+                                ->setDatetime(new \DateTime());
+                    $manager->persist($pendingList);
+                    
+                    
                 }
                 else if ($i>=20 && $i < 30) {
-                    $user->addSession($session2);
+                    $pendingList = new PendingList();
+
+                    //On set les infos nécessaires
+                    $pendingList->setUser($user)
+                                ->setSession($session2)
+                                ->setDatetime(new \DateTime());
+                    $manager->persist($pendingList);
 
                 }
                 
@@ -78,10 +96,22 @@ class UserFixtures extends Fixture
                  ->setLicense($faker->randomNumber($nbDigits = NULL, $strict = false));
 
                  if ($i<20) {
-                    $user->addSession($session);
+                    $pendingList = new PendingList();
+
+                    //On set les infos nécessaires
+                    $pendingList->setUser($user)
+                                ->setSession($session)
+                                ->setDatetime(new \DateTime());
+                    $manager->persist($pendingList);
                 }
                 else if ($i>=20 && $i < 30) {
-                    $user->addSession($session2);
+                    $pendingList = new PendingList();
+
+                    //On set les infos nécessaires
+                    $pendingList->setUser($user)
+                                ->setSession($session2)
+                                ->setDatetime(new \DateTime());
+                    $manager->persist($pendingList);
 
                 }
             $manager->persist($user);
@@ -106,6 +136,8 @@ class UserFixtures extends Fixture
             
             
         $manager->persist($user);
+
+
 
 
         $manager->flush();

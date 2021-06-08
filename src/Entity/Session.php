@@ -34,10 +34,22 @@ class Session
      */
     private $user;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PendingList::class, mappedBy="session", cascade={"persist", "remove"})
+     */
+    private $pendingLists;
+
+  
+    /*
+     * @ORM\Column(type="boolean")
+     */
+    private $status;
+
 
     public function __construct()
     {
         $this->user = new ArrayCollection();
+        $this->pendingLists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,6 +104,48 @@ class Session
 
         return $this;
     }
+
+    /**
+     * @return Collection|PendingList[]
+     */
+    public function getPendingLists(): Collection
+    {
+        return $this->pendingLists;
+    }
+
+    public function addPendingList(PendingList $pendingList)
+    {
+        if (!$this->pendingLists->contains($pendingList)) {
+            $this->pendingLists[] = $pendingList;
+            $pendingList->setSession($this);
+        }
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function removePendingList(PendingList $pendingList): self
+    {
+        if ($this->pendingLists->removeElement($pendingList)) {
+            // set the owning side to null (unless already changed)
+            if ($pendingList->getSession() === $this) {
+                $pendingList->setSession(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 
    
 }

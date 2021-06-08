@@ -22,10 +22,14 @@
 					{{session.children}}</p>
 
 				{% if session.usersInSession < 75 %}
-					{% if app.user %}
-						<a href="{{path('session', {'id':session.session.id})}}" class="btn btn-primary">S'inscrire</a>
+					{% if app.user and session.statusUserThisSession != "signed" %}
+					<a href="{{path('session', {'session':session.session.id})}}" class="btn btn-primary">S'inscrire</a>
+
+					{% elseif app.user and session.statusUserThisSession == "signed" %}
+					<a class="btn btn-primary disabled">Déjà inscrit</a>
+					
 					{% else %}
-						<a href="{{path('app_login')}}" class="btn btn-primary">S'inscrire</a>
+					<a href="{{path('app_login')}}" class="btn btn-primary">S'inscrire</a>
 					{% endif %}
 				{% else %}
 					<a class="btn btn-primary">Plus de place de disponibles, voir les prochaines courses</a>

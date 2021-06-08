@@ -66,6 +66,7 @@ arrow_downward
 			</div>
 			<div class="col-lg-5 col-12">
 
+				{# TODO Modifs concernant l'affichage #}
 				{% if sessions|length == 0 %}
 					
 					<div class="card text-center mx-5">
@@ -83,10 +84,14 @@ arrow_downward
 								{{nextSession.children}}</p>
 
 							{% if nextSession.usersInSession < 75 %}
-								{% if app.user %}
-									<a href="{{path('session', {'id':nextSession.session.id})}}" class="btn btn-primary">S'inscrire</a>
+								{% if app.user and nextSession.statusUserThisSession != "signed" %}
+								<a href="{{path('session', {'session':nextSession.session.id})}}" class="btn btn-primary">S'inscrire</a>
+
+								{% elseif app.user and nextSession.statusUserThisSession == "signed" %}
+								<a class="btn btn-primary disabled">Déjà inscrit</a>
+								
 								{% else %}
-									<a href="{{path('app_login')}}" class="btn btn-primary">S'inscrire</a>
+								<a href="{{path('app_login')}}" class="btn btn-primary">S'inscrire</a>
 								{% endif %}
 							{% else %}
 								<a class="btn btn-primary">Plus de place de disponibles, voir les prochaines courses</a>
