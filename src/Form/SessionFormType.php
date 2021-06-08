@@ -14,6 +14,7 @@ class SessionFormType extends AbstractType
         $builder
             ->add('title')
             ->add('date')
+            ->add('status')
         ;
     }
 
