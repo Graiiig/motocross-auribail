@@ -30,12 +30,14 @@ class UserFixtures extends Fixture
 
         $session = new Session();
         $session->setTitle('La coupe du travail')
-             ->setDate(new \DateTime('2021-05-02') );
+             ->setDate(new \DateTime('2021-05-02') )
+             ->setStatus(0);
         $manager->persist($session);
 
         $session2 = new Session();
         $session2->setTitle('La coupe de champagne')
-             ->setDate(new \DateTime('2021-12-05') );
+             ->setDate(new \DateTime('2021-12-05') )
+             ->setStatus(0);
         $manager->persist($session2);
 
 
