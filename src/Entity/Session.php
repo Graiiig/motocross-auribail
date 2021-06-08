@@ -40,7 +40,11 @@ class Session
     private $pendingLists;
 
   
- 
+    /*
+     * @ORM\Column(type="boolean")
+     */
+    private $status;
+
 
     public function __construct()
     {
@@ -109,12 +113,22 @@ class Session
         return $this->pendingLists;
     }
 
-    public function addPendingList(PendingList $pendingList): self
+    public function addPendingList(PendingList $pendingList)
     {
         if (!$this->pendingLists->contains($pendingList)) {
             $this->pendingLists[] = $pendingList;
             $pendingList->setSession($this);
         }
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

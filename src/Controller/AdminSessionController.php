@@ -82,7 +82,8 @@ class AdminSessionController extends AbstractController
         }
         // Affichage du formulaire dans la vue et redirection
         return $this->render('admin/__new.html.twig', [
-            "sessionForm" => $form->createView()
+            "sessionForm" => $form->createView(),
+            "editMode" => $session->getId() !== null
         ]);
     }
 
