@@ -83,12 +83,12 @@ arrow_downward
 							<p class="card-text">Place(s) enfants restantes :
 								{{nextSession.children}}</p>
 
-							{% if nextSession.usersInSession < 75 %}
+							{% if nextSession.adults < 75 %}
 								{% if app.user and nextSession.statusUserThisSession != "signed" %}
 								<a href="{{path('session', {'session':nextSession.session.id})}}" class="btn btn-primary">S'inscrire</a>
 
 								{% elseif app.user and nextSession.statusUserThisSession == "signed" %}
-								<a class="btn btn-primary disabled">Déjà inscrit</a>
+								<a class="btn btn-primary disabled">Déjà inscrit (position : {{ nextSession.position}})</a>
 								
 								{% else %}
 								<a href="{{path('app_login')}}" class="btn btn-primary">S'inscrire</a>

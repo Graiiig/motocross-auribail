@@ -18,6 +18,24 @@ class SessionService
         }
 
         $users = $pendingListRepository->findBy(['session'=>$session, 'user'=>$user]);
+        $currentSession = $pendingListRepository->findBy(['session'=>$session]);
+
+        
+        for ($i = 0; $i < count($currentSession); $i++) {
+            
+            
+            if ($currentSession[$i]->getUser() == $user){
+                $position = $i;
+                dump($position); 
+                break;
+            }
+            else {
+                $position = 0;
+            }
+        }
+
+        dump($position);
+
         if($users){
             $statusUserThisSession = "signed";
         }
@@ -25,9 +43,7 @@ class SessionService
             $statusUserThisSession = "notsigned";
         }
         
-        //Le nombre d'utilisateurs dans une session
-        $usersInSession = count($session->getUser());
-
+        
         //On récupère la liste d'attente de la session
         $pendingLists = $pendingListRepository->getPendingList($session);
 
@@ -39,8 +55,8 @@ class SessionService
             "session"=>$session,
             "adults"=> $adultsNb,
             "children"=>$kidsNb,
-            "usersInSession" => $usersInSession,
-            "statusUserThisSession" => $statusUserThisSession
+            "statusUserThisSession" => $statusUserThisSession,
+            "position" => $position
         );
     }
 }
