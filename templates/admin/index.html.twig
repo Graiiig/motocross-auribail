@@ -4,12 +4,16 @@
 {# TODO: Erreurs XXX à personnaliser #}
 {% block body %}
 <div class="container mt-5">
-    <table class="table table-striped table-dark">
-    <button onclick="notyTest()" class='btn-warning'>Show Notification</button>
+    <table class="table table-striped table-dark col-12">
+    <button onclick="notyDelete()" class='btn-warning'>Show Notification</button>
         <div class='row'>
-        <div class='col-9'><h4>Liste des utilisateurs (Limité à 5)</h4></div>
-        <div class='col-2 pl-auto'><input id='search'  label='recherche' placeholder='Rechercher ...'></div></div>
-        <thead>
+        <div id='demotext' class='col'><h4>Liste des utilisateurs</h4></div>
+        <div class='col-3 pl-auto'>
+        
+            <form path="{{ path('admin')}}" id='search' method="GET" >
+                <input class='form-control mb-3 shadow' type="text" name ='search' label='recherche' placeholder='Rechercher ...'></div></div>
+            </form>
+            <thead>
             <tr>
                 <th scope="col">Prénom</th>
                 <th scope="col">Nom</th>
@@ -32,17 +36,17 @@
                 <td>{{ user.address }}</td>
                 <td  width='15px'>
                     <form action="{{ path('admin_user_edit', {'id': user.id}) }}">
-                        <button class="material-icons-outlined btn bg-transparent">edit</button>
+                        <button class="material-icons-outlined btn bg-transparent grow">edit</button>
                     </form>
                 </td>
                 <td width='25px'>
-                    <form action="{{ path('admin_user_delete', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
-                        <button class="material-icons-outlined btn bg-transparent">delete_forever</button>
+                    <form action="{{ path('admin_user_delete', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr ?')" >
+                        <button class="material-icons-outlined btn bg-transparent grow" onclick='notyDelete()' >delete_forever</button>
                     </form>
                 </td>
             </tr>
             {% endfor %}
-
+            {{ knp_pagination_render(users) }}
         </tbody>
     </table>
     <table class="table table-striped table-dark">

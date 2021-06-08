@@ -39,23 +39,32 @@
   //** Script de recherche */
 
 
-  $(document).ready(function(){
-    $("#search").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#table tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-    });
-  });
+  // $(document).ready(function(){
+  //   $("#search").on("keyup", function() {
+  //     var value = $(this).val().toLowerCase();
+  //     $("#table tr").filter(function() {
+  //       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  //     });
+  //   });
+  // });
   
   //** Noty notifcations */
 
  
 function notyTest(){ new Noty({
   
-    text: 'Some notification text',
+    text: 'Connard',
     theme: 'mint',
     type : 'warning', 
-    
+
+}).show();
+  }
+
+function notyDelete(){ new Noty({
+  
+    text: 'Utilisateur supprimé avec succès',
+    theme: 'mint',
+    type : 'error', 
+
 }).show();
   }

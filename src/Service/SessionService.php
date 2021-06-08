@@ -43,7 +43,6 @@ class SessionService
             $statusUserThisSession = "notsigned";
         }
         
-        
         //On récupère la liste d'attente de la session
         $pendingLists = $pendingListRepository->getPendingList($session);
 
