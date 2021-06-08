@@ -23,7 +23,8 @@ class UserController extends AbstractController
         if ($this->getUser()){
 
             $user = $this->getUser();
-            $sessions = $user->getSessions();
+            $sessions = $user->getPendingLists();
+
 
             $nextSession = $sessionService->getNextSessionInfo(null, $user,$sessionRepository, $pendingListRepository);
 

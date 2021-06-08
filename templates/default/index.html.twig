@@ -22,7 +22,8 @@
                     <p class="card-text">Place(s) adultes restantes : {{nextSession.adults}}</p>
                     <p class="card-text">Place(s) enfants restantes : {{nextSession.children}}</p>
 
-                    {% if nextSession.usersInSession < 75 %}
+                    {% if nextSession.adults < 75 %} 
+
                         {% if app.user and nextSession.statusUserThisSession != "signed" %}
                         <a href="{{path('session', {'session':nextSession.session.id})}}" class="btn btn-primary">S'inscrire</a>
 

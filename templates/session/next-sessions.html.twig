@@ -21,7 +21,7 @@
 				<p class="card-text">Place(s) enfants restantes :
 					{{session.children}}</p>
 
-				{% if session.usersInSession < 75 %}
+				{% if session.adults > 0 %}
 					{% if app.user and session.statusUserThisSession != "signed" %}
 					<a href="{{path('session', {'session':session.session.id})}}" class="btn btn-primary">S'inscrire</a>
 
