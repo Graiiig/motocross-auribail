@@ -15,6 +15,7 @@
         "doctrine/orm": "^2.8",
         "fzaninotto/faker": "^1.9",
         "knplabs/knp-paginator-bundle": "^5.5",
+        "knplabs/knp-snappy-bundle": "^1.8",
         "needim/noty": "^3.1",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^5.1",
