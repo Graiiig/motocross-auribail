@@ -59,6 +59,23 @@ class SessionRepository extends ServiceEntityRepository
         return $session[0];
     }
 
+    public function findOne($id): ?Session
+    {
+
+        $session = $this->createQueryBuilder('s', 'u')
+            ->andWhere('s.id = :id')
+            ->setParameter('id', $id)
+            ->orderBy('roles')
+            ->getQuery()
+            ->setMaxResults(1)
+            ->getResult()
+        ;
+
+        return $session[0];
+    }
+
+    
+
     
 
     

@@ -109,15 +109,12 @@
     "fzaninotto/faker": {
         "version": "v1.9.2"
     },
-<<<<<<< HEAD
     "knplabs/knp-components": {
         "version": "v3.0.2"
     },
     "knplabs/knp-paginator-bundle": {
         "version": "v5.5.1"
     },
-=======
->>>>>>> fe186f4 (installation et creation du controller pdf)
     "knplabs/knp-snappy": {
         "version": "v1.2.1"
     },
