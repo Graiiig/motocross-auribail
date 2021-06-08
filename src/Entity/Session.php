@@ -39,12 +39,10 @@ class Session
      */
     private $pendingLists;
 
-  
-    /*
+    /**
      * @ORM\Column(type="boolean")
      */
     private $status;
-
 
     public function __construct()
     {
@@ -121,18 +119,6 @@ class Session
         }
     }
 
-    public function getStatus(): ?bool
-    {
-        return $this->status;
-    }
-
-    public function setStatus(bool $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
     public function removePendingList(PendingList $pendingList): self
     {
         if ($this->pendingLists->removeElement($pendingList)) {
@@ -141,6 +127,18 @@ class Session
                 $pendingList->setSession(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
