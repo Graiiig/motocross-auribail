@@ -28,12 +28,6 @@ class Session
      * @ORM\Column(type="date")
      */
     private $date;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="sessions")
-     */
-    private $user;
-
     /**
      * @ORM\OneToMany(targetEntity=PendingList::class, mappedBy="session", cascade={"persist", "remove"})
      */
@@ -80,30 +74,6 @@ class Session
     }
 
     /**
-     * @return Collection|User[]
-     */
-    public function getUser(): Collection
-    {
-        return $this->user;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        $this->user->removeElement($user);
-
-        return $this;
-    }
-
-    /**
      * @return Collection|PendingList[]
      */
     public function getPendingLists(): Collection
@@ -118,7 +88,6 @@ class Session
             $pendingList->setSession($this);
         }
     }
-
     public function removePendingList(PendingList $pendingList): self
     {
         if ($this->pendingLists->removeElement($pendingList)) {
@@ -143,7 +112,4 @@ class Session
         return $this;
     }
 
-
-
-   
 }
