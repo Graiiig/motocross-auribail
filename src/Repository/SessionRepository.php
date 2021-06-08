@@ -44,20 +44,6 @@ class SessionRepository extends ServiceEntityRepository
 
     // Fonction pour retrouver les prochaines sessions
     // On récupère les sessions qui ont une date supérieure à celle d'aujourd'hui
-    public function findOne($id): ?Session
-    {
-
-        $session = $this->createQueryBuilder('s', 'u')
-            ->andWhere('s.id = :id')
-            ->setParameter('id', $id)
-            ->orderBy('roles')
-            ->getQuery()
-            ->setMaxResults(1)
-            ->getResult()
-        ;
-
-        return $session[0];
-    }
 
     public function findOne($id): ?Session
     {
