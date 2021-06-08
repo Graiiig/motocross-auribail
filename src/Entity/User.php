@@ -74,11 +74,6 @@ class User implements UserInterface
     private $profilePicture;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Session::class, mappedBy="user")
-     */
-    private $sessions;
-
-    /**
      * @ORM\OneToMany(targetEntity=PendingList::class, mappedBy="user")
      */
     private $pendingLists;
@@ -252,33 +247,6 @@ class User implements UserInterface
     public function setProfilePicture(?string $profilePicture): self
     {
         $this->profilePicture = $profilePicture;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Session[]
-     */
-    public function getSessions(): Collection
-    {
-        return $this->sessions;
-    }
-
-    public function addSession(Session $session): self
-    {
-        if (!$this->sessions->contains($session)) {
-            $this->sessions[] = $session;
-            $session->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSession(Session $session): self
-    {
-        if ($this->sessions->removeElement($session)) {
-            $session->removeUser($this);
-        }
 
         return $this;
     }

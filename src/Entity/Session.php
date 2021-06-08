@@ -28,23 +28,15 @@ class Session
      * @ORM\Column(type="date")
      */
     private $date;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="sessions")
-     */
-    private $user;
-
     /**
      * @ORM\OneToMany(targetEntity=PendingList::class, mappedBy="session", cascade={"persist", "remove"})
      */
     private $pendingLists;
 
-  
-    /*
+    /**
      * @ORM\Column(type="boolean")
      */
     private $status;
-
 
     public function __construct()
     {
@@ -82,30 +74,6 @@ class Session
     }
 
     /**
-     * @return Collection|User[]
-     */
-    public function getUser(): Collection
-    {
-        return $this->user;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        $this->user->removeElement($user);
-
-        return $this;
-    }
-
-    /**
      * @return Collection|PendingList[]
      */
     public function getPendingLists(): Collection
@@ -120,6 +88,17 @@ class Session
             $pendingList->setSession($this);
         }
     }
+    public function removePendingList(PendingList $pendingList): self
+    {
+        if ($this->pendingLists->removeElement($pendingList)) {
+            // set the owning side to null (unless already changed)
+            if ($pendingList->getSession() === $this) {
+                $pendingList->setSession(null);
+            }
+        }
+
+        return $this;
+    }
 
     public function getStatus(): ?bool
     {
@@ -133,19 +112,4 @@ class Session
         return $this;
     }
 
-    public function removePendingList(PendingList $pendingList): self
-    {
-        if ($this->pendingLists->removeElement($pendingList)) {
-            // set the owning side to null (unless already changed)
-            if ($pendingList->getSession() === $this) {
-                $pendingList->setSession(null);
-            }
-        }
-
-        return $this;
-    }
-
-
-
-   
 }
