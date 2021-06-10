@@ -25,16 +25,16 @@
                 <th scope="col">Supprimer</th>
             </tr>
         </thead>
-        <tbody  id='table'>
+        <tbody id='table'>
             {% for user in users %}
-            <tr >
+            <tr>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.birthdate | date('d/m/y') }}</td>
                 <td>{{ user.phoneNumber }}</td>
                 <td>{{ user.license }}</td>
                 <td>{{ user.address }}</td>
-                <td  width='15px'>
+                <td width='15px'>
                     <form action="{{ path('admin_user_edit', {'id': user.id}) }}">
                         <button class="material-icons-outlined btn bg-transparent grow">edit</button>
                     </form>
@@ -51,16 +51,23 @@
             
         </tbody>
     </table>
+<<<<<<< HEAD
     <table class="table table-striped table-dark ">
         <div class='row col shadText mt-5 mb-3'>
             <h4>Liste des sessions</h4>
         </div>
         
+=======
+    <table class="table table-striped table-dark">
+        <h1>Liste des sessions (Limité à 5)</h1>
+
+>>>>>>> 77c3b052eb7e3c03c8c6eeb22c87b15980d61280
         <thead>
             <tr>
                 <th scope="col">Titre</th>
                 <th scope="col">Date</th>
                 <th scope="col"></th>
+                <th scope="col">Statut</th>
                 <th scope="col">Modifier</th>
                 <th scope="col">Supprimer</th>
             </tr>
@@ -71,6 +78,11 @@
                 <td>{{ session.title }}</td>
                 <td>{{ session.date | date('d/m/y') }}</td>
                 <td><a href="{{ path('admin_session', {'id' : session.id}) }}">Afficher</a></td>
+                {% if session.status == true %}
+                <td class="text-success">Ouvert</td>
+                {% else %}
+                <td class="text-danger">Fermé</td>
+                {% endif %}
                 <td  width='15px'>
                     <form action="{{ path('admin_session_edit', {'id': session.id}) }}">
                         <button class="material-icons-outlined btn bg-transparent">edit</button>
@@ -96,4 +108,3 @@
     </button>
 </div>
 {% endblock %}
-
