@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,9 +18,9 @@ class PendingListController extends AbstractController
     /**
      * @Route("/session/{session}", name="session")
      */
-    public function sessionRegistration(EntityManagerInterface $entityManager, Session $session, PendingListRepository $pendingListRepository, MailerInterface $mailer): Response
+    public function sessionRegistration(EntityManagerInterface $entityManager, Session $session, PendingListRepository $pendingListRepo, MailerInterface $mailer): Response
     {
-        $users = $pendingListRepository->findBy(['session' => $session, 'user' => $this->getUser()]);
+        $users = $pendingListRepo->findBy(['session' => $session, 'user' => $this->getUser()]);
         // Si l'utilisateur est déjà inscrit OU la session est fermée
         if ($users || $session->getStatus() == false) {
             // On ajoute un message d'erreur
@@ -41,15 +42,35 @@ class PendingListController extends AbstractController
         // On envoie en base de donnée
         $entityManager->persist($pendingList);
         $entityManager->flush();
+
         // Ajout d'un email de confirmation
         $email = (new Email())
-                ->from('mc.auribail@gmail.com')
-                ->to($user->getEmail())
-                ->subject('Inscription à l\'entrainement du ' . $session->getDate())
-                ->text('Vous êtes correctement inscrit à ' . $session->getTitle());
-            // Envoie du mail
-            $mailer->send($email);
+            ->from('mc.auribail@gmail.com')
+            ->to($user->getEmail())
+            ->subject('Inscription à l\'entrainement du ' . $session->getDate()->format('d-m-Y') . '')
+            ->text('Vous êtes correctement inscrit à ' . $session->getTitle());
+        // Envoie du mail
+        $mailer->send($email);
         // Retourne la vue de la session
         return $this->render('session\session.html.twig', compact('session'));
+    }
+
+    /**
+     * @Route("/session/{session}/unsubscription", name="session_unsubscribe")
+     */
+    public function sessionUnsubscription(Session $session, PendingListRepository $pendingListRepo, ManagerRegistry $managerRegistry)
+    {
+        // Récupère l'entrainement à supprimer
+        $pendingList = $pendingListRepo->findPendingListBySessionAndUser($session->getId(), $this->getUser());
+        // Prend en charge la requête
+        $em = $managerRegistry->getManager();
+        // Supprime l'entrainement (pending list) associé
+        $em->remove($pendingList);
+        // Envoie en base de donnée
+        $em->flush();
+        // Affiche un message de confirmation
+        $this->addFlash('success', 'Vous êtes désinscrit de l\'entrainement');
+        // Redirige vers la page d'accueil
+        return $this->redirectToRoute('home');
     }
 }

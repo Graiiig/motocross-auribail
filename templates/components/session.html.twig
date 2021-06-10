@@ -35,6 +35,11 @@
         {% elseif app.user and nextSession.statusUserThisSession == "signed" %}
         <!-- N'inscrit pas l'utilisateur et affiche sa position -->
         <a class="btn btn-primary disabled">Déjà inscrit (position : {{ nextSession.position}})</a>
+        <a class="btn btn-danger" href="{{ path('session_unsubscribe', { 'session' : nextSession.session.id }) }}">
+            <button class="close">
+                <span aria-hidden="true">&times;</span>
+            </button></a>
+
         {% else %}
         <!-- Sinon affiche un bouton de connexion à l'utilisateur -->
         <a href="{{path('app_login')}}" class="btn btn-primary">Connexion</a>
@@ -51,4 +56,9 @@
     <div class="card-footer text-muted">
         <a href="{{path('session_all')}}" class="">Voir les prochains entraînements</a>
     </div>
+    <style>
+        .close:hover{
+            color: #fff!important;
+        }
+    </style>
 </div>
