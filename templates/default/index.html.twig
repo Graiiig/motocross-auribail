@@ -3,6 +3,11 @@
 {% block title %}Bienvenue ! {% endblock %}
 
 {% block body %}
+{% for message in app.flashes('error') %}
+<div class="alert alert-danger">
+    {{ message }}
+</div>
+{% endfor %}
 <div class="container mt-5">
     <div class="row justify-content-center opacity-3">
 

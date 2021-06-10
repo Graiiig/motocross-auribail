@@ -8,9 +8,10 @@ use App\Form\SessionFormType;
 use App\Repository\PendingListRepository;
 use App\Repository\SessionRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,10 +21,11 @@ class AdminSessionController extends AbstractController
 {
     protected $entityManager;
 
-    public function __construct(SessionRepository $sessionRepo, PendingListRepository $pendingListRepository, EntityManagerInterface $entityManager)
+    public function __construct(SessionRepository $sessionRepo, PendingListRepository $pendingListRepo,  UserRepository $userRepo, EntityManagerInterface $entityManager)
     {
         $this->sessionRepo = $sessionRepo;
-        $this->pendingListRepository = $pendingListRepository;
+        $this->pendingListRepo = $pendingListRepo;
+        $this->userRepo = $userRepo;
         $this->entityManager = $entityManager;
     }
 
@@ -36,18 +38,16 @@ class AdminSessionController extends AbstractController
     public function show($id)
     {
         //Fonction pour récupérer la pending list (voir PendingListRepository)
-        $pendingLists = $this->pendingListRepository->getPendingList($id);
-
+        $pendingLists = $this->pendingListRepo->getPendingList($id);
         // On crée un tableau pour récupérer les noms dans la vue twig après
         $names = array(0 => 'adultes', 1 => 'enfants');
-
         // Va chercher la session dans la base de donnée avec son id
         $session = $this->sessionRepo->findOneBy(['id' => $id]);
 
         return $this->render('admin/session.html.twig', [
             'session' => $session,
             'pendingLists' => $pendingLists,
-            'names'=>$names
+            'names' => $names
         ]);
     }
 
@@ -72,7 +72,6 @@ class AdminSessionController extends AbstractController
         $form->handleRequest($request);
         // Si le formulaire est soumis et validé
         if ($form->isSubmitted() && $form->isValid()) {
-
             // Dis au manager de persister
             $this->entityManager->persist($session);
             // Envoie les données dans la base
@@ -97,10 +96,9 @@ class AdminSessionController extends AbstractController
     {
         // Récupère la session avec son id
         $session = $this->sessionRepo->findOneBy(['id' => $id]);
-        // Prend en charge les données
-        ;
-        // Supprime la session dans la base de donnée
+        // Selectionne l'entité à supprimer
         $this->entityManager->remove($session);
+        // Supprime la session dans la base de donnée
         $this->entityManager->flush();
         // Redirige vers le panneau d'administration
         return $this->redirectToRoute('admin');
@@ -114,15 +112,72 @@ class AdminSessionController extends AbstractController
      */
     public function deleteUser($sessionId, PendingList $pendinglist, ManagerRegistry $managerRegistry)
     {
-        
-        // Supprime la session dans la base de donnée
-        $this->entityManager->remove($pendinglist);
-        
-        $this->entityManager->flush();
 
+        // Selectionne l'entité à supprimer
+        $this->entityManager->remove($pendinglist);
+        // Supprimer dans la base de donnée
+        $this->entityManager->flush();
         // Redirige sur la session avec son id
         return $this->redirectToRoute('admin_session', [
             'id' => $sessionId
+        ]);
+    }
+
+    /**
+     * Permets à l'admin d'envoyer un email
+     *
+     * @Route("/admin/session/{id}/email", name="admin_session_email")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function sendMail(Request $request, $id, MailerInterface $mailer)
+    {
+        // On récupère l'input du titre de l'email
+        $title = $request->query->get('emailTitle', []);
+        // On récupère l'input du body de l'email
+        $body = $request->query->get('emailBody', []);
+        // On récupère la pending list avec le session id renseigné
+        $userInSession = $this->pendingListRepo->getPendingList($id);
+        // On récupère les enfants et les adultes
+        $userInSession = array_merge($userInSession['kids'], $userInSession['adults']);
+        // On crée un nouvel array pour recevoir les emails
+        $userEmails = [];
+        // Pour chaque utilisateur
+        foreach ($userInSession as $user) {
+            // On récupère son email
+            $email = $user->getUser()->getEmail();
+            // On ajoute l'email dans l'array
+            array_push($userEmails, $email);
+        }
+        // Si les champs de l'email sont remplis
+        if ($title != null && $body != null) {
+            // On crée un nouvel email
+            $email = (new Email())
+                // L'expéditeur
+                ->from('mc.auribail@gmail.com')
+                // Copie caché
+                ->bcc(...$userEmails)
+                // On envoie le sujet du mail
+                ->subject($title)
+                // On envoie le contenu du mail
+                ->text($body);
+            // Envoie du mail avec mailer
+            $mailer->send($email);
+            // Affiche un message associé
+            $this->addFlash('success', "L'email est envoyé !");
+        }
+        // Si le titre est vide
+        else if ($title == null) {
+            // Affiche un message d'erreur associé
+            $this->addFlash('error', "Merci de renseigner le titre de l'email");
+        }
+        // Si le contenu est vide
+        else {
+            // Affiche un message d'erreur associé
+            $this->addFlash('error', "Merci de renseigner le contenu de l'email");
+        }
+        // Renvoie à la session
+        return $this->redirectToRoute('admin_session', [
+            'id' => $id
         ]);
     }
 }

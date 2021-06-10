@@ -4,11 +4,9 @@ namespace App\Controller;
 
 use App\Repository\UserRepository;
 use App\Repository\SessionRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -28,7 +26,7 @@ class AdminController extends AbstractController
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
         /**recuperer l'input de recherche */
-        $input = $request->query->get('search', []);  
+        $input = $request->query->get('search', []);
         
         /** Test si champ vide = tout afficher Sinon test du firstName -> lastName -> License */
         if ($input != null) {

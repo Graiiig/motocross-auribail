@@ -1,11 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Entraînement {{ session.id }}{% endblock %}
 
 {% block body %}
 <div class="container mt-5">
-    <h1>Entraînement n°{{ session.id }} : {{session.title}} le
-        {{session.date | format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") }}</h1>
+    {% for message in app.flashes('error') %}
+    <div class="alert alert-danger w-50 ">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success w-50 ">
+        {{ message }}
+    </div>
+    {% endfor %}
+    <h1>{{session.title}} du
+        {{session.date | format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</h1>
+
+    <form method="GET" action="{{ path('admin_session_email', {'id' : session.id}) }}"
+        onsubmit="return confirm('Envoyer l\'email ? (L\'email sera envoyé à tout les inscrits)')" class="w-50">
+        <div class="form-group">
+            <label for="emailTitle">Titre : </label>
+            <input type="text" class="form-control shadow" name="emailTitle">
+        </div>
+        <div class="form-group">
+            <label for="emailBody">Message : </label>
+            <textarea class="form-control shadow" name="emailBody" rows="3"></textarea>
+        </div>
+        <p class="text-danger"></p>
+        <button class="btn btn-primary mb-5 shadow" id="buttonsend">
+            Envoyer
+        </button>
+    </form>
 
     {% for pendingList in pendingLists %}
 
@@ -26,7 +52,7 @@
         </thead>
         <tbody>
 
-        <pre>
+            <pre>
         </pre>
             {% for item in pendingList %}
             <tr>
@@ -34,18 +60,19 @@
                 <td>{{ item.user.firstName }}</td>
                 <td>{{ item.user.lastName }}</td>
                 {% if item.user.roles.0 == "ROLE_MEMBER" %}
-                    <td>Membre</td>
+                <td>Membre</td>
                 {% elseif item.user.roles.0 == "ROLE_NON_MEMBER" %}
-                    <td>Non membre</td>
+                <td>Non membre</td>
                 {% else %}
-                    <td>Admin</td>
+                <td>Admin</td>
                 {% endif %}
                 <td>{{ item.user.birthdate | date('d/m/y') }}</td>
                 <td>{{ item.user.phoneNumber }}</td>
                 <td>{{ item.user.license }}</td>
                 <td>{{ item.user.address }}</td>
                 <td>
-                    <form method="post" action="{{ path('admin_session_user_delete', {'pendinglist' : item.id, 'sessionId' : session.id}) }}"
+                    <form method="post"
+                        action="{{ path('admin_session_user_delete', {'pendinglist' : item.id, 'sessionId' : session.id}) }}"
                         onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                         <input type="hidden" name="_method" value="DELETE">
                         <button class="close">
@@ -60,5 +87,4 @@
     </table>
     {% endfor %}
 </div>
-
 {% endblock %}

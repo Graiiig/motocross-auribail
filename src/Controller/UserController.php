@@ -7,7 +7,6 @@ use App\Form\UserFormType;
 use App\Repository\PendingListRepository;
 use App\Repository\SessionRepository;
 use App\Service\SessionService;
-use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

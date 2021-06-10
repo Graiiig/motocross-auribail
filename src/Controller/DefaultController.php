@@ -2,14 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Session;
 use App\Repository\PendingListRepository;
 use App\Repository\SessionRepository;
 use App\Service\SessionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Length;
 
 class DefaultController extends AbstractController
 {
@@ -18,9 +16,11 @@ class DefaultController extends AbstractController
      */
     public function index(SessionRepository $sessionRepository, SessionService $sessionService, PendingListRepository $pendingListRepository): Response
     {
+        // Récupère le User
         $user = $this->getUser();
+        // Récupère la prochaine Session
         $nextSession = $sessionService->getNextSessionInfo(null, $user,$sessionRepository, $pendingListRepository);
-
+        // Retourne la page principale
         return $this->render('default/index.html.twig', compact('nextSession'));
     }
 }
