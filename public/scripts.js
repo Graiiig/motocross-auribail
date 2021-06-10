@@ -35,6 +35,7 @@
   document.body.style.background = "url('http://localhost/motocross-auribail/public/img/image-"+num+".jpg')" 
   document.body.style.backgroundSize = "cover";
   document.body.style.backgroundRepeat = "no-repeat"; 
+  document.body.style.backgroundAttachment = "fixed";
 
   //** Script de recherche */
 

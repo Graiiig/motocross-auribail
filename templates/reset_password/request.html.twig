@@ -6,13 +6,17 @@
     {% for flashError in app.flashes('reset_password_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
-    <h1 class="text-center ">Modifier mon mot de passe</h1>
-    <div class="container col-4 justifiy-content-center mt-5">
-    {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
+<div class='container-fluid'></div>
+    <div class='row col-sm-6 col-md-8 justify-content-center mx-auto shadText mt-5'>
+    
+        <h3>Modifier mon mot de passe</h3>
+    </div>
+        <div class="row col-xs-3 col-md-6 justify-content-center mt-5 mx-auto bg-secondary py-3">
+        {{ form_start(requestForm) }}
+            {{ form_widget(requestForm.email, {'attr': {'placeholder': 'Votre adresse mail ... ', 'class' : 'my-2'}}) }}
         <div>
             <small>
-                Entrez votre email et nous enverrons un email avec un lien afin de pouvoir modifier votre mot de passe.
+                Renseignez votre adresse mail et vous recevrez un message contenant un lien de modification de votre mot de passe.
             </small>
         </div>
         <div class="col text-center mt-3">

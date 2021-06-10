@@ -26,8 +26,8 @@ arrow_downward
 </span> </p>
 	{% endif %}
 	</div>
-		<div class="row justify-content-center">
-			<div class="card text-center mx-5 col-10">
+		<div class="row justify-content-center ">
+			<div class="card text-center mx-5 col-10 px-0">
 				<div class="card-header">
 					Mes informations personnelles :
 
@@ -64,12 +64,12 @@ arrow_downward
 					{% endif %}
 				</div>
 			</div>
-			<div class="col-lg-5 col-12">
+			<div class="container col-lg-5 col-12 mt-5">
 
 				{# TODO Modifs concernant l'affichage #}
 				{% if sessions|length == 0 %}
-					
-					<div class="card text-center mx-5">
+				
+					<div class="card text-center mx-5 mt-3">
 						<div
 							class="card-header">
 							Inscription pour l'entrainement du
@@ -133,9 +133,9 @@ arrow_downward
 
 				{% endfor %}
 
+				</div>
 			</div>
 		</div>
-
 	</div>
 
 {% endblock %}
