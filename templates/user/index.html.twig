@@ -48,19 +48,12 @@
 							de passe</a></p>
 
 				</div>
-				<div class="card-footer text-muted">
-					{% if is_granted('ROLE_MEMBER') %}
-						Adhérent du club - Vous avez un soucis ? Vous pouvez contacter l'administrateur ici : <a href="mailto:mc.auribail@gmail.com">mc.auribail@gmail.com</a>
-					{% elseif is_granted('ROLE_NON_MEMBER')%}
-						Non adhérent du club - Vous avez un soucis ? Vous pouvez contacter l'administrateur ici : <a href="mailto:mc.auribail@gmail.com">mc.auribail@gmail.com</a>
-					{% else %}
-						Administrateur
-					{% endif %}
-				</div>
+				
 			</div>
 			<div class="container col-lg-5 col-12 mt-5">
 
 				{# TODO Modifs concernant l'affichage #}
+				
 				{% if sessions|length == 0 %}
 				
 					<div class="card text-center mx-5 mt-3">
@@ -100,7 +93,7 @@
 				{{ form_widget(form, {'attr': {'class': 'd-flex justify-content-between flex-wrap'}}) }}
 				<button type="submit" class="btn btn-outline-success">Valider</button>
 				{{ form_end(form) }}
-
+			{% endif %}
 			</div>
 			<div class="card-footer text-muted">
 				{% if is_granted('ROLE_MEMBER') %}
