@@ -11,12 +11,45 @@
 <div class="container mt-5">
     <div class="row justify-content-center opacity-3">
 
-        <div class="col-lg-5 col-md-12 text-white text-center">
-            <h1 class="display-4">Bienvenue !</h1>
-            <h3 class="h3">Notre passion, la Motocross</h3>
-            <h3 class="h3">Notre devise satiété et productivité</h3>
+            <div class="col-lg-5 col-md-5 text-white text-center shadText">
+                <h1 class="display-4 ">Bienvenue !</h1>
+                <h4>Notre passion, la Motocross</h4>
+                <h4>Notre devise satiété et productivité</h4>
+            </div>
+            <div class="card text-center mx-5 px-0" style="width: 24rem;">
+                <div class="card-header">
+                    <!--Il faut récupérer les dates des entrainements depuis la bdd pour les mettre dans les data-attribut-->
+                    Inscription pour l'entrainement du <span data-date="{{nextSession.session.date | date('Y-m-d')}}"
+                        class="date-1 date">{{nextSession.session.date | date('d/m/Y')}}</span> :
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{nextSession.session.title}}</h5>
+                    <p class="card-text">Place(s) adultes restantes : {{nextSession.adults}}</p>
+                    <p class="card-text">Place(s) enfants restantes : {{nextSession.children}}</p>
+
+                    {% if nextSession.adults < 75 %} 
+
+                        {% if app.user and nextSession.statusUserThisSession != "signed" %}
+                        <a href="{{path('session', {'session':nextSession.session.id})}}" class="btn btn-primary">S'inscrire</a>
+
+                        {% elseif app.user and nextSession.statusUserThisSession == "signed" %}
+                        <a class="btn btn-primary disabled">Déjà inscrit</a>
+                         
+                        {% else %}
+                        <a href="{{path('app_login')}}" class="btn btn-outline-primary">S'inscrire</a>
+                         {% endif %}
+                    {% else %}
+                        <a class="btn btn-primary">Plus de place de disponibles, voir les prochaines courses</a>
+                    {% endif %}
+
+                </div>
+                <div class="card-footer text-muted">
+                    <a href="{{path('session_all')}}" class="">Voir les prochains entraînements</a>
+                    
+                </div>
+            </div>
+
         </div>
-        {% include "components/session.html.twig" %}
     </div>
 </div>
 

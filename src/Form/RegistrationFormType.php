@@ -26,11 +26,13 @@ class RegistrationFormType extends AbstractType
                 'years' => range(1950, date('Y')-6)
             ])
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'Accepter les conditions',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Vous devez accepter les termes',
                     ]),
+                
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [

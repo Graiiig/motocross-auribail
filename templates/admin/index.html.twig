@@ -5,9 +5,9 @@
 {% block body %}
 <div class="container mt-5">
     <table class="table table-striped table-dark col-12">
-        <button onclick="notyDelete()" class='btn-warning'>Show Notification</button>
+    
         <div class='row'>
-        <div id='shadText' class='col'><h4>Liste des utilisateurs</h4></div>
+        <div class='col shadText'><h4>Liste des utilisateurs</h4></div>
         <div class='col-3 pl-auto'>
         
             <form path="{{ path('admin')}}" id='search' method="GET" >
@@ -47,13 +47,21 @@
             </tr>
             {% endfor %}
             
-            {{ knp_pagination_render(users) }}
+            {{ knp_pagination_render(users)}}
             
         </tbody>
     </table>
+<<<<<<< HEAD
+    <table class="table table-striped table-dark ">
+        <div class='row col shadText mt-5 mb-3'>
+            <h4>Liste des sessions</h4>
+        </div>
+        
+=======
     <table class="table table-striped table-dark">
         <h1>Liste des sessions (Limité à 5)</h1>
 
+>>>>>>> 77c3b052eb7e3c03c8c6eeb22c87b15980d61280
         <thead>
             <tr>
                 <th scope="col">Titre</th>
@@ -93,6 +101,10 @@
     <!-- New session button -->
     <button class="btn btn-secondary mb-3">
         <a href="{{ path('admin_session_new') }}">Ajouter une session</a>
+    </button>
+
+    <button class="btn btn-secondary mb-3 mx-2">
+        <a href="http://www.facebook.com/sharer.php?u=https://www.ffmoto.org/&t=Motocross-Auribail">Partage sur Facebook</a>
     </button>
 </div>
 {% endblock %}

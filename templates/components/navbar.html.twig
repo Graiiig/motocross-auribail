@@ -1,31 +1,38 @@
+
+
+
+
+
 <nav class="navbar navbar-expand-lg navbar-light">
 
-	<a href="{{ path('home') }}" class="navbar-brand text-white">
+	<a href="{{ path('home') }}" class="navbar-brand">
 		<img class="img-fluid" src="{{asset('img/logo.png')}}" alt="" width="65vw">
+	</a>
+	<a id='mainTitle' href="{{ path('home') }}" class="navbar-brand text-white">
 		<span class="ml-2 patua h3">Auribail MX PARK</span>
 	</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
+		<span class="navbar-toggler-icon"><i class="fas fa-bars shadText" style="color:#fff; font-size:22px;"></i></span>
 	</button>
 
-	<div class="collapse navbar-collapse text-right" id="navbarSupportedContent">
-		<ul class="navbar-nav ml-auto flex-nowrap" id="navId">
+	<div class="collapse navbar-collapse text-right " id="navbarSupportedContent">
+		<ul class="navbar-nav ml-auto flex-nowrap " id="navId">
 
 			<li class="nav-item  col-sm-12 col-md-auto grow">
 				<a href="{{ path('home') }}" class="nav-link text-white">
-					<span class="material-icons-two-tone align-middle nav-icons orange-two-tone">home</span>
-					<span class="align-middle open h5">Accueil</span>
+					<span class="material-icons-two-tone align-middle nav-icons orange-two-tone ">home</span>
+					<span class="align-middle open h5 shadText">Accueil</span>
 				</a>
 			</li>
 			<li class="nav-item grow col-sm-12 col-md-auto">
 				<a href="{{ path('app_login') }}" class="nav-link text-white">
-					<span class="material-icons-two-tone align-middle nav-icons green-two-tone">sports_motorsports</span>
+					<span class="material-icons-two-tone align-middle nav-icons green-two-tone ">sports_motorsports</span>
 
 					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-						<span class="align-middle open h5">{{ app.user.lastname ~ " " ~ app.user.firstname }}</span>
+						<span class="align-middle open h5 shadText">{{ app.user.lastname ~ " " ~ app.user.firstname }}</span>
 
 					{% else %}
-						<span class="align-middle open h5">Se connecter</span>
+						<span class="align-middle open h5 shadText">Se connecter</span>
 
 					{% endif %}
 
@@ -35,17 +42,17 @@
 			{% if is_granted('ROLE_ADMIN') %}
 				<li class="nav-item  col-sm-12 col-md-auto grow">
 					<a href="{{ path('admin') }}" class="nav-link text-white">
-						<span class="material-icons-outlined align-middle nav-icons">
+						<span class="material-icons-outlined align-middle nav-icons shadText">
 							shield
 						</span>
-						<span class="align-middle open h5">Admin</span>
+						<span class="align-middle open h5 shadText">Admin</span>
 					</a>
 				</li>
 			{% endif %}
 			{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 			<li class="nav-item grow col-sm-12 col-md-auto grow">
 				<a class="nav-link text-white" href="{{ path('app_logout') }}">
-					<span class="material-icons align-middle">logout</span>
+					<span class="material-icons align-middle shadText">logout</span>
 				</a>
 			</li>
 			{% endif %}

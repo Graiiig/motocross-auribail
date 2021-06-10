@@ -16,6 +16,8 @@
   }
 }
 
+
+
 /*css pour mobiles*/
 
 @media screen and (max-width: 991px) {
@@ -28,8 +30,22 @@
   }
 }
 
+@media all and (max-width : 50em){
+
+  #mainTitle {
+
+    display : none; 
+  }
+}
 
 
+/** Responsive fonts **/
+
+h3 { 
+
+  font-size: 4vw !important; 
+
+ }
 .open {
   font-family: "Open Sans", sans-serif;
 }
@@ -53,7 +69,15 @@
 .grow:hover {
   transform: scale(1.1);
 }
-
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  
+}
 footer .grow:hover {
   /* -moz-text-shadow: 0 0 20px rgb(22, 236, 22);
   -webkit-text-shadow: 0 0 20px rgb(22, 236, 22); */
@@ -93,6 +117,6 @@ footer .grow:hover {
   background-repeat: no-repeat;
 }
 
-#shadText {
+.shadText {
   text-shadow: 5px 5px 8px rgba(0,0,0,0.98);
   }
