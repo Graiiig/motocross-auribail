@@ -51,8 +51,10 @@ class PendingListController extends AbstractController
             ->text('Vous êtes correctement inscrit à ' . $session->getTitle());
         // Envoie du mail
         $mailer->send($email);
-        // Retourne la vue de la session
-        return $this->render('session\session.html.twig', compact('session'));
+        // Ajoute un message de confirmation
+        $this->addFlash('success', 'Vous êtes bien inscrit à l\'entrainement');
+        // Redirige vers la page d'accueil
+        return $this->redirectToRoute('home');
     }
 
     /**
