@@ -44,14 +44,17 @@ class PendingListRepository extends ServiceEntityRepository
     public function getPendingList($sessionId)
     {
         // *** Adultes *** //
+        //recuperation des membres admins dans la file d'attente
+        $adminsMembersInPending = $this->findMembers($sessionId, '["ROLE_ADMIN"]', '>', 0);
+
         //recuperation des membres adultes dans la file d'attente
         $adultsMembersInPending = $this->findMembers($sessionId, '["ROLE_MEMBER"]', '>', 16);
 
         //recuperation des non membres adultes dans la file d'attente
         $adultsNonMembersInPending = $this->findMembers($sessionId, '["ROLE_NON_MEMBER"]', '>', 16);
 
-        // Concaténation des deux tableaux
-        $adultsPendingList = array_merge($adultsMembersInPending, $adultsNonMembersInPending);
+        // Concaténation des trois tableaux
+        $adultsPendingList = array_merge($adminsMembersInPending, $adultsMembersInPending, $adultsNonMembersInPending);
 
         //On limite la liste d'attente à 75 personnes
         $adultsPendingList = array_slice($adultsPendingList, 0, 75);

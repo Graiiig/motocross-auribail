@@ -43,13 +43,13 @@ class UserFixtures extends Fixture
 
         
 
-        for ($i=0; $i < 40 ; $i++) { 
+        for ($i=0; $i < 80 ; $i++) { 
             $user = new User();
             $user->setLastName($faker->lastName)
                  ->setFirstName($faker->firstName)
                  ->setEmail($faker->email)
                  ->setPhoneNumber($faker->phoneNumber)
-                 ->setAddress("2 rue du coquinou")
+                 ->setAddress($faker->streetAddress)
                  ->setPassword($this->passwordEncoder->encodePassword(
                     $user,
                     '123'
@@ -69,7 +69,7 @@ class UserFixtures extends Fixture
                     
                     
                 }
-                else if ($i>=20 && $i < 30) {
+                else if ($i>=20) {
                     $pendingList = new PendingList();
 
                     //On set les infos nécessaires
@@ -82,13 +82,13 @@ class UserFixtures extends Fixture
                 
             $manager->persist($user);
         }
-        for ($i=0; $i < 40 ; $i++) { 
+        for ($i=0; $i < 80 ; $i++) { 
             $user = new User();
             $user->setLastName($faker->lastName)
                  ->setFirstName($faker->firstName)
                  ->setEmail($faker->email)
                  ->setPhoneNumber($faker->phoneNumber)
-                 ->setAddress("2 rue du coquinou")
+                 ->setAddress($faker->streetAddress)
                  ->setPassword($this->passwordEncoder->encodePassword(
                                  $user,
                                  '123'
@@ -106,7 +106,7 @@ class UserFixtures extends Fixture
                                 ->setDatetime(new \DateTime());
                     $manager->persist($pendingList);
                 }
-                else if ($i>=20 && $i < 30) {
+                else if ($i>=20) {
                     $pendingList = new PendingList();
 
                     //On set les infos nécessaires
@@ -122,19 +122,36 @@ class UserFixtures extends Fixture
 
 
 
+        $defaultUser = new User();
+        $defaultUser->setLastName('Marc')
+             ->setFirstName('Patrick')
+             ->setEmail('patrick@pita.fr')
+             ->setPhoneNumber('0607080910')
+             ->setAddress("2 rue Victor Hugo")
+             ->setPassword($this->passwordEncoder->encodePassword(
+                $defaultUser,
+                '123'
+            ))
+             ->setRoles(['ROLE_ADMIN'])
+             ->setBirthdate( new \DateTime('2009-06-06'))
+             ->setLicense('64567844');
+            
+            
+        $manager->persist($defaultUser);
+
         $user = new User();
         $user->setLastName('Pita')
              ->setFirstName('Patrick')
-             ->setEmail('pat@pita.fr')
-             ->setPhoneNumber('$$$$$$$')
-             ->setAddress("2 rue des escrocs")
+             ->setEmail('patrick@pita.fr')
+             ->setPhoneNumber('0607080910')
+             ->setAddress("2 rue Victor Hugo")
              ->setPassword($this->passwordEncoder->encodePassword(
                 $user,
                 '123'
             ))
              ->setRoles(['ROLE_ADMIN'])
              ->setBirthdate( new \DateTime('2009-06-06'))
-             ->setLicense('$$$$$$');
+             ->setLicense('64567844');
             
             
         $manager->persist($user);
