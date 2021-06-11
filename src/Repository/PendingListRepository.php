@@ -72,17 +72,4 @@ class PendingListRepository extends ServiceEntityRepository
         //On crée la liste d'attente finale
         return array('adults' => $adultsPendingList, 'kids' => $kidsPendingList);
     }
-
-    public function findPendingListBySessionAndUser($sessionId, $userId)
-    {
-
-        return $this
-            ->createQueryBuilder('pl')
-            ->andWhere('pl.session = :sessionId')
-            ->andWhere('pl.user = :userId')
-            ->setParameter('sessionId', $sessionId)
-            ->setParameter('userId', $userId)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
 }

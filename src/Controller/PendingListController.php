@@ -63,11 +63,11 @@ class PendingListController extends AbstractController
     public function sessionUnsubscription(Session $session, PendingListRepository $pendingListRepo, ManagerRegistry $managerRegistry)
     {
         // Récupère l'entrainement à supprimer
-        $pendingList = $pendingListRepo->findPendingListBySessionAndUser($session->getId(), $this->getUser());
+        $pendingList = $pendingListRepo->findBy(['session' => $session, 'user' => $this->getUser()]);
         // Prend en charge la requête
         $em = $managerRegistry->getManager();
         // Supprime l'entrainement (pending list) associé
-        $em->remove($pendingList);
+        $em->remove($pendingList[0]);
         // Envoie en base de donnée
         $em->flush();
         // Affiche un message de confirmation
