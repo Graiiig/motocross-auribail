@@ -49,7 +49,7 @@ class UserFormType extends AbstractType
                     'placeholder'=>'N° de licence'
                 ]
             ])
-            ->add('birthdate', DateType::class, [
+            ->add('birthdate', DateType::class, [ 
                 'label'   => 'Date de naissance',
                 'years' => range(1950, date('Y')-6),
                 'widget'=>'single_text',

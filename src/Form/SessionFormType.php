@@ -15,8 +15,10 @@ class SessionFormType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('date', DateType::class, [
-                'format' => 'dd MMM yyyy',
+            ->add('date', DateType::class, [ 
+                'label'   => 'Date de naissance',
+                'years' => range(1950, date('Y')-6),
+                'widget'=>'single_text',
             ])
             ->add('status')
         ;
