@@ -74,7 +74,7 @@ class User implements UserInterface
     private $profilePicture;
 
     /**
-     * @ORM\OneToMany(targetEntity=PendingList::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=PendingList::class, mappedBy="user", cascade={"remove"})
      */
     private $pendingLists;
 
