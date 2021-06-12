@@ -12,12 +12,18 @@ use Knp\Snappy\Pdf;
 class GeneratePdfController extends AbstractController
 {
     /**
-     * @Route("/liste-pdf/{currentSession}/{members}", name="generate_pdf")
+     * @Route("admin/liste-pdf/{currentSession}/{members}", name="generate_pdf")
      */
     public function pdfAction(Pdf $knpSnappyPdf, PendingListRepository $pendingListRepository, Session $currentSession, $members) 
     {
-        //On récupère la liste d'attente en fonction du numéro de session indiqué dans l'URL
-        $pendingList = $pendingListRepository->getPendingList($currentSession);
+
+        //On récupère la liste d'attente en fonction du numéro de session indiqué dans l'URL et de son statut
+        if ($currentSession->getStatus() == 1) {
+            $pendingList = $pendingListRepository->getPendingList($currentSession);
+        }
+        else {
+            $pendingList = $pendingListRepository->getPendingListOfLicensed($currentSession);
+        }
 
         //Si il n'y ni adultes, ni enfants, c-a-d, une PL vide on redirige vers la page home 
         if($pendingList["adults"] == null && $pendingList["children"] == null){

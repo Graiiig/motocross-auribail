@@ -52,9 +52,11 @@ class PendingListRepository extends ServiceEntityRepository
             ->andWhere('pl.session = :sessionId')
             ->andWhere('TIMESTAMPDIFF(YEAR,u.birthdate,CURRENT_DATE()) ' . $operator . ' :age')
             ->andWhere('u.license IS NOT NULL')
+            ->andWhere('u.license != :license')
             ->setParameter('role', $role)
             ->setParameter('sessionId', $sessionId)
             ->setParameter('age', $age)
+            ->setParameter('license', "")
             ->getQuery()
             ->getResult();
     }

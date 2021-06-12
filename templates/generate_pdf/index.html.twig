@@ -6,23 +6,32 @@
   <meta charset="UTF-8">
 </head>
 
+<style>
+
+  .img{
+    position: absolute;
+    top : 0;
+    right : 0
+  }
+
+</style>
+
 <div class="container">
-  <div class="row col-12">
-    <div class="col-3">
-    <img width="100px" heigth="" src="http://localhost/motocross-auribail/public/img/logo.png" alt="">
-    </div>
-    <div style="position:absolute;float:right">
-    {# TODO: style img/titres #}
-    <h3>
-      Session
+  <div class="row text-secondary mb-5">
+
+   
+      <h3>
+      Session des 
       {{members}}
       :
-    </h3>
-    <h3>
+      </h3>
+      <h3>
       {{currentSession.title}}
       le
-      {{currentSession.date | format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY")}}</h3>
-    </div>
+      {{currentSession.date | format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY")}}
+      </h3>
+    
+    <img class="img" width="95px" src="http://localhost/motocross-auribail/public/img/logo.png" alt="">
   </div>
 </div>
 
