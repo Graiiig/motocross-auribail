@@ -37,7 +37,7 @@ class UserFixtures extends Fixture
         $session2 = new Session();
         $session2->setTitle('La coupe de champagne')
              ->setDate(new \DateTime('2021-12-05') )
-             ->setStatus(0);
+             ->setStatus(1);
         $manager->persist($session2);
 
 
@@ -123,16 +123,16 @@ class UserFixtures extends Fixture
 
 
         $defaultUser = new User();
-        $defaultUser->setLastName('Marc')
-             ->setFirstName('Patrick')
-             ->setEmail('patrick@pita.fr')
+        $defaultUser->setLastName('Dubois')
+             ->setFirstName('Thomas')
+             ->setEmail('thomas.dubois@email.fr')
              ->setPhoneNumber('0607080910')
-             ->setAddress("2 rue Victor Hugo")
+             ->setAddress("10 rue René Descartes")
              ->setPassword($this->passwordEncoder->encodePassword(
                 $defaultUser,
-                '123'
+                '123456789'
             ))
-             ->setRoles(['ROLE_ADMIN'])
+             ->setRoles(['ROLE_MEMBER'])
              ->setBirthdate( new \DateTime('2009-06-06'))
              ->setLicense('64567844');
             
