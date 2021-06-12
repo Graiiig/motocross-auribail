@@ -4,17 +4,20 @@
 {% block body %}
 <div class="container mt-5">
     <table class="table table-striped table-dark col-12">
-    
+
         <div class='row'>
-        <div class='col shadText'>
-            <h4>Liste des utilisateurs</h4>
+            <div class='col shadText'>
+                <h4>Liste des utilisateurs</h4>
+            </div>
+            <div class='col-3 pl-auto'>
+
+                <form path="{{ path('admin')}}" id='search' method="GET">
+                    <input class='form-control mb-3 shadow' type="text" name='search' label='recherche'
+                        placeholder='Rechercher ...'>
+            </div>
         </div>
-        <div class='col-3 pl-auto'>
-        
-            <form path="{{ path('admin')}}" id='search' method="GET" >
-                <input class='form-control mb-3 shadow' type="text" name ='search' label='recherche' placeholder='Rechercher ...'></div></div>
-            </form>
-            <thead>
+        </form>
+        <thead>
             <tr>
                 <th scope="col">Prénom</th>
                 <th scope="col">Nom</th>
@@ -41,22 +44,24 @@
                     </form>
                 </td>
                 <td width='25px'>
-                    <form action="{{ path('admin_user_delete', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr ?')" >
-                        <button class="material-icons-outlined btn bg-transparent grow" onclick='notyDelete()'>delete_forever</button>
+                    <form action="{{ path('admin_user_delete', {'id': user.id}) }}"
+                        onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                        <button class="material-icons-outlined btn bg-transparent grow"
+                            onclick='notyDelete()'>delete_forever</button>
                     </form>
                 </td>
             </tr>
             {% endfor %}
-            
+
             {{ knp_pagination_render(users)}}
-            
+
         </tbody>
     </table>
     <table class="table table-striped table-dark ">
         <div class='row col shadText mt-5 mb-3'>
             <h4>Liste des sessions</h4>
         </div>
-        
+
         <thead>
             <tr>
                 <th scope="col">Titre</th>
@@ -78,28 +83,31 @@
                 {% else %}
                 <td class="text-danger">Fermé</td>
                 {% endif %}
-                <td  width='15px'>
+                <td width='15px'>
                     <form action="{{ path('admin_session_edit', {'id': session.id}) }}">
                         <button class="material-icons-outlined btn bg-transparent">edit</button>
                     </form>
                 </td>
                 <td width='25px'>
-                    <form action="{{ path('admin_session_delete', {'id': session.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                    <form action="{{ path('admin_session_delete', {'id': session.id}) }}"
+                        onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                         <button class="material-icons-outlined btn bg-transparent">delete_forever</button>
                     </form>
                 </td>
             </tr>
             {% endfor %}
-
+            {{ knp_pagination_render(sessions)}}
         </tbody>
     </table>
     <!-- New session button -->
-    <button class="btn btn-secondary mb-3">
-        <a href="{{ path('admin_session_new') }}">Ajouter une session</a>
-    </button>
-
-    <button class="btn btn-secondary mb-3 mx-2">
-        <a href="http://www.facebook.com/sharer.php?u=https://www.ffmoto.org/&t=Motocross-Auribail">Partage sur Facebook</a>
-    </button>
+    <a href="{{ path('admin_session_new') }}">
+        <button class="btn btn-secondary mb-3">
+            Ajouter une session
+        </button>
+    </a>
+    <a href="http://www.facebook.com/sharer.php?u=https://www.ffmoto.org/&t=Motocross-Auribail">
+        <button class="btn btn-secondary mb-3 mx-2">
+            Partage sur Facebook
+        </button></a>
 </div>
 {% endblock %}
