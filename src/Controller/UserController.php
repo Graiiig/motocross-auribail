@@ -54,19 +54,4 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
     }
-
-    /**
-     * @Route("quitter-session/{session}", name="user_leave_session")
-     */
-    public function leaveSession (Session $session)
-    {
-        // dd($session);
-        $currentUser = $this->getUser();
-        $currentUser->removeSession($session);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($currentUser);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('home');
-    }
 }

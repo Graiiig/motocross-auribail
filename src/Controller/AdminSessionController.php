@@ -72,6 +72,13 @@ class AdminSessionController extends AbstractController
         $form->handleRequest($request);
         // Si le formulaire est soumis et validé
         if ($form->isSubmitted() && $form->isValid()) {
+            // Si la session existe déjà, envoie un message flash
+            if($session->getId() !== null){
+                $this->addFlash('notice', 'Session modifiée avec succès !');
+            // Si la session n'existe pas, envoie un message flash
+            }else{
+                $this->addFlash('success', 'Session ajoutée avec succès !');
+            }
             // Dis au manager de persister
             $this->entityManager->persist($session);
             // Envoie les données dans la base
@@ -100,6 +107,8 @@ class AdminSessionController extends AbstractController
         $this->entityManager->remove($session);
         // Supprime la session dans la base de donnée
         $this->entityManager->flush();
+        // Envoie un message flash
+        $this->addFlash('danger','Session supprimée avec succès !');
         // Redirige vers le panneau d'administration
         return $this->redirectToRoute('admin');
     }
@@ -117,6 +126,8 @@ class AdminSessionController extends AbstractController
         $this->entityManager->remove($pendinglist);
         // Supprimer dans la base de donnée
         $this->entityManager->flush();
+        // Envoie un message flash
+        $this->addFlash('danger','Utilisateur supprimée de la session avec succès !');
         // Redirige sur la session avec son id
         return $this->redirectToRoute('admin_session', [
             'id' => $sessionId

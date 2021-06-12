@@ -71,7 +71,7 @@ class PendingListController extends AbstractController
         // Envoie en base de donnée
         $em->flush();
         // Affiche un message de confirmation
-        $this->addFlash('success', 'Vous êtes désinscrit de l\'entrainement');
+        $this->addFlash('danger', 'Vous êtes désinscrit de l\'entrainement');
         // Redirige vers la page d'accueil
         return $this->redirectToRoute('home');
     }

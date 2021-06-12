@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -23,6 +25,7 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @Assert\Email()
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
@@ -35,6 +38,8 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Length(min="8", minMessage="Mot de passe trop court (8 caractères minimum)")
+     * @Assert\EqualTo(propertyPath="confirm_password", message="Les mots de passe ne correspondent pas")
      */
     private $password;
 
@@ -55,6 +60,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\Length(min = 8, max = 20, minMessage = "min_lenght", maxMessage = "max_lenght")
+     *  @Assert\Regex(pattern="/^[0-9]*$/", message="number_only") 
      */
     private $phoneNumber;
 

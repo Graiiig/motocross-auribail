@@ -33,6 +33,8 @@ class AdminUserController extends AbstractController
             // Envoie l'utilisateur dans la base de donnée
             $em->persist($user);
             $em->flush();
+            // Envoie un message flash
+            $this->addFlash('notice', 'Informations modifiées avec succès !');
             // Redirige vers le panneau d'administration
             return $this->redirectToRoute('admin');
         }
@@ -49,10 +51,13 @@ class AdminUserController extends AbstractController
     {
         // Trouve l'utilisateur avec son id
         $user = $repo->findOneBy(['id' => $id]);
-        // Prend en charge la requête et supprime l'utilisateur dans la bdd
+        // Prend en charge la requête
         $em = $managerRegistry->getManager();
+        // Supprime l'utilisateur dans la bdd
         $em->remove($user);
         $em->flush();
+        // Envoie un message flash
+        $this->addFlash('danger', 'Utilisateur supprimé avec succès !');
         // Redirige vers le panneau d'administration
         return $this->redirectToRoute('admin');
     }
