@@ -30,12 +30,13 @@ class AdminController extends AbstractController
 
         // Test si champ vide = tout afficher Sinon test du firstName -> lastName -> License
         if ($input != null) {
-            if ($this->userRepo->findByLastName($input) == null)
+            if($this->userRepo->findByLastName($input) == null){
                 if ($this->userRepo->findByfirstName($input) == null) {
                     $users = $this->userRepo->findByLicense($input);
                 } else {
                     $users = $this->userRepo->findByfirstName($input);
                 }
+            }
             else {
                 $users = $this->userRepo->findByLastName($input);
             }

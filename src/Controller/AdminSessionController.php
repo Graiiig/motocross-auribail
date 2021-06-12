@@ -46,7 +46,7 @@ class AdminSessionController extends AbstractController
         // Va chercher la session dans la base de donnée avec son id
         $session = $this->sessionRepo->findOneBy(['id' => $id]);
 
-        return $this->render('admin/session.html.twig', [
+        return $this->render('admin/session/session.html.twig', [
             'session' => $session,
             'pendingLists' => $pendingLists,
             'names' => $names
@@ -89,7 +89,7 @@ class AdminSessionController extends AbstractController
             return $this->redirectToRoute('admin');
         }
         // Affichage du formulaire dans la vue et redirection
-        return $this->render('admin/__new.html.twig', [
+        return $this->render('admin/session/__new.html.twig', [
             "sessionForm" => $form->createView(),
             "editMode" => $session->getId() !== null
         ]);

@@ -74,26 +74,3 @@
   //     });
   //   });
   // });
-
-  //** Noty notifcations */
-
-
-  function notyTest() {
-    new Noty({
-
-      text: 'Connard',
-      theme: 'mint',
-      type: 'warning',
-
-    }).show();
-  }
-
-  function notyDelete() {
-    new Noty({
-
-      text: 'Utilisateur supprimé avec succès',
-      theme: 'mint',
-      type: 'error',
-
-    }).show();
-  }

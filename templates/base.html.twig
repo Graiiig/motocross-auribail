@@ -3,14 +3,12 @@
 
   <head>
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="{{asset('img/ms-icon-144x144.png')}}">
     <meta name="theme-color" content="#ffffff">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('img/favicon/favicon.ico') }}"/>
     <link rel="manifest" href="{{asset('img/manifest.json')}}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css" integrity="sha512-NXUhxhkDgZYOMjaIgd89zF2w51Mub53Ru3zCNp5LTlEzMbNNAjTjDbpURYGS5Mop2cU4b7re1nOIucsVlrx9fA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <title>
       {% block title %}Motocross Club Auribail !{% endblock %}
     </title>
@@ -37,10 +35,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Two+Tone" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Patua+One&display=swap" rel="stylesheet">
-
-    <!-- noty cdn-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js" integrity="sha512-lOrm9FgT1LKOJRUXF3tp6QaMorJftUjowOWiDcG5GFZ/q7ukof19V0HKx/GWzXCdt9zYju3/KhBNdCLzK8b90Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
   </head>
 
   <body>
@@ -73,10 +67,8 @@
     {% endfor %}
 
     {% block body %}{% endblock %}
-    <!-- Fichier twig du footer -->
 
   </body>
-
   {% block javascripts %}
     {# TODO :scripts a supp dans toutes les vues #}
 

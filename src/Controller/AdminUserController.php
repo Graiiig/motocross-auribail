@@ -39,7 +39,7 @@ class AdminUserController extends AbstractController
             return $this->redirectToRoute('admin');
         }
         // Génère la vue d'édition d'utilisateur et le formulaire
-        return $this->render('admin/edit.html.twig', ['users' => $form->createView()]);
+        return $this->render('admin/user/edit.html.twig', ['users' => $form->createView()]);
     }
     /**
      * Suppression d'un utilisateur
