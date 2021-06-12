@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Session;
 use App\Form\UserFormType;
 use App\Repository\PendingListRepository;
 use App\Repository\SessionRepository;
@@ -24,24 +23,20 @@ class UserController extends AbstractController
             $user = $this->getUser();
             $sessions = $user->getPendingLists();
 
-
             $nextSession = $sessionService->getNextSessionInfo(null, $user,$sessionRepository, $pendingListRepository);
 
             $form = $this->createForm(UserFormType::class, $user);
 
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
             $user = $form->getData();
-
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
-            $entityManager->flush(); 
-
-            // return $this->redirectToRoute('task_success');
+            $entityManager->flush();
+            $this->addFlash(
+               'success',
+               'Vos informations ont été mises à jour !'
+            ); 
         }
             
             return $this->render('user/index.html.twig', 
