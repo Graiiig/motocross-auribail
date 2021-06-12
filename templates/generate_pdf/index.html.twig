@@ -1,0 +1,78 @@
+{# {% extends 'base.html.twig' %} #}
+
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous"/>
+  <meta charset="UTF-8">
+</head>
+
+<style>
+
+  .img{
+    position: absolute;
+    top : 0;
+    right : 0
+  }
+
+</style>
+
+<div class="container">
+  <div class="row text-secondary mb-5">
+
+   
+      <h3>
+      Session des 
+      {{members}}
+      :
+      </h3>
+      <h3>
+      {{currentSession.title}}
+      le
+      {{currentSession.date | format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY")}}
+      </h3>
+    
+    <img class="img" width="95px" src="http://localhost/motocross-auribail/public/img/logo.png" alt="">
+  </div>
+</div>
+
+<body>
+
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Position</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Prénom</th>
+        <th scope="col">N° Licence</th>
+        <th scope="col">Statut</th>
+        <th scope="col">Signature</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {# Pour chaque user dans la PL, on récupère ses informations et on les affiche dans le tableau #}
+      {% for user in pendingList %}
+
+        <tr >
+          <td class="text-center">{{user.position}}</td>
+          <td class="text-center">{{user.lastName}}</td>
+          <td class="text-center">{{user.firstName}}</td>
+          <td class="text-center">{{user.license}}</td>
+          <td class="text-center">
+            {% if user.role.0 == "ROLE_MEMBER" %}
+              Membre
+            {% elseif user.role.0 == "ROLE_NON_MEMBER" %}
+              Non membre
+            {% else %}
+              Inconnu
+            {% endif %}
+
+          </td>
+          <td class="text-center"></td>
+        </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+
+</body>
