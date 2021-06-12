@@ -39,7 +39,6 @@ class User implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\Length(min="8", minMessage="Mot de passe trop court (8 caractères minimum)")
-     * @Assert\EqualTo(propertyPath="confirm_password", message="Les mots de passe ne correspondent pas")
      */
     private $password;
 
