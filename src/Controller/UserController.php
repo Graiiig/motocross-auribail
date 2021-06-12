@@ -39,7 +39,7 @@ class UserController extends AbstractController
             // for example, if Task is a Doctrine entity, save it!
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
-            $entityManager->flush();
+            $entityManager->flush(); 
 
             // return $this->redirectToRoute('task_success');
         }

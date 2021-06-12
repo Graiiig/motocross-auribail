@@ -1,32 +1,47 @@
 {% extends "base.html.twig" %}
 {% block body %}
-<div class="container-fluid mx-px-0 mt-3">
-    <div class='row col justify-content-center shadText mb-5'>
-        <h4> Créer une nouvelle session </h4>
+  <div class="container-fluid mx-px-0 mt-3">
+    <div class='row col justify-content-center mb-5'>
+
+      <div class="card text-center mx-5 col-3">
+        <div class="card-header h3">
+
+          {% if editMode %}
+            Modifier la session
+          {% else %}
+            Créer une nouvelle session
+          {% endif %}
+        </div>
+        <div class='card-body'>
+          {{ form_start(sessionForm) }}
+          {{ form_errors(sessionForm) }}
+          {{ form_widget(sessionForm.title, { 'attr': {'placeholder': 'Intitulé de la session', 'class' : 'my-2 mx-auto ' }}) }}
+          {{ form_widget(sessionForm.date, { 'attr': {'placeholder': 'date("${d/m/Y}")', 'class' : 'my-2 mx-auto col-9 ' }}) }}
+          <div class='row justify-content-center'>
+            {% if editMode %}
+              {{ form_widget(sessionForm.status, { 'label' : 'Ouvrir/Fermer la session', 'attr': {'class' : 'my-2', 'class' : 'justify-content-center' }}) }}
+            {% else %}
+              {{ form_widget(sessionForm.status, { 'label' : false, 'attr':{'disabled':'disabled', 'class' : 'justify-content-center d-none'}}
+              ) }}
+            {% endif %}
+          </div>
+          <div class='row justify-content-center'>
+            <button type="submit" class="btn btn-primary mt-3">
+              {% if editMode %}
+                Modifier
+              {% else %}
+                Ajouter
+              {% endif %}
+            </button>
+          </div>
+          {{ form_end(sessionForm) }}
+        </div>
+        <div class="card-footer edit-status-session">
+          La session est fermée aux inscriptions par défaut
+        </div>
+      </div>
     </div>
-    <div  class='row mx-auto col-4 justify-content-center bg-secondary py-3'>
-        {{ form_start(sessionForm) }}   
-        {{ form_errors(sessionForm) }}
-        {{ form_widget(sessionForm.title, { 'attr': {'placeholder': 'Intitulé de la session', 'class' : 'my-2' }}) }}
-        {{ form_widget(sessionForm.date, { 'attr': {'placeholder': 'date("${d/m/Y}")', 'class' : 'my-2' }}) }}
-    <div class='row justify-content-center'>
-        {% if editMode %}
-        {{ form_widget(sessionForm.status, { 'attr': {'label' : 'Fermeture de la session', 'class' : 'my-2', 'class' : 'justify-content-center' }}) }}
-        {% else %}
-        {{ form_widget(sessionForm.status, { 'attr':{'disabled':'disabled', 'class' : 'my-2', 'class' : 'justify-content-center'}}  ) }}
-        {% endif %}
-    </div>
-    <div class='row justify-content-center'>
-    <button type="submit" class="btn btn-primary mt-3">
-        {% if editMode %}
-             Modifier
-        {% else %}
-             Ajouter
-        {% endif %}
-    </button>
-    </div>
-    {{ form_end(sessionForm) }}
-    </div>
-</div>
+
+  </div>
 
 {% endblock %}

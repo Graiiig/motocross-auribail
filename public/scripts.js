@@ -17,24 +17,50 @@
 
   // *** Script pour afficher le form dans la page mon compte
 
-  if (document.querySelector('.edit-my-info')){
-    $('.edit-my-info').on('click', function(){
-      $('form#form-edit-my-info').css('display','block');
-      $('.clean-form').css('display','none');
+  if (document.querySelector('.edit-my-info')) {
+    $('.edit-my-info').on('click', function () {
+      $('form#form-edit-my-info').css('display', 'block');
+      $('.clean-form').css('display', 'none');
     })
     $('.form-group').addClass('col-12 col-lg-3')
   }
 
-  if(document.querySelector('.form-edit-user-info')){
+  if (document.querySelector('.form-edit-user-info')) {
     $('.form-group').addClass('col-12 col-lg-3')
   }
 
-  // *** Script pour changer le background au refresh
+  // *** Script pour changer le status d'une session *** //
+  $('#session_form_status[type="checkbox"]').change(function () {
+    updateStatus()
+  });
 
-  var num = Math.floor( Math.random() * 10 );
-  document.body.style.background = "url('http://localhost/motocross-auribail/public/img/image-"+num+".jpg')" 
+
+  //Fonction pour update le statut de la session
+  function updateStatus() {
+    
+    if ($('#session_form_status[type="checkbox"]').is(':visible')) {
+      
+      if ($('#session_form_status[type="checkbox"]').is(':checked')) {
+        $('.edit-status-session').text("La session est ouverte au public");
+        $('.edit-status-session').addClass('text-success');
+        $('.edit-status-session').removeClass('text-danger');
+      } else {
+        $('.edit-status-session').text("La session est fermée au public");
+        $('.edit-status-session').addClass('text-danger');
+        $('.edit-status-session').removeClass('text-success');
+      }
+    }
+  }
+  
+  //On execute la fonction au chargement de la page
+  updateStatus()
+  
+  // *** Script pour changer le background au refresh
+  
+  var num = Math.floor(Math.random() * 10);
+  document.body.style.background = "url('http://localhost/motocross-auribail/public/img/image-" + num + ".jpg')"
   document.body.style.backgroundSize = "cover";
-  document.body.style.backgroundRepeat = "no-repeat"; 
+  document.body.style.backgroundRepeat = "no-repeat";
   document.body.style.backgroundAttachment = "fixed";
 
   //** Script de recherche */
@@ -48,24 +74,26 @@
   //     });
   //   });
   // });
-  
+
   //** Noty notifcations */
 
- 
-function notyTest(){ new Noty({
-  
-    text: 'Connard',
-    theme: 'mint',
-    type : 'warning', 
 
-}).show();
+  function notyTest() {
+    new Noty({
+
+      text: 'Connard',
+      theme: 'mint',
+      type: 'warning',
+
+    }).show();
   }
 
-function notyDelete(){ new Noty({
-  
-    text: 'Utilisateur supprimé avec succès',
-    theme: 'mint',
-    type : 'error', 
+  function notyDelete() {
+    new Noty({
 
-}).show();
+      text: 'Utilisateur supprimé avec succès',
+      theme: 'mint',
+      type: 'error',
+
+    }).show();
   }

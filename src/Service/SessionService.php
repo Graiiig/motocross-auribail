@@ -14,31 +14,41 @@ class SessionService
             // Si la session est nulle en argument, on récupère la prochaine
             $session = $sessionRepository->findNext();
         }
-        // Récupère une pending list par session et user
-        $users = $pendingListRepository->findBy(['session' => $session, 'user' => $user]);
-        // Récupère les pendinglist pour la session
-        $currentSession = $pendingListRepository->findBy(['session' => $session]);
-        // Pour chaque pending list
-        for ($i = 0; $i < count($currentSession); $i++) {
-            // Affecte une position à chaque utilisateur
-            if ($currentSession[$i]->getUser() == $user) {
-                $position = $i;
-                break;
+                
+        //On récupère la liste d'attente de la session
+        $users = $pendingListRepository->getPendingList($session);
+
+        $usersAdultsAndKids = array_merge($users['adults'], $users['kids']);
+
+        // Pour chaque user dans la PL entière
+        if ($usersAdultsAndKids) {
+            for ($i = 0; $i < count($usersAdultsAndKids); $i++) {
+                // Si l'utilisateur de la PL = celui qui est connecté, alors, 
+                // On lui attribue une position
+                if ($usersAdultsAndKids[$i]->getUser() == $user) {
+                    $position = $i + 1;
+                    break;
             } else {
                 $position = 0;
             }
         }
+        }
+        else {
+            $position = 0;
+        }
+        
+        // On vérifie sur l'utilisateur est dans la session
+        $user = $pendingListRepository->findBy(['session' => $session, 'user' => $user]);
+
         // Vérifie si un user est inscrit
-        if ($users) {
+        if ($user) {
             $statusUserThisSession = "signed";
         } else {
             $statusUserThisSession = "notsigned";
         }
-        //On récupère la liste d'attente de la session
-        $pendingLists = $pendingListRepository->getPendingList($session);
         //Calcul des places restantes
-        $adultsNb = 75 - count($pendingLists['adults']);
-        $kidsNb = 15 - count($pendingLists['kids']);
+        $adultsNb = 75 - count($users['adults']);
+        $kidsNb = 15 - count($users['kids']);
         // On retourne un array
         return array(
             "session" => $session,
