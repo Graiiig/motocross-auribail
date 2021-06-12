@@ -73,7 +73,7 @@
             <tr>
                 <td>{{ session.title }}</td>
                 <td>{{ session.date | date('d/m/y') }}</td>
-                <td><a href="{{ path('admin_session', {'id' : session.id}) }}">Afficher</a></td>
+                <td><a href="{{ path('admin_session', {'id' : session.id}) }}">Afficher les inscrits</a></td>
                 {% if session.status == true %}
                 <td class="text-success">Ouvert</td>
                 {% else %}
