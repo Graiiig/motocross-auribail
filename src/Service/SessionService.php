@@ -17,19 +17,24 @@ class SessionService
                 
         //On récupère la liste d'attente de la session
         $users = $pendingListRepository->getPendingList($session);
-        
+
         $usersAdultsAndKids = array_merge($users['adults'], $users['kids']);
 
         // Pour chaque user dans la PL entière
-        for ($i = 0; $i < count($usersAdultsAndKids); $i++) {
-            // Si l'utilisateur de la PL = celui qui est connecté, alors, 
-            // On lui attribue une position
-            if ($usersAdultsAndKids[$i]->getUser() == $user) {
-                $position = $i + 1;
-                break;
+        if ($usersAdultsAndKids) {
+            for ($i = 0; $i < count($usersAdultsAndKids); $i++) {
+                // Si l'utilisateur de la PL = celui qui est connecté, alors, 
+                // On lui attribue une position
+                if ($usersAdultsAndKids[$i]->getUser() == $user) {
+                    $position = $i + 1;
+                    break;
             } else {
                 $position = 0;
             }
+        }
+        }
+        else {
+            $position = 0;
         }
         
         // On vérifie sur l'utilisateur est dans la session
