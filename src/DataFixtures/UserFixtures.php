@@ -148,7 +148,7 @@ class UserFixtures extends Fixture
                 '123'
             ))
              ->setRoles(['ROLE_ADMIN'])
-             ->setBirthdate( new \DateTime('2009-06-06'))
+             ->setBirthdate( new \DateTime('1989-06-06'))
              ->setLicense('64567844');
             
             
