@@ -42,4 +42,16 @@ class SessionRepository extends ServiceEntityRepository
 
         return $session[0];
     }
+    // On récupère les sessions qui ont une date supérieure à celle d'aujourd'hui
+    public function findNextAll(): ?array
+    {
+    $currentDate = new \DateTime();   
+
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.date > :date')
+            ->setParameter('date', $currentDate)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
