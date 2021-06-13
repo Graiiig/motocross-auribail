@@ -4,16 +4,6 @@
 {% endblock %}
 
 {% block body %}
-  {# FIXME: A mettre dans styles.css à terme #}
-  <style>
-    form#form-edit-my-info {
-      display: none;
-    }
-
-    .edit-my-info:hover {
-      cursor: pointer;
-    }
-  </style>
   <div class="container mt-5">
     <div class="row">
       {% if sessions | length == 0 %}
