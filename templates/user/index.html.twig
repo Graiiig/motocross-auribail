@@ -41,7 +41,16 @@
             <p class="card-text clean-form">{{ app.user.birthDate | date ('d/m/Y') }}</p>
           </div>
           <div class="col-6 col-lg-6 col-12 align-middle" style="height:min-content">
+
+          {# Si l'utilisateur a uploadé un avatar et que le champ en DB est non nul #}
+          {% if app.user.profilePicture is defined and app.user.profilePicture is not null %}
+            {# Alors, on affiche l'avatar uploadé #}
+            <img class="clean-form col-4" src="{{ asset('uploads/avatars/'~app.user.profilePicture) }}" alt="">
+          {% else %}
+            {# Sinon on affiche une image au hasard #}
             <img class="clean-form" src="https://picsum.photos/150" alt="">
+          {% endif %}
+
             <p class="card-text clean-form mt-2">
               <a class="edit-my-info">
                 Modifier mes informations</p>
