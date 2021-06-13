@@ -30,18 +30,17 @@ class SessionService
         // On vérifie sur l'utilisateur est dans la session
         $user = $pendingListRepository->findBy(['session' => $session, 'user' => $user]);
 
-        // Vérifie si un user est inscrit
+        // Si l'utilisateur est connecté
         if ($user) {
-            $statusUserThisSession = "signed";
+            // On vérifie si une des PL (adultes ou enfants) existe
             if ($users['adults'] || $users['kids']) {
 
-
+                //Si oui on parcourt la PL
                 for ($i = 0; $i < count($usersInPendingList); $i++) {
                     
                     // Si l'utilisateur de la PL = celui qui est connecté, alors, 
-                    // On lui attribue une position
+                    // On lui attribue une position et un statut
                     if ($usersInPendingList[$i]->getUser() == $user[0]->getUser()) {
-                        
                         $statusUserThisSession = "signed";
                         $position = $i + 1;
                         break;
@@ -55,8 +54,6 @@ class SessionService
             $statusUserThisSession = "notsigned";
             $position = '';
         }
-
-        dump($statusUserThisSession);
 
         //Calcul des places restantes
         $adultsNb = $this->usersPendingListCounter(75, count($users['adults']));

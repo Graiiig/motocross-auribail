@@ -55,7 +55,7 @@ class SessionController extends AbstractController
         // Envoie du mail
         $mailer->send($email);
         // Ajoute un message de confirmation
-        $this->addFlash('success', 'Vous êtes bien inscrit à l\'entrainement');
+        $this->addFlash('success', 'Vous êtes bien inscrit à l\'entrainement : ' . $session->getTitle());
         // Redirige vers la page d'accueil
         return $this->redirectToRoute('home');
     }
@@ -74,7 +74,7 @@ class SessionController extends AbstractController
         // Envoie en base de donnée
         $em->flush();
         // Affiche un message de confirmation
-        $this->addFlash('danger', 'Vous êtes désinscrit de l\'entrainement');
+        $this->addFlash('danger', 'Vous êtes désinscrit de l\'entrainement : ' . $session->getTitle());
         // Redirige vers la page d'accueil
         return $this->redirectToRoute('home');
     }
