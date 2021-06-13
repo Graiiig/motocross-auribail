@@ -12,6 +12,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class PendingListFixtures extends Fixture
 {
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
 
     public function load(ObjectManager $manager)
     {
@@ -31,7 +37,7 @@ class PendingListFixtures extends Fixture
                     '123'
                 ))
                 ->setRoles(['ROLE_MEMBER'])
-                ->setBirthdate(new \DateTime())
+                ->setBirthdate($faker->dateTime('Y-m-d', '-20 years'))
                 ->setLicense($faker->randomNumber($nbDigits = NULL, $strict = false));
 
             $session = new Session();
@@ -39,8 +45,10 @@ class PendingListFixtures extends Fixture
             $session->setDate($faker->dateTimeBetween($startDate = 'now', $endDate = '+5 years'));
             $session->setStatus(rand(0, 1));
 
-
-            $pendingList = new PendingList($session, $user);
+            $pendingList = new PendingList();
+            $pendingList->setSession($session);
+            $pendingList->setUser($user);
+            $pendingList->setDatetime(new \DateTime());
 
             $manager->persist($pendingList);
             $manager->flush();
