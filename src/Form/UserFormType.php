@@ -68,7 +68,6 @@ class UserFormType extends AbstractType
                 ]
             ])
             
-            // TODO : Chemin vers un avatar de base
             ->add('profilePicture', FileType::class, [
                 'label' => 'Importez un avatar',
                 'data_class' => null,
