@@ -26,14 +26,15 @@ class SessionRepository extends ServiceEntityRepository
    
 
     //Fonction pour trouver la prochaine session
-    //On récupère la première session qui a une date supèrieure à la date actuelle
+    //On récupère la première session qui a une date supérieure à la date actuelle
     public function findNext(): ?Session
     {
-    $currentDate = new \DateTime();   
+    $currentDate = new \DateTime();
         
     $session = $this->createQueryBuilder('s')
             ->andWhere('s.date > :date')
             ->setParameter('date', $currentDate)
+            ->orderBy('s.date', 'ASC')
             ->getQuery()
             ->setMaxResults(1)
             ->getResult()
@@ -41,40 +42,4 @@ class SessionRepository extends ServiceEntityRepository
 
         return $session[0];
     }
-
-    // Fonction pour retrouver les prochaines sessions
-    // On récupère les sessions qui ont une date supérieure à celle d'aujourd'hui
-
-    public function findOne($id): ?Session
-    {
-
-        $session = $this->createQueryBuilder('s', 'u')
-            ->andWhere('s.id = :id')
-            ->setParameter('id', $id)
-            ->orderBy('roles')
-            ->getQuery()
-            ->setMaxResults(1)
-            ->getResult()
-        ;
-
-        return $session[0];
-    }
-
-    
-
-    
-
-    
-    public function findNextAll(): ?array
-    {
-    $currentDate = new \DateTime();   
-
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.date > :date')
-            ->setParameter('date', $currentDate)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    
 }
