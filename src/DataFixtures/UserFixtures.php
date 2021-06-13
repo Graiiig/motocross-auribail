@@ -39,8 +39,6 @@ class UserFixtures extends Fixture
              ->setDate(new \DateTime('2021-12-05') )
              ->setStatus(1);
         $manager->persist($session2);
-
-
         
 
         for ($i=0; $i < 100 ; $i++) { 
@@ -48,14 +46,14 @@ class UserFixtures extends Fixture
             $user->setLastName($faker->lastName)
                  ->setFirstName($faker->firstName)
                  ->setEmail($faker->email)
-                 ->setPhoneNumber($faker->phoneNumber)
+                 ->setPhoneNumber('0'.$faker->numberBetween($min = 600000000, $max = 700000000))
                  ->setAddress($faker->streetAddress)
                  ->setPassword($this->passwordEncoder->encodePassword(
                     $user,
                     '123'
                 ))
                  ->setRoles(['ROLE_MEMBER'])
-                 ->setBirthdate( new \DateTime('2000-06-06'))
+                 ->setBirthdate( new \DateTime($faker->numberBetween($min = 1980, $max = 2010).'-'.$faker->numberBetween($min = 01, $max = 12).'-'.$faker->numberBetween($min = 01, $max = 27)))
                  ->setLicense($faker->randomNumber($nbDigits = NULL, $strict = false));
 
                 if ($i<20) {
@@ -87,14 +85,14 @@ class UserFixtures extends Fixture
             $user->setLastName($faker->lastName)
                  ->setFirstName($faker->firstName)
                  ->setEmail($faker->email)
-                 ->setPhoneNumber($faker->phoneNumber)
+                 ->setPhoneNumber('0'.$faker->numberBetween($min = 600000000, $max = 700000000))
                  ->setAddress($faker->streetAddress)
                  ->setPassword($this->passwordEncoder->encodePassword(
                                  $user,
                                  '123'
                              ))
                  ->setRoles(['ROLE_NON_MEMBER'])
-                 ->setBirthdate( new \DateTime('2000-06-06'))
+                 ->setBirthdate( new \DateTime($faker->numberBetween($min = 1980, $max = 2010).'-'.$faker->numberBetween($min = 01, $max = 12).'-'.$faker->numberBetween($min = 01, $max = 27)))
                  ->setLicense($faker->randomNumber($nbDigits = NULL, $strict = false));
 
                  if ($i<20) {
