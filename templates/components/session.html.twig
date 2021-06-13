@@ -22,11 +22,21 @@
     <!-- Affiche Nombre de places enfants restantes -->
     <p class="card-text">Place(s) enfants restantes :
       {{nextSession.children}}</p>
+
     <!-- Si le prochain entraînement est ouvert -->
     {% if nextSession.session.status == true %}
-      <!-- Si il y a de la place sur la liste des adultes -->
 
-      {% if nextSession.adults <= 75 %}
+      {# On récupère l'âge de l'utilisateur #}
+      {% if (app.user and date('now') | date('Y') - app.user.birthdate | date('Y')) >= 16 %}
+        {% set list = nextSession.adults %}
+        {% set limit = 75 %}
+      {% else %}
+        {% set list = nextSession.children %}
+        {% set limit = 15 %}
+      {% endif %}
+
+      <!-- Si il y a de la place sur la liste-->
+      {% if list <= limit and list > 0 %}
         <!-- Si l'utilisateur est connecté et n'est pas inscrit -->
         {% if app.user and nextSession.statusUserThisSession != "signed" %}
           <!-- Ajoute un bouton s'incrire -->
@@ -47,8 +57,25 @@
           <a href="{{path('app_login')}}" class="btn btn-primary">Connexion</a>
         {% endif %}
       {% else %}
-        <!-- Si il y a plus de la place sur la liste des adultes -->
-        <a class="btn btn-primary">S'incrire en file d'attente</a>
+        <!-- Si l'utilisateur est connecté et n'est pas inscrit -->
+        {% if app.user and nextSession.statusUserThisSession != "signed" %}
+          <!-- Ajoute un bouton s'incrire -->
+          <a href="{{path('session', {'session':nextSession.session.id})}}" class="btn btn-primary">S'inscrire en file d'attente</a>
+          <!-- Sinon si Si l'utilisateur est connecté et est déjà inscrit -->
+        {% elseif app.user and nextSession.statusUserThisSession == "signed" %}
+          <!-- N'inscrit pas l'utilisateur et affiche sa position -->
+          <a class="btn btn-primary disabled">Déjà inscrit (position :
+            {{ nextSession.position}})</a>
+          <a class="btn btn-danger" href="{{ path('session_unsubscribe', { 'session' : nextSession.session.id }) }}">
+            <button class="close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </a>
+
+        {% else %}
+          <!-- Sinon affiche un bouton de connexion à l'utilisateur -->
+          <a href="{{path('app_login')}}" class="btn btn-primary">Connexion</a>
+        {% endif %}
       {% endif %}
     {% else %}
       <a class="btn btn-primary disabled">Fermé</a>

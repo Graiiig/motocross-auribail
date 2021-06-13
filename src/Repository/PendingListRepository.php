@@ -78,7 +78,7 @@ class PendingListRepository extends ServiceEntityRepository
         $adultsPendingList = array_merge($adminsMembersInPending, $adultsMembersInPending, $adultsNonMembersInPending);
 
         //On limite la liste d'attente à 75 personnes
-        $adultsPendingList = array_slice($adultsPendingList, 0, 75);
+        // $adultsPendingList = array_slice($adultsPendingList, 0, 75);
 
         // *** Kids *** //
         //recuperation des membres enfants dans la file d'attente
@@ -91,7 +91,7 @@ class PendingListRepository extends ServiceEntityRepository
         $kidsPendingList = array_merge($kidsMembersInPending, $kidsNonMembersInPending);
 
         //On limite la liste d'attente à 15 personnes
-        $kidsPendingList = array_slice($kidsPendingList, 0, 15);
+        // $kidsPendingList = array_slice($kidsPendingList, 0, 15);
 
         //On crée la liste d'attente finale
         return array('adults' => $adultsPendingList, 'kids' => $kidsPendingList);
