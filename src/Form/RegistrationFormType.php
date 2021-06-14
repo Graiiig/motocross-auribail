@@ -19,16 +19,23 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
+            ->add('email', null, [
+                'required' => true,
+                'invalid_message' => 'L\'adresse email n\'est pas valide.',
+                'label'   => 'Addresse email',
+                'attr' => [
+                    'placeholder' => 'Addresse email'
+                ]
+            ])
             ->add('firstName')
             ->add('lastName')
             ->add('phoneNumber')
-            ->add('birthdate', DateType::class, [ 
+            ->add('birthdate', DateType::class, [
                 'label'   => 'Date de naissance',
-                'years' => range(1950, date('Y')-6),
-                'widget'=>'single_text',
-                'attr'=> [
-                    'placeholder'=>'Date de naissance'
+                'years' => range(1950, date('Y') - 6),
+                'widget' => 'single_text',
+                'attr' => [
+                    'placeholder' => 'Date de naissance'
                 ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
@@ -38,7 +45,7 @@ class RegistrationFormType extends AbstractType
                     new IsTrue([
                         'message' => 'Vous devez accepter les termes',
                     ]),
-                
+
                 ],
             ])
             ->add('plainPassword', RepeatedType::class, [
@@ -61,9 +68,7 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-            
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

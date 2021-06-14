@@ -9,6 +9,9 @@
             <h3>Inscription</h3>
             <div class="container-fluid bg-secondary pt-5 pb-3">
                 {{ form_start(registrationForm) }}
+                    <div class="my-custom-class-for-errors">
+        {{ form_errors(registrationForm.email) }}
+    </div>
                 {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'E-mail', 'class' : 'my-2'}}) }}
 
                 {{ form_widget(registrationForm.firstName, {'attr': {'placeholder': 'Prénom','class' : 'my-2'}}) }}
