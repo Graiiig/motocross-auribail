@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -97,6 +99,57 @@ class UserController extends AbstractController
             );
         } else {
             return $this->redirectToRoute('app_login');
+        }
+    }
+
+    /**
+     * Permets à l'utilisateur d'envoyer un email à l'admin
+     *
+     * @Route("/mon-compte/email", name="user_account_email")
+     */
+    public function sendEmail(Request $request, MailerInterface $mailer)
+    {
+        // On vérifie qu'un utilisateur est connecté
+        if($this->getUser())
+        {
+            // On récupère l'input du titre de l'email
+            $title = $request->query->get('emailTitle', []);
+            // On récupère l'input du body de l'email
+            $body = $request->query->get('emailBody', []);
+            // Si les champs de l'email sont remplis
+            if ($title != null && $body != null) {
+                // On crée un nouvel email
+                $email = (new Email())
+                    // L'expéditeur
+                    ->from($this->getUser()->getEmail())
+                    // Le destinataire
+                    ->to('mc.auribail@gmail.com')
+                    // On envoie le sujet du mail
+                    ->subject($title)
+                    // On envoie le contenu du mail
+                    ->text($body);
+                // Envoie du mail avec mailer
+                $mailer->send($email);
+                // Affiche un message associé
+                $this->addFlash('success', "Le message est envoyé !");
+                // On redirige sur l'index user
+                return $this->redirectToRoute('user_account');
+            }
+            // Si le titre est vide
+            else if ($title == null) {
+                // Affiche un message d'erreur associé
+                $this->addFlash('error', "Merci de renseigner un titre");
+            }
+            // Si le contenu est vide
+            else {
+                // Affiche un message d'erreur associé
+                $this->addFlash('error', "Merci de renseigner un message");
+            }
+        }
+        // Si pas d'utilisateur connecté renvoie versla page de connexion
+        else
+        {
+            return $this->redirectToRoute('app_login'); 
         }
     }
 }

@@ -4,8 +4,8 @@
 {% endblock %}
 
 {% block body %}
-  <div class="container mt-5">
-    {# <div class="row">
+<div class="container mt-5">
+  {# <div class="row">
       {% if sessions | length == 0 %}
         <p class="text-center offset-1 col-4">Vous n'avez participé à aucun entraînement, vous pouvez vous inscrire à la prochaine session
           <span class="material-icons-outlined align-middle">
@@ -14,97 +14,126 @@
         </p>
       {% endif %}
     </div> #}
-    <div class="row justify-content-center">
-      <div class="card text-center mx-5 col-10 px-0">
-        <div class="card-header">
-          Mes informations personnelles :
+  <div class="row justify-content-center">
+    <div class="card text-center mx-5 col-10 px-0">
+      <div class="card-header">
+        Mes informations personnelles :
 
+      </div>
+      <div class="card-body row">
+        <div class="col-lg-6 col-12">
+
+          <h5 class="card-title clean-form">{{app.user.lastName ~ " " ~ app.user.firstName}}</h5>
+          <p class="card-text clean-form">{{ app.user.email }}</p>
+          <p class="card-text clean-form">{{ app.user.phoneNumber }}</p>
+          <p class="card-text clean-form">{{ app.user.license }}</p>
+          <p class="card-text clean-form">{{ app.user.address }}</p>
+          <p class="card-text clean-form">{{ app.user.birthDate | date ('d/m/Y') }}</p>
         </div>
-        <div class="card-body row">
-          <div class="col-lg-6 col-12">
+        <div class="col-6 col-lg-6 col-12 align-middle" style="height:min-content">
 
-            <h5 class="card-title clean-form">{{app.user.lastName ~ " " ~ app.user.firstName}}</h5>
-            <p class="card-text clean-form">{{ app.user.email }}</p>
-            <p class="card-text clean-form">{{ app.user.phoneNumber }}</p>
-            <p class="card-text clean-form">{{ app.user.license }}</p>
-            <p class="card-text clean-form">{{ app.user.address }}</p>
-            <p class="card-text clean-form">{{ app.user.birthDate | date ('d/m/Y') }}</p>
-          </div>
-          <div class="col-6 col-lg-6 col-12 align-middle" style="height:min-content">
-
-            {# Si l'utilisateur a uploadé un avatar et que le champ en DB est non nul #}
-            {% if app.user.profilePicture is defined and app.user.profilePicture is not null %}
-              {# Alors, on affiche l'avatar uploadé #}
-              <img class="clean-form col-4" src="{{ asset('uploads/avatars/'~app.user.profilePicture) }}" alt="">
-            {% else %}
-              {# Sinon on affiche une image au hasard #}
-              <img class="clean-form" src="https://picsum.photos/150" alt="">
-            {% endif %}
-
-            <p class="card-text clean-form mt-2">
-              <a class="edit-my-info">
-                Modifier mes informations</p>
-              <p class="card-text clean-form">
-                <a href="{{path('app_forgot_password_request')}}">
-                  Modifier mon mot de passe</a>
-              </p>
-
-            </div>
-
-          </div>
-          {{ form_start(form, {'attr': {'id': 'form-edit-my-info'}}) }}
-          {{ form_widget(form, {'attr': {'class': 'd-flex justify-content-between flex-wrap'}}) }}
-          <button type="submit" class="btn btn-outline-success mb-3">Valider</button>
-          {{ form_end(form) }}
-
-          <div class="card-footer text-muted">
-            {% if is_granted('ROLE_MEMBER') %}
-              Adhérent du club - Vous avez un soucis ? Vous pouvez contacter l'administrateur ici :
-              <a href="mailto:mc.auribail@gmail.com">mc.auribail@gmail.com</a>
-            {% elseif is_granted('ROLE_NON_MEMBER')%}
-              Non adhérent du club - Vous avez un soucis ? Vous pouvez contacter l'administrateur ici :
-              <a href="mailto:mc.auribail@gmail.com">mc.auribail@gmail.com</a>
-            {% else %}
-              Administrateur
-            {% endif %}
-          </div>
-        </div>
-        <div class="col-lg-5 col-12 mt-5">
-          {% if sessions | length == 0 %}
-            {% include "components/session.html.twig" %}
+          {# Si l'utilisateur a uploadé un avatar et que le champ en DB est non nul #}
+          {% if app.user.profilePicture is defined and app.user.profilePicture is not null %}
+          {# Alors, on affiche l'avatar uploadé #}
+          <img class="clean-form col-4" src="{{ asset('uploads/avatars/'~app.user.profilePicture) }}" alt="">
+          {% else %}
+          {# Sinon on affiche une image au hasard #}
+          <img class="clean-form" src="https://picsum.photos/150" alt="">
           {% endif %}
 
-          <ul class="list-group">
-            <li class="list-group-item active">Les courses auxquelles j'ai participé :
-            </li>
-            {% for session in previousUserSessions %}
-              <li class="list-group-item">
-                {{session.session.title | lower}}
-                le
-                {{session.session.date | date ('d/m/Y')}}</li>
-            {% endfor %}
-          </ul>
-
-          <ul class="list-group mt-5">
-            <li class="list-group-item active">Mes prochaines courses :
-            </li>
-            {% for session in nextUserSessions %}
-              <li class="list-group-item">
-                {{session.session.title | lower}}
-                le
-                {{session.session.date | date ('d/m/Y')}}
-                <a class="float-right" href="{{ path('session_unsubscribe', {'session' : session.session.id} )}}">
-                  <span class="material-icons-outlined align-middle">
-                    delete
-                  </span>
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
+          <p class="card-text clean-form mt-2">
+            <a class="edit-my-info">
+              Modifier mes informations</p>
+          <p class="card-text clean-form">
+            <a href="{{path('app_forgot_password_request')}}">
+              Modifier mon mot de passe</a>
+          </p>
 
         </div>
+
       </div>
+      {{ form_start(form, {'attr': {'id': 'form-edit-my-info'}}) }}
+      {{ form_widget(form, {'attr': {'class': 'd-flex justify-content-between flex-wrap'}}) }}
+      <button type="submit" class="btn btn-outline-success mb-3">Valider</button>
+      {{ form_end(form) }}
+
+      <div class="card-footer text-muted">
+        {% if is_granted('ROLE_MEMBER') %}
+        Adhérent du club - Vous avez un soucis ? Vous pouvez contacter l'administrateur ici :
+        <a href="#" data-toggle="modal" data-target="#exampleModal">Cliquez ici</a>
+        {% elseif is_granted('ROLE_NON_MEMBER')%}
+        Non adhérent du club - Vous avez un soucis ? Vous pouvez contacter l'administrateur ici :
+        <a href="#" data-toggle="modal" data-target="#exampleModal">Cliquez ici</a>
+        {% else %}
+        Administrateur
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-lg-5 col-12 mt-5">
+      {% if sessions | length == 0 %}
+      {% include "components/session.html.twig" %}
+      {% endif %}
+
+      <ul class="list-group">
+        <li class="list-group-item active">Les courses auxquelles j'ai participé :
+        </li>
+        {% for session in previousUserSessions %}
+        <li class="list-group-item">
+          {{session.session.title | lower}}
+          le
+          {{session.session.date | date ('d/m/Y')}}</li>
+        {% endfor %}
+      </ul>
+
+      <ul class="list-group mt-5">
+        <li class="list-group-item active">Mes prochaines courses :
+        </li>
+        {% for session in nextUserSessions %}
+        <li class="list-group-item">
+          {{session.session.title | lower}}
+          le
+          {{session.session.date | date ('d/m/Y')}}
+          <a class="float-right" href="{{ path('session_unsubscribe', {'session' : session.session.id} )}}">
+            <span class="material-icons-outlined align-middle">
+              delete
+            </span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
 
     </div>
+  </div>
 
-  {% endblock %}
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Contacter l'administrateur</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="GET" action="{{ path('user_account_email') }}"
+          onsubmit="return confirm('Envoyer le message ? Ce message sera envoyé par mail')">
+          <label for="emailTitle">Sujet : </label>
+          <input type="text" class="form-control" name="emailTitle" placeholder="Sujet">
+          <label for="emailBody">Message : </label>
+          <textarea class="form-control" name="emailBody" rows="3" placeholder="Message"></textarea>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+{% endblock %}

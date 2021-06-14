@@ -68,3 +68,4 @@
 /.web-server-pid
 .env
 .env
+/public/uploads/avatars
