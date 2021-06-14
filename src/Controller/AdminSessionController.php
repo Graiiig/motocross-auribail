@@ -16,6 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Snappy\Pdf;
 
@@ -37,21 +38,21 @@ class AdminSessionController extends AbstractController
      * @Route("/admin/session/{id}", name="admin_session")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function show($id)
+    public function show($id, PaginatorInterface $paginator, Request $request)
     {
         //Fonction pour récupérer la pending list (voir PendingListRepository)
         $pendingLists = $this->pendingListRepo->getPendingList($id);
-        // On crée un tableau pour récupérer les noms dans la vue twig après
-        $names = array(0 => 'adultes', 1 => 'enfants');
-        
+        // On sépare la liste des adultes avec une pagination
+        $adults = $paginator->paginate($pendingLists['adults'], $request->query->getInt('page1', 1), 10, ['pageParameterName' => 'page1']);
+        // On sépare la liste des enfants avec une pagination
+        $kids = $paginator->paginate($pendingLists['kids'], $request->query->getInt('page2', 1), 10, ['pageParameterName' => 'page2']);
         // Va chercher la session dans la base de donnée avec son id
         $session = $this->sessionRepo->findOneBy(['id' => $id]);
-      
-
+        // Renvoie la page de session
         return $this->render('admin/session/session.html.twig', [
             'session' => $session,
-            'pendingLists' => $pendingLists,
-            'names' => $names
+            'adults' => $adults,
+            'kids' => $kids,
         ]);
     }
 

@@ -103,7 +103,6 @@ class PendingListRepository extends ServiceEntityRepository
         // $kidsPendingList = array_slice($kidsPendingList, 0, 15);
 
         //On crée la liste d'attente finale
-        dump(array('adults' => $adultsPendingList, 'kids' => $kidsPendingList));
         return array('adults' => $adultsPendingList, 'kids' => $kidsPendingList);
     }
 
