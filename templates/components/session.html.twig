@@ -30,9 +30,11 @@
       {% if (app.user and date('now') | date('Y') - app.user.birthdate | date('Y')) >= 16 %}
         {% set list = nextSession.adults %}
         {% set limit = 75 %}
+        {% set max = nextSession.totalAdults %}
       {% else %}
         {% set list = nextSession.children %}
         {% set limit = 15 %}
+        {% set max = nextSession.totalKids %}
       {% endif %}
 
       <!-- Si il y a de la place sur la liste-->
@@ -45,7 +47,7 @@
         {% elseif app.user and nextSession.statusUserThisSession == "signed" %}
           <!-- N'inscrit pas l'utilisateur et affiche sa position -->
           <a class="btn btn-primary disabled">Déjà inscrit (position :
-            {{ nextSession.position}})</a>
+            {{ nextSession.position}} / {{max}})</a>
           <a class="btn btn-danger" href="{{ path('session_unsubscribe', { 'session' : nextSession.session.id }) }}">
             <button class="close">
               <span aria-hidden="true">&times;</span>
@@ -65,7 +67,7 @@
         {% elseif app.user and nextSession.statusUserThisSession == "signed" %}
           <!-- N'inscrit pas l'utilisateur et affiche sa position -->
           <a class="btn btn-primary disabled">Déjà inscrit (position :
-            {{ nextSession.position}})</a>
+            {{ nextSession.position}}  / {{max}} ) </a>
           <a class="btn btn-danger" href="{{ path('session_unsubscribe', { 'session' : nextSession.session.id }) }}">
             <button class="close">
               <span aria-hidden="true">&times;</span>

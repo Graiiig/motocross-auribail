@@ -58,13 +58,19 @@ class SessionService
         //Calcul des places restantes
         $adultsNb = $this->usersPendingListCounter(75, count($users['adults']));
         $kidsNb = $this->usersPendingListCounter(15, count($users['kids']));
+
+        // dump(count($users['adults']));
+        // dump(count($users['kids']));
         // On retourne un array
         return array(
             "session" => $session,
             "adults" => $adultsNb,
             "children" => $kidsNb,
             "statusUserThisSession" => $statusUserThisSession,
-            "position" => $position
+            "position" => $position,
+            "totalAdults" => count($users['adults']),
+            "totalKids" => count($users['kids']),
+            
         );
     }
 
