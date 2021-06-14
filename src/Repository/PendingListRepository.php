@@ -39,6 +39,7 @@ class PendingListRepository extends ServiceEntityRepository
             ->setParameter('role', $role)
             ->setParameter('sessionId', $sessionId)
             ->setParameter('age', $age)
+            ->orderBy('pl.id')
             ->getQuery()
             ->getResult();
     }
@@ -61,6 +62,7 @@ class PendingListRepository extends ServiceEntityRepository
             ->setParameter('sessionId', $sessionId)
             ->setParameter('age', $age)
             ->setParameter('license', "")
+            ->orderBy('pl.id')
             ->getQuery()
             ->getResult();
     }
@@ -101,6 +103,7 @@ class PendingListRepository extends ServiceEntityRepository
         // $kidsPendingList = array_slice($kidsPendingList, 0, 15);
 
         //On crée la liste d'attente finale
+        dump(array('adults' => $adultsPendingList, 'kids' => $kidsPendingList));
         return array('adults' => $adultsPendingList, 'kids' => $kidsPendingList);
     }
 
