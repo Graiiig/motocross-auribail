@@ -79,9 +79,13 @@
             <tr>
                 <td>{{ session.title }}</td>
                 <td>{{ session.date | date('d/m/y') }}</td>
-                <td><a  href="{{path('admin_session', {'id' : session.id}) }}">Afficher les inscrits</a></td>
-                <td><a style="text-decoration:none" href="{{path('generate_pdf', {'currentSession' : session.id, 'members' : 'adultes'})}}" class="material-icons-outlined">picture_as_pdf</a></td>
-                <td><a style="text-decoration:none" href="{{path('generate_pdf', {'currentSession' : session.id, 'members' : 'enfants'})}}" class="material-icons">picture_as_pdf</a></td>
+                <td><a href="{{path('admin_session', {'id' : session.id}) }}">Afficher les inscrits</a></td>
+                <td><a style="text-decoration:none"
+                        href="{{path('generate_pdf', {'currentSession' : session.id, 'members' : 'adultes'})}}"
+                        class="material-icons-outlined">picture_as_pdf</a></td>
+                <td><a style="text-decoration:none"
+                        href="{{path('generate_pdf', {'currentSession' : session.id, 'members' : 'enfants'})}}"
+                        class="material-icons">picture_as_pdf</a></td>
                 {% if session.status == true %}
                 <td class="text-success">Ouvert</td>
                 {% else %}
