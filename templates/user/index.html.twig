@@ -5,15 +5,6 @@
 
 {% block body %}
   <div class="container mt-5">
-    {# <div class="row">
-      {% if sessions | length == 0 %}
-        <p class="text-center offset-1 col-4">Vous n'avez participé à aucun entraînement, vous pouvez vous inscrire à la prochaine session
-          <span class="material-icons-outlined align-middle">
-            arrow_downward
-          </span>
-        </p>
-      {% endif %}
-    </div> #}
     <div class="row justify-content-center">
       <div class="card text-center mx-5 col-10 px-0">
         <div class="card-header">
@@ -73,35 +64,39 @@
           {% if sessions | length == 0 %}
             {% include "components/session.html.twig" %}
           {% endif %}
+          {% if previousUserSessions | length > 0 %}
 
-          <ul class="list-group">
-            <li class="list-group-item active">Les courses auxquelles j'ai participé :
-            </li>
-            {% for session in previousUserSessions %}
-              <li class="list-group-item">
-                {{session.session.title | lower}}
-                le
-                {{session.session.date | date ('d/m/Y')}}</li>
-            {% endfor %}
-          </ul>
-
-          <ul class="list-group mt-5">
-            <li class="list-group-item active">Mes prochaines courses :
-            </li>
-            {% for session in nextUserSessions %}
-              <li class="list-group-item">
-                {{session.session.title | lower}}
-                le
-                {{session.session.date | date ('d/m/Y')}}
-                <a class="float-right" href="{{ path('session_unsubscribe', {'session' : session.session.id} )}}">
-                  <span class="material-icons-outlined align-middle">
-                    delete
-                  </span>
-                </a>
+            <ul class="list-group">
+              <li class="list-group-item active">Les courses auxquelles j'ai participé :
               </li>
-            {% endfor %}
-          </ul>
+              {% for session in previousUserSessions %}
+                <li class="list-group-item">
+                  {{session.session.title | lower}}
+                  le
+                  {{session.session.date | date ('d/m/Y')}}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
 
+          {% if nextUserSessions | length > 0 %}
+
+            <ul class="list-group mt-5">
+              <li class="list-group-item active">Mes prochaines courses :
+              </li>
+              {% for session in nextUserSessions %}
+                <li class="list-group-item">
+                  {{session.session.title | lower}}
+                  le
+                  {{session.session.date | date ('d/m/Y')}}
+                  <a class="float-right" href="{{ path('session_unsubscribe', {'session' : session.session.id} )}}">
+                    <span class="material-icons-outlined align-middle">
+                      delete
+                    </span>
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
         </div>
       </div>
 
