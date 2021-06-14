@@ -4,8 +4,18 @@
 {% endblock %}
 
 {% block body %}
+  {# FIXME: A mettre dans styles.css à terme #}
+  <style>
+    form#form-edit-my-info {
+      display: none;
+    }
+
+    .edit-my-info:hover {
+      cursor: pointer;
+    }
+  </style>
   <div class="container mt-5">
-    {# <div class="row">
+    <div class="row">
       {% if sessions | length == 0 %}
         <p class="text-center offset-1 col-4">Vous n'avez participé à aucun entraînement, vous pouvez vous inscrire à la prochaine session
           <span class="material-icons-outlined align-middle">
@@ -13,7 +23,7 @@
           </span>
         </p>
       {% endif %}
-    </div> #}
+    </div>
     <div class="row justify-content-center">
       <div class="card text-center mx-5 col-10 px-0">
         <div class="card-header">
@@ -31,16 +41,7 @@
             <p class="card-text clean-form">{{ app.user.birthDate | date ('d/m/Y') }}</p>
           </div>
           <div class="col-6 col-lg-6 col-12 align-middle" style="height:min-content">
-
-            {# Si l'utilisateur a uploadé un avatar et que le champ en DB est non nul #}
-            {% if app.user.profilePicture is defined and app.user.profilePicture is not null %}
-              {# Alors, on affiche l'avatar uploadé #}
-              <img class="clean-form col-4" src="{{ asset('uploads/avatars/'~app.user.profilePicture) }}" alt="">
-            {% else %}
-              {# Sinon on affiche une image au hasard #}
-              <img class="clean-form" src="https://picsum.photos/150" alt="">
-            {% endif %}
-
+            <img class="clean-form" src="https://picsum.photos/150" alt="">
             <p class="card-text clean-form mt-2">
               <a class="edit-my-info">
                 Modifier mes informations</p>
@@ -70,37 +71,43 @@
           </div>
         </div>
         <div class="col-lg-5 col-12 mt-5">
+
+          {# TODO Modifs concernant l'affichage #}
           {% if sessions | length == 0 %}
             {% include "components/session.html.twig" %}
           {% endif %}
+          {% for session in sessions %}
 
-          <ul class="list-group">
-            <li class="list-group-item active">Les courses auxquelles j'ai participé :
-            </li>
-            {% for session in previousUserSessions %}
-              <li class="list-group-item">
-                {{session.session.title | lower}}
-                le
-                {{session.session.date | date ('d/m/Y')}}</li>
-            {% endfor %}
-          </ul>
+            {% set difference = date("now").diff(date(session.session.date)) %}
 
-          <ul class="list-group mt-5">
-            <li class="list-group-item active">Mes prochaines courses :
-            </li>
-            {% for session in nextUserSessions %}
-              <li class="list-group-item">
-                {{session.session.title | lower}}
-                le
-                {{session.session.date | date ('d/m/Y')}}
-                <a class="float-right" href="{{ path('session_unsubscribe', {'session' : session.session.id} )}}">
-                  <span class="material-icons-outlined align-middle">
-                    delete
-                  </span>
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
+            {% if difference.invert == 1 %}
+              <ul class="list-group">
+                <li class="list-group-item active">Les courses auxquelles j'ai participé :
+                </li>
+                <li class="list-group-item">
+                  {{session.session.title | lower}}
+                  le
+                  {{session.session.date | date ('d/m/Y')}}</li>
+              </ul>
+            {% else %}
+
+              <ul class="list-group mt-5">
+                <li class="list-group-item active">Mes prochaines courses :
+                </li>
+                <li class="list-group-item">
+                  {{session.session.title | lower}}
+                  le
+                  {{session.session.date | date ('d/m/Y')}}
+                  <a class="float-right" href="{{ path('session_unsubscribe', {'session' : session.session.id} )}}">
+                    <span class="material-icons-outlined align-middle">
+                      delete
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            {% endif %}
+
+          {% endfor %}
 
         </div>
       </div>
