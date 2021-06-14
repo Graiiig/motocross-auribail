@@ -34,9 +34,7 @@
                     <form method="post" action="{{ path('admin_session_user_delete', {'id': session.id, 'idUser' : user.id}) }}"
                         onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                         <input type="hidden" name="_method" value="DELETE">
-                        <button class="close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button class="material-icons-outlined btn bg-transparent grow">delete_forever</button>
                     </form>
                 </td>
             </tr>
