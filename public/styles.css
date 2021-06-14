@@ -36,7 +36,38 @@
 
     display : none; 
   }
+
 }
+
+@media all and (max-width : 50em){
+
+  #copyright{
+
+  display : none; }
+
+  .dfooter i{
+
+  font-size : 1.25em;
+
+  }
+  
+  .dfooter {
+  
+  position : fixed; 
+  bottom : 0; 
+  width : 100%; 
+  margin-bottom: 0;
+  padding-bottom: 0;
+  margin-left : auto; 
+  margin-right : auto;
+   
+
+  }
+  
+  
+  }
+
+
 
 
 /** Responsive fonts **/
