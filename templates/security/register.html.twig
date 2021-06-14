@@ -3,38 +3,47 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-<div class="mx-px-0 mt-3">
+  <div class="mx-px-0 mt-3">
     <div class="row justify-content-center text-center col-12 ">
-        <div class="col-sm-3 col-xl-4 col-md-4 shadText" style="height : 100px">
-            <h3>Inscription</h3>
-            <div class="container-fluid bg-secondary pt-5 pb-3">
-                {{ form_start(registrationForm) }}
-                    <div class="my-custom-class-for-errors">
-        {{ form_errors(registrationForm.email) }}
-    </div>
-                {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'E-mail', 'class' : 'my-2'}}) }}
+      <div class="col-sm-3 col-xl-4 col-md-4" style="height : 100px">
+        <div class="card text-center">
+          <div class="card-header">
+            <h1 class="h2">Inscription</h1>
+          </div>
+          <div class="card-body">
 
-                {{ form_widget(registrationForm.firstName, {'attr': {'placeholder': 'Prénom','class' : 'my-2'}}) }}
-
-                {{ form_widget(registrationForm.lastName, {'attr': {'placeholder': 'Nom', 'class' : 'my-2'}}) }}
-
-                {{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Mot de Passe', 'class' : 'my-3'}})
-                }}
-                
-                {{ form_widget(registrationForm.birthdate, {'attr': {'placeholder': 'Date de Naissance', 'class' : 'my-2' , 'class' : 'justify-content-center'}})
-                }}
-
-                {{ form_widget(registrationForm.phoneNumber, {'attr': {'placeholder': 'Numéro de téléphone', 'class' : 'my-2'}})
-                }}
-
-                {{ form_row(registrationForm.agreeTerms) }}
-
-                <button type="submit" class="btn btn-outline-warning">S'inscrire</button>
-                {{ form_end(registrationForm) }}
+            {{ form_start(registrationForm) }}
+            <div class="my-custom-class-for-errors">
+              {{ form_errors(registrationForm.email) }}
             </div>
-        </div>
-    </div>
-</div>
+            {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'E-mail', 'class' : 'my-2'}}) }}
 
+            <div class="d-flex justify-content-between">
+              {{ form_widget(registrationForm.firstName, {'attr': {'placeholder': 'Prénom','class' : 'col-6 my-2'}}) }}
+
+              {{ form_widget(registrationForm.lastName, {'attr': {'placeholder': 'Nom', 'class' : 'col-6 my-2'}}) }}
+            </div>
+
+            {{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Mot de Passe', 'class' : 'my-3'}}) }}
+
+            <div class="d-flex justify-content-between">
+              {{ form_widget(registrationForm.birthdate, {'attr': {'placeholder': 'Date de Naissance', 'class' : 'col-6 my-2'}}) }}
+
+              {{ form_widget(registrationForm.phoneNumber, {'attr': {'placeholder': 'N° de téléphone', 'class' : 'col-6 my-2'}}) }}
+            </div>
+            {{ form_row(registrationForm.agreeTerms) }}
+
+            <button type="submit" class="btn btn-outline-warning">S'inscrire</button>
+            {{ form_end(registrationForm) }}
+
+          </div>
+          <div class="card-footer text-muted">
+            Après l'inscription vous serez redirigé vers la page d'accueil
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
 {% endblock %}
