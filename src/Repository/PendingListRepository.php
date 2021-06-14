@@ -39,6 +39,7 @@ class PendingListRepository extends ServiceEntityRepository
             ->setParameter('role', $role)
             ->setParameter('sessionId', $sessionId)
             ->setParameter('age', $age)
+            ->orderBy('pl.id')
             ->getQuery()
             ->getResult();
     }
@@ -61,6 +62,7 @@ class PendingListRepository extends ServiceEntityRepository
             ->setParameter('sessionId', $sessionId)
             ->setParameter('age', $age)
             ->setParameter('license', "")
+            ->orderBy('pl.id')
             ->getQuery()
             ->getResult();
     }
