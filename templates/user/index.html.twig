@@ -71,7 +71,7 @@
         <li class="list-group-item active">Les courses auxquelles j'ai participé :
         </li>
         {% for session in previousUserSessions %}
-        <li class="list-group-item">
+        <li class="list-group-item border border-bottom-1 border-primary justify-content-between d-flex">
           {{session.session.title | lower}}
           le
           {{session.session.date | date ('d/m/Y')}}</li>
@@ -85,11 +85,13 @@
         <li class="list-group-item active">Mes prochaines courses :
         </li>
         {% for session in nextUserSessions %}
-        <li class="list-group-item">
+        <li class="list-group-item border border-bottom-1 border-primary justify-content-between d-flex">
+          <div>
           {{session.session.title | lower}}
           le
           {{session.session.date | date ('d/m/Y')}}
-          <a class="float-right" href="{{ path('session_unsubscribe', {'session' : session.session.id} )}}">
+          </div>
+          <a href="{{ path('session_unsubscribe', {'session' : session.session.id} )}}">
             <span class="material-icons-outlined align-middle">
               delete
             </span>
