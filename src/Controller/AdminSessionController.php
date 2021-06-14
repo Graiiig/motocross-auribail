@@ -43,8 +43,10 @@ class AdminSessionController extends AbstractController
         $pendingLists = $this->pendingListRepo->getPendingList($id);
         // On crée un tableau pour récupérer les noms dans la vue twig après
         $names = array(0 => 'adultes', 1 => 'enfants');
+        
         // Va chercher la session dans la base de donnée avec son id
         $session = $this->sessionRepo->findOneBy(['id' => $id]);
+      
 
         return $this->render('admin/session/session.html.twig', [
             'session' => $session,
