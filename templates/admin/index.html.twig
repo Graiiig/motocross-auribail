@@ -34,8 +34,8 @@
             <tr>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName }}</td>
-                <td>{{ user.birthdate | date('d/m/y') }}</td>
-                <td>{{ user.phoneNumber }}</td>
+                <td >{{ user.birthdate | date('d/m/y') }}</td>
+                <td >{{ user.phoneNumber }}</td>
                 <td>{{ user.license }}</td>
                 <td>{{ user.address }}</td>
                 <td width='15px'>
@@ -46,8 +46,7 @@
                 <td width='25px'>
                     <form action="{{ path('admin_user_delete', {'id': user.id}) }}"
                         onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
-                        <button class="material-icons-outlined btn bg-transparent grow"
-                            onclick='notyDelete()'>delete_forever</button>
+                        <button class="material-icons-outlined btn bg-transparent grow">delete_forever</button>
                     </form>
                 </td>
             </tr>

@@ -48,7 +48,7 @@
   .dfooter i{
 
   font-size : 1.25em;
-
+  
   }
   
   .dfooter {
@@ -64,6 +64,12 @@
 
   }
   
+  .dmfooter {
+
+    margin-right : auto !important;
+    padding-bottom: 0.50em;
+    
+  }
   
   }
 
