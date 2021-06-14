@@ -4,28 +4,11 @@
 {% endblock %}
 
 {% block body %}
-<<<<<<< HEAD
 <div class="container mt-5">
-  {# <div class="row">
-      {% if sessions | length == 0 %}
-        <p class="text-center offset-1 col-4">Vous n'avez participé à aucun entraînement, vous pouvez vous inscrire à la prochaine session
-          <span class="material-icons-outlined align-middle">
-            arrow_downward
-          </span>
-        </p>
-      {% endif %}
-    </div> #}
   <div class="row justify-content-center">
     <div class="card text-center mx-5 col-10 px-0">
       <div class="card-header">
         Mes informations personnelles :
-=======
-  <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="card text-center mx-5 col-10 px-0">
-        <div class="card-header">
-          Mes informations personnelles :
->>>>>>> 0e6ad868637427d67cbfe6bbcb29c6e476ee606f
 
       </div>
       <div class="card-body row">
@@ -76,62 +59,58 @@
         Administrateur
         {% endif %}
       </div>
+
     </div>
     <div class="col-lg-5 col-12 mt-5">
       {% if sessions | length == 0 %}
       {% include "components/session.html.twig" %}
       {% endif %}
+      {% if previousUserSessions | length > 0 %}
 
-          <div class="card-footer text-muted">
-            {% if is_granted('ROLE_MEMBER') %}
-              Adhérent du club - Vous avez un soucis ? Vous pouvez contacter l'administrateur ici :
-              <a href="mailto:mc.auribail@gmail.com">mc.auribail@gmail.com</a>
-            {% elseif is_granted('ROLE_NON_MEMBER')%}
-              Non adhérent du club - Vous avez un soucis ? Vous pouvez contacter l'administrateur ici :
-              <a href="mailto:mc.auribail@gmail.com">mc.auribail@gmail.com</a>
-            {% else %}
-              Administrateur
-            {% endif %}
-          </div>
-        </div>
-        <div class="col-lg-5 col-12 mt-5">
-          {% if sessions | length == 0 %}
-            {% include "components/session.html.twig" %}
-          {% endif %}
-          {% if previousUserSessions | length > 0 %}
+      <ul class="list-group">
+        <li class="list-group-item active">Les courses auxquelles j'ai participé :
+        </li>
+        {% for session in previousUserSessions %}
+        <li class="list-group-item">
+          {{session.session.title | lower}}
+          le
+          {{session.session.date | date ('d/m/Y')}}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
 
-            <ul class="list-group">
-              <li class="list-group-item active">Les courses auxquelles j'ai participé :
-              </li>
-              {% for session in previousUserSessions %}
-                <li class="list-group-item">
-                  {{session.session.title | lower}}
-                  le
-                  {{session.session.date | date ('d/m/Y')}}</li>
-              {% endfor %}
-            </ul>
-          {% endif %}
+      {% if nextUserSessions | length > 0 %}
 
-          {% if nextUserSessions | length > 0 %}
-
-            <ul class="list-group mt-5">
-              <li class="list-group-item active">Mes prochaines courses :
-              </li>
-              {% for session in nextUserSessions %}
-                <li class="list-group-item">
-                  {{session.session.title | lower}}
-                  le
-                  {{session.session.date | date ('d/m/Y')}}
-                  <a class="float-right" href="{{ path('session_unsubscribe', {'session' : session.session.id} )}}">
-                    <span class="material-icons-outlined align-middle">
-                      delete
-                    </span>
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-        </div>
+      <ul class="list-group mt-5">
+        <li class="list-group-item active">Mes prochaines courses :
+        </li>
+        {% for session in nextUserSessions %}
+        <li class="list-group-item">
+          {{session.session.title | lower}}
+          le
+          {{session.session.date | date ('d/m/Y')}}
+          <a class="float-right" href="{{ path('session_unsubscribe', {'session' : session.session.id} )}}">
+            <span class="material-icons-outlined align-middle">
+              delete
+            </span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Contacter l'administrateur</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <form method="GET" action="{{ path('user_account_email') }}"
@@ -146,7 +125,7 @@
           </div>
         </form>
       </div>
-      
+
     </div>
   </div>
 </div>
