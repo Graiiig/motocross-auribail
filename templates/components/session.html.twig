@@ -1,10 +1,15 @@
 <div class="card text-center mx-5 mb-5">
+
+ {% if nextSessionTitle is defined %}
+      <div class="card-header">{{nextSessionTitle}}</div>
+    {% else %}
   <div class="card-header">
     <!-- Date du prochain entraînement -->
     Inscription pour l'entrainement du
     <span data-date="{{nextSession.session.date | date('Y-m-d')}}" class="date-1 date">{{nextSession.session.date | date('d/m/Y')}}</span>
     :
   </div>
+    {% endif %}
   <div class="card-body">
     <!-- Titre du prochain entraînement -->
     <h5 class="card-title">{{nextSession.session.title}}</h5>
