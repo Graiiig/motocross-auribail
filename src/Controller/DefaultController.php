@@ -21,8 +21,6 @@ class DefaultController extends AbstractController
         // Récupère la prochaine Session
         $nextSession = $sessionService->getNextSessionInfo(null, $user,$sessionRepository, $pendingListRepository);
         $nextSessionTitle = "Prochain entraînement le ". $nextSession['session']->getDate()->format('d/m/Y');
-
-        dump($nextSessionTitle);
         
         // Retourne la page principale
         return $this->render('default/index.html.twig', compact('nextSession', 'nextSessionTitle'));
