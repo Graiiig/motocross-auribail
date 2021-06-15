@@ -133,7 +133,7 @@ class AdminSessionController extends AbstractController
         // Supprimer dans la base de donnée
         $this->entityManager->flush();
         // Envoie un message flash
-        $this->addFlash('danger',$pendinglist->getUser()->getFirstName().' '.$pendinglist->getUser()->getLastName().'supprimé de la session avec succès !');
+        $this->addFlash('danger',$pendinglist->getUser()->getFirstName().' '.$pendinglist->getUser()->getLastName().' supprimé.e de la session avec succès !');
         // Redirige sur la session avec son id
         return $this->redirectToRoute('admin_session', [
             'id' => $sessionId

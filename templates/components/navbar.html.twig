@@ -28,7 +28,7 @@
 
 					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 					<span
-						class="align-middle open h5 shadText">{{ app.user.lastname ~ " " ~ app.user.firstname }}</span>
+						class="align-middle open h5 shadText">{{ app.user.firstname ~ " " ~ app.user.lastname }}</span>
 
 					{% else %}
 					<span class="align-middle open h5 shadText">Se connecter</span>
