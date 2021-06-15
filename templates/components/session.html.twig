@@ -23,10 +23,10 @@
     {% endif %}
     <!-- Affiche Nombre de places adultes restantes -->
     <p class="card-text">Place(s) adultes restantes :
-      {{nextSession.adults}}</p>
+      {{nextSession.adults}}/75</p>
     <!-- Affiche Nombre de places enfants restantes -->
     <p class="card-text">Place(s) enfants restantes :
-      {{nextSession.children}}</p>
+      {{nextSession.children}}/15</p>
 
     <!-- Si le prochain entraînement est ouvert -->
     {% if nextSession.session.status == true %}
