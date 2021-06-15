@@ -41,7 +41,7 @@
   // *** Script pour changer le background au refresh
   
   var num = Math.floor(Math.random() * 9);
-  document.body.style.background = "url('http://localhost/motocross-auribail/public/img/image-" + num + ".jpg')"
+  document.body.style.background = "url('https://mc-auribail.verguingregory.fr/img/image-" + num + ".jpg')"
   document.body.style.backgroundSize = "cover";
   document.body.style.backgroundRepeat = "no-repeat";
   document.body.style.backgroundAttachment = "fixed";
